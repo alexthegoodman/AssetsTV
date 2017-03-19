@@ -1,0 +1,24 @@
+.textInput {
+	@extend .commonText;
+	height: 52px;
+	background-color: transparent;
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.pickerInput {
+	/*color: $warm_grey;*/
+	padding-top: 14px;
+	font-weight: 300;
+	text-align: center;
+}
+
+.borderBottom {
+	border-bottom-color: red;
+	border-bottom-width: 1px;
+}
+
+.inlineInputs {
+	flex-direction: row;
+	flex-grow: 1;
+}

@@ -1,0 +1,145 @@
+/* Breakpoints */
+/* Social */
+/* Colors */
+/* Transitions */
+/* Paddings */
+/* Shadows */
+/*
+$h_font: azo-sans-web, 'Proxima Nova', serif;
+$b_font: skolar-sans-latin, 'Proxima Nova', sans-serif;*/
+/*@import "base/reset";
+@import "base/general";*/
+.commonText, .btnText, .headline, .copy, .linkText, .textInput {
+  /*font-family: SourceSansPro-Light;*/ }
+
+.body {
+  flex: 1;
+  margin-top: 20px; }
+
+.btn {
+  background-color: #CF5B6A;
+  border-radius: 100px;
+  align-self: center;
+  width: 245px;
+  justify-content: center; }
+
+.btnText {
+  /* align-self on Text to open radius on Touchable */
+  align-self: center;
+  color: white;
+  height: 45px;
+  padding-top: 10px;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center; }
+
+.headline {
+  font-weight: 600;
+  align-self: center;
+  font-size: 30px;
+  justify-content: center;
+  /*color: $stormy_gray;*/ }
+
+.copy {
+  /*color: $warm_grey;*/
+  font-weight: 400;
+  font-size: 20px;
+  align-self: center;
+  text-align: center;
+  letter-spacing: -0.2; }
+
+.centerLink {
+  align-self: center;
+  justify-content: center; }
+
+.linkText {
+  font-weight: 400;
+  font-size: 18px;
+  /*color: $stormy_gray;*/
+  text-decoration-line: underline; }
+
+.textInput {
+  height: 52px;
+  background-color: transparent;
+  font-size: 18px;
+  font-weight: 400; }
+
+.pickerInput {
+  /*color: $warm_grey;*/
+  padding-top: 14px;
+  font-weight: 300;
+  text-align: center; }
+
+.borderBottom {
+  border-bottom-color: red;
+  border-bottom-width: 1px; }
+
+.inlineInputs {
+  flex-direction: row;
+  flex-grow: 1; }
+
+.icFont {
+  font-family: 'Icon Font';
+  font-style: normal; }
+
+.dialogContain {
+  position: absolute;
+  bottom: -50;
+  background-color: transparent; }
+
+.dialogCtrls {
+  background-color: #f7f7f7;
+  position: absolute;
+  top: -280;
+  height: 50;
+  z-index: 25; }
+
+.generalCtrls {
+  background-color: #f7f7f7;
+  /*position: absolute;
+	top: -50;*/
+  height: 50;
+  z-index: 25; }
+
+.pickerDialog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  height: 230;
+  background-color: #CDD1D8; }
+
+.generalDialog {
+  z-index: 10;
+  height: 230;
+  background-color: #CDD1D8; }
+
+.pickerItem {
+  background-color: white; }
+
+.doneLink {
+  position: absolute;
+  right: 5;
+  top: 3;
+  padding: 10px; }
+
+.doneLabel {
+  color: #007aff;
+  font-size: 18px; }
+
+.upArrow {
+  height: 40;
+  width: 40;
+  position: absolute;
+  top: 5;
+  left: 5;
+  padding: 10px; }
+
+.downArrow {
+  height: 40;
+  width: 40;
+  position: absolute;
+  top: 5;
+  left: 40;
+  padding: 10px; }

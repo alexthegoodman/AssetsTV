@@ -1,0 +1,51 @@
+.btn {
+	background-color: $greenD;
+	border-radius: 100px;
+	align-self: center;
+	width: 245px;
+	justify-content: center;
+}
+
+.btnText {
+	@extend .commonText;
+	/* align-self on Text to open radius on Touchable */
+	align-self: center;
+	color: white;
+	height: 45px;
+	padding-top: 10px;
+	font-weight: 600;
+	font-size: 18px;
+	text-align: center;
+}
+
+.headline {
+	@extend .commonText;
+	font-weight: 600;
+	align-self: center;
+	font-size: 30px;
+	justify-content: center;
+	/*color: $stormy_gray;*/
+}
+
+.copy {
+	@extend .commonText;
+	/*color: $warm_grey;*/
+	font-weight: 400;
+	font-size: 20px;
+	align-self: center;
+	text-align: center;
+	letter-spacing: -0.2;
+}
+
+.centerLink {
+	align-self: center;
+	justify-content: center;
+}
+
+.linkText {
+	@extend .commonText;
+	font-weight: 400;
+	font-size: 18px;
+	/*color: $stormy_gray;*/
+	text-decoration-line: underline;
+}

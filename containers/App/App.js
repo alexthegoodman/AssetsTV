@@ -5,11 +5,9 @@ import React, { Component, PropTypes }  from 'react';
 import ApiClient                        from '../../helpers/ApiClient';
 
 import {
-    AppRegistry,
     StyleSheet,
     Text,
     View,
-    NavigatorIOS,
     Navigator,
     AsyncStorage,
     Linking
@@ -34,6 +32,8 @@ export default class App extends Component {
         super();
 
         this.state = {}
+
+        console.info('app constructor');
         
     }
     
@@ -46,6 +46,8 @@ export default class App extends Component {
     render() {
         
         // let {  } = this.state;
+
+        console.info('app render... navigator necessary with history in redux?');
 
         return (
             <Navigator

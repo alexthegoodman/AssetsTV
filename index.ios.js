@@ -3,22 +3,23 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    View,
-    NavigatorIOS
+    View
 } from 'react-native';
 
-import App         from './containers/App/App';
+import Store         from './containers/store';
+import App           from './containers/App/App';
 
 export default class AssetsTV extends Component {
     
     constructor() {
         super();
+        console.info('welcome');
     }
 
     render() {
-
+        console.info('render');
         return (
-            <App />
+            <Store />
         );
         
     }

@@ -143,3 +143,31 @@ $b_font: skolar-sans-latin, 'Proxima Nova', sans-serif;*/
   top: 5;
   left: 40;
   padding: 10px; }
+
+.gridContain {
+  flex-direction: row;
+  flex-wrap: wrap; }
+
+.gridTile {
+  height: 200;
+  width: 300;
+  background-color: #747474;
+  justify-content: center;
+  margin-left: 50;
+  margin-bottom: 50; }
+
+.tileBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 200;
+  width: 300; }
+
+.tileName {
+  text-align: center;
+  font-size: 24px; }
+
+.tileDescription {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 18px; }

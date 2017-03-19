@@ -8,12 +8,11 @@ const DeviceInfo      = require('react-native-device-info');
 function formatUrl(path) {
 
     let pathBase = '';
-    if (DeviceInfo.isEmulator()) {
+    //if (DeviceInfo.isEmulator()) {
         pathBase = 'http://127.0.0.1:3030';
-    } else {
-        // pathBase = 'https://homscout-api-dev.herokuapp.com';
-        pathBase = 'https://homscout-api.herokuapp.com';
-    }
+    //} else {
+        
+    //}
     
     const adjustedPath = path[0] !== '/' ? '/' + path : path;
     

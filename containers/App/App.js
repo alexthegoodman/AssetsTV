@@ -27,9 +27,9 @@ export default class App extends Component {
 
     // static propTypes = {};
 
-    constructor() {
+    constructor(props) {
 
-        super();
+        super(props);
 
         this.state = {}
 
@@ -47,17 +47,12 @@ export default class App extends Component {
         
         // let {  } = this.state;
 
-        console.info('app render... navigator necessary with history in redux?');
-
         return (
-            <Navigator
-                style={styles.contain}
-                renderScene={(route, navigator) => { return <Home /> }}
-                initialRoute={{
-                    title: "Home",
-                    index: 0
-                }} />
-        );
+            <View style={styles.body}>
+                {this.props.children}
+            </View>
+        )
+
     }
 
 }

@@ -8,28 +8,29 @@ import createStore                              from '../redux/create';
 import ApiClient                                from '../helpers/ApiClient';
 import getRoutes                                from './routes';
 
+// get react-router-native straight from master
+import { Link, nativeHistory, Route, Router, StackRoute } 		from 'react-router-native';
+import { ConnectedRouter, syncHistoryWithStore }    from 'react-router-redux';
+//import createHistory 								from 'history/createMemoryHistory';
+//const newHistory 									= createHistory();
+
 const client                = new ApiClient();
 const store                 = createStore(nativeHistory, client, window.__data);
-
-// nativeHistory not function at this time, using createMemoryHistory
-import { Link, nativeHistory, Route, Router } 		from 'react-router-native';
-import { ConnectedRouter, syncHistoryWithStore }    from 'react-router-redux';
-import createHistory 								from 'history/createMemoryHistory';
-const newHistory 									= createHistory();
-const history               						= syncHistoryWithStore(newHistory, store);
-history.push('/');
+const history               = syncHistoryWithStore(nativeHistory, store);
+history.push('/home');
 
 //const DevTools 		= require('./DevTools/DevTools');
-import App 				from './App/App';
 
 // subscribe to all redux updates, intercept routing
-// store.subscribe(function fetcher() {
+store.subscribe(function fetcher() {
 
-//     let state = store.getState();
-//     let currentPath = state.routing.locationBeforeTransitions.pathname;
-//     let segments = currentPath.split('/');
+    let state = store.getState();
+    let currentPath = state.routing.locationBeforeTransitions.pathname;
+    let segments = currentPath.split('/');
 
-// });
+    console.info('Redux update', currentPath, state);
+
+});
 
 export default class Store extends Component {
 	render() {

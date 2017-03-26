@@ -2,8 +2,8 @@ import React, { Component, PropTypes }  from 'react';
 import { connect }                      from 'react-redux';
 import { bindActionCreators }           from 'redux';
 import * as browseActions               from '../../redux/modules/browse';
+import { routerActions }                from 'react-router-redux';
 import ApiClient                        from '../../helpers/ApiClient';
-// user redux-router? import { Link }                         from 'react-router';
 
 import {
     AppRegistry,
@@ -14,8 +14,11 @@ import {
     AsyncStorage,
     Linking,
     TouchableHighlight,
-    Image
+    Image,
+    Dimensions
 } from 'react-native';
+
+let { width, height } = Dimensions.get('window');
 
 const client                        = new ApiClient();
 const styles                        = require('../../css/style.js');
@@ -28,7 +31,7 @@ const deepcopy                      = require("deepcopy");
         userProjects: state.browse.userProjects,
         gotProjects: state.browse.gotProjects
     }),
-    ( dispatch ) => bindActionCreators(browseActions, dispatch)
+    ( dispatch ) => bindActionCreators(Object.assign({}, browseActions, routerActions), dispatch)
 )
 
 export default class Home extends Component {
@@ -36,6 +39,8 @@ export default class Home extends Component {
     constructor() {
 
         super();
+
+        this.viewProject = this.viewProject.bind(this);
 
         this.state = {}
 
@@ -74,15 +79,21 @@ export default class Home extends Component {
 
     }
 
+    viewProject() {
+        console.info(this.props.push);
+        this.props.push('/project/');
+    }
+
     render() {
 
         let { userProjects, gotProjects } = this.props;
 
-        console.info('Home', gotProjects, userProjects);
+        console.info('Home', gotProjects, userProjects, Object.keys(userProjects).length);
 
-        let hoverProps = { enabled: true, shiftDistanceX: 4.0, shiftDistanceY: 40.0, tiltAngle: 5.75, magnification: 1.4 };
+        let hoverProps = { enabled: true, shiftDistanceX: 10, shiftDistanceY: 10, tiltAngle: 0.1, magnification: 1.2 };
 
-        let listProjects;
+        let listProjects, rowCount = 5, tileMargin = 50;
+        let totalMargin = (rowCount + 1) * tileMargin, tileWidth = (width - totalMargin) / 5;
         if (Object.keys(userProjects).length > 0 && gotProjects) { 
             
             let newProjects = deepcopy(userProjects);
@@ -92,7 +103,7 @@ export default class Home extends Component {
 
             listProjects = newProjects.map( project => {
                 if (project['finished'] == '1') {
-                    
+
                     projCount++; 
                     project['phaseImagesData'] = Object.keys(project['phaseImagesData']).map(x => project['phaseImagesData'][x]);
 
@@ -108,8 +119,10 @@ export default class Home extends Component {
                     }
 
                     return (
-                        <TouchableHighlight key={'project' + projId} style={styles.gridTile} shadowColor="black" shadowRadius={5} shadowOpacity={0.8} shadowOffset={{ width: 5, height: 5 }} tvParallaxProperties={hoverProps} hasTVPreferredFocus={focus}>
-                            <View style={styles.tileContain}>
+                        <TouchableHighlight onPress={this.viewProject} key={'project' + projId} style={[styles.gridTile, { width: tileWidth } ]} 
+                        activeOpacity={1} underlayColor="#F2F2F2" 
+                        tvParallaxProperties={hoverProps} hasTVPreferredFocus={focus}>
+                            <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
                                 <Image style={styles.tileBackground} resizeMode="cover" source={{ uri: project['phaseImagesData'][0]['image_url'] }}>
                                     <Text style={styles.tileName}>{project['project_name']}</Text>
                                     <Text style={styles.tileDescription}>{description}</Text>
@@ -125,6 +138,9 @@ export default class Home extends Component {
 
         return (
             <View style={styles.body}>
+                <View style={styles.bodyHeader}>
+                    <Text style={styles.bodyHeaderText}>Browse Projects</Text>
+                </View>
                 <View style={styles.gridContain}>
                     {listProjects}
                 </View>
@@ -133,13 +149,3 @@ export default class Home extends Component {
     }
 
 }
-
-
-// function mapStateToProps(state) {
-//     return { 
-//         userProjects: state.browse.userProjects,
-//         gotProjects: state.browse.gotProjects
-//     }
-// }
-
-// export default connect(mapStateToProps, browseActions)(Home)

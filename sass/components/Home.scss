@@ -5,29 +5,37 @@
 
 .gridTile {
 	height: 200;
-	width: 300;
+	/*width: 300;*/
 	background-color: $darkGrey;
 	justify-content: center;
 	margin-left: 50;
 	margin-bottom: 50;
 }
 
-.tileBackground {
+.tileBackground, .tileContain {
 	position: absolute;
 	top: 0;
 	left: 0;
-	height: 200;
-	width: 300;
+	right: 0;
+	bottom: 0;
+}
+
+.tileContain {
+	background-color: white;
 }
 
 .tileName {
 	text-align: center;
 	font-size: 24px;
+	background-color: transparent;
+	color: white;
 }
 
 .tileDescription {
 	text-align: center;
 	margin-top: 15px;
 	font-size: 18px;
+	background-color: transparent;
+	color: white;
 }
 

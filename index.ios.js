@@ -8,6 +8,7 @@ import {
 
 import Store         from './containers/store';
 import App           from './containers/App/App';
+import Home          from './containers/Home/Home';
 
 export default class AssetsTV extends Component {
     

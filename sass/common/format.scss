@@ -1,4 +1,16 @@
 .body {
 	flex: 1;
-	margin-top: 20px;
+}
+
+.bodyHeader {
+	height: 200;
+	flex-direction: column;
+   	justify-content: center;
+}
+
+.bodyHeaderText {
+	text-align: center;
+	align-self: center;
+	font-size: 48;
+	color: $darkGrey;
 }

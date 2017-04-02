@@ -25,7 +25,7 @@ export default (store) => {
 
             <Route path="home" component={Home} />
 
-            <Route path="project" component={Project} />
+            <Route path="project/:projectId" component={Project} />
 
         </StackRoute>
     );

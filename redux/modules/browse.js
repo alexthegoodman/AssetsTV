@@ -29,7 +29,9 @@ const initialState = {
     gotProjects: false,
     gotProjectUsers: false,
     gotProjectComments: {},
-	gotPhase: false
+	gotPhase: false,
+    currentPhase: {},
+    currentPhaseData: {}
 };
 
 import update from 'immutability-helper';
@@ -116,6 +118,8 @@ export default function reducer(state = initialState, action = {}) {
             return state;
 
 		case FETCH_PHASE_SUCCESS:
+
+            console.info(action);
 
             return update(state, {
                 gotPhase: { $set: true },

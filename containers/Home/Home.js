@@ -79,9 +79,8 @@ export default class Home extends Component {
 
     }
 
-    viewProject() {
-        console.info(this.props.push);
-        this.props.push('/project/');
+    viewProject(projId) {        
+        this.props.push('/project/' + projId);
     }
 
     render() {
@@ -89,8 +88,6 @@ export default class Home extends Component {
         let { userProjects, gotProjects } = this.props;
 
         console.info('Home', gotProjects, userProjects, Object.keys(userProjects).length);
-
-        let hoverProps = { enabled: true, shiftDistanceX: 10, shiftDistanceY: 10, tiltAngle: 0.1, magnification: 1.2 };
 
         let listProjects, rowCount = 5, tileMargin = 50;
         let totalMargin = (rowCount + 1) * tileMargin, tileWidth = (width - totalMargin) / 5;
@@ -119,7 +116,7 @@ export default class Home extends Component {
                     }
 
                     return (
-                        <TouchableHighlight onPress={this.viewProject} key={'project' + projId} style={[styles.gridTile, { width: tileWidth } ]} 
+                        <TouchableHighlight onPress={() => this.viewProject(projId)} data-project-id={projId} key={'project' + projId} style={[styles.gridTile, { width: tileWidth } ]} 
                         activeOpacity={1} underlayColor="#F2F2F2" 
                         tvParallaxProperties={hoverProps} hasTVPreferredFocus={focus}>
                             <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>

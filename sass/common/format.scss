@@ -6,6 +6,7 @@
 	height: 200;
 	flex-direction: column;
    	justify-content: center;
+   	background-color: $lightGrey;
 }
 
 .bodyHeaderText {
@@ -14,3 +15,29 @@
 	font-size: 48;
 	color: $darkGrey;
 }
+
+.leftCtrls {
+	position: absolute;
+	left: 25;
+	top: 50;
+}
+
+.rightCtrls {
+	position: absolute;
+	right: 25;
+	top: 50;
+}
+
+.headerLink {
+
+}
+
+.headerLinkText {
+	font-size: 24;
+	padding: 7;
+	border-color: black;
+	border-width: 3;
+}
+
+
+

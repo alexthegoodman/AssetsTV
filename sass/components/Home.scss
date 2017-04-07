@@ -39,3 +39,65 @@
 	color: white;
 }
 
+.slideTile, .slideContain {
+	flex-direction: row;
+   	flex-wrap: wrap;
+}
+
+.tileImage {
+	justify-content: center;
+}
+
+.imageContain, .imageBackground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}	
+
+.imageBackground {
+
+}
+
+.slideTileInfo {
+	background-color: $lightGrey;
+	padding: 25px;
+}
+
+.slideTileName {
+	text-align: left;
+	color: $darkGrey;
+	font-size: 36;
+}
+
+.slideTileDescription {
+	text-align: left;
+	color: $darkGrey;
+}
+
+.checkmarkIcon {
+	width: 20;
+	height: 20;
+	background-color: red;
+}
+
+.selectionStrip {
+	padding: 35px;
+}
+
+.selectionTile {
+	height: 170;
+	justify-content: center;
+	margin-right: 35;
+}
+
+.selectionContain, .selectionBackground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+

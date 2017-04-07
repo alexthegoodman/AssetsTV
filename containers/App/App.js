@@ -1,7 +1,8 @@
 import React, { Component, PropTypes }  from 'react';
-//import { connect }                      from 'react-redux';
-//import { bindActionCreators }           from 'redux';
-//import * as loginActions                from '../../redux/modules/login';
+import { connect }                      from 'react-redux';
+import { bindActionCreators }           from 'redux';
+import * as userActions                 from '../../redux/modules/user';
+import { routerActions }                from 'react-router-redux';
 import ApiClient                        from '../../helpers/ApiClient';
 
 import {
@@ -20,8 +21,13 @@ const styles                        = require('../../css/style.js');
 const DeviceInfo                    = require('react-native-device-info');
 const JefNode                       = require('json-easy-filter').JefNode;
 
-// redux over global
-// global.var = false;
+@connect(
+    ( state ) => ({
+        userHash: state.user.userHash,
+        userData: state.user.userData
+    }),
+    ( dispatch ) => bindActionCreators(Object.assign({}, userActions, routerActions), dispatch)
+)
 
 export default class App extends Component {
 
@@ -40,6 +46,23 @@ export default class App extends Component {
     componentDidMount() {
 
         console.info('app componentDidMount');
+
+        let self = this;
+
+        // load up first screen / child
+        AsyncStorage.getItem('userHash', (err, userRes) => {
+
+            console.info('get userHash', err, userRes);
+            
+            if (!userRes || userRes == null) {
+                this.props.push('/home/');
+            } else {
+                self.props.fetchUserSuccessAction(userRes);
+                // don't redirect if already at browse
+                this.props.push('/browse/');
+            }
+            
+        });
 
     }
 

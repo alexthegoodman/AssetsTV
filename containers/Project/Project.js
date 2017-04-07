@@ -15,7 +15,8 @@ import {
     Linking,
     TouchableHighlight,
     Image,
-    Dimensions
+    Dimensions,
+    ScrollView
 } from 'react-native';
 
 let { width, height } = Dimensions.get('window');
@@ -25,6 +26,8 @@ const styles                        = require('../../css/style.js');
 const DeviceInfo                    = require('react-native-device-info');
 const JefNode                       = require('json-easy-filter').JefNode;
 const deepcopy                      = require("deepcopy");
+
+import CompareAssets             from '../../components/CompareAssets/CompareAssets';
 
 @connect(
     ( state ) => ({
@@ -43,10 +46,18 @@ export default class Project extends Component {
 
         super();
 
-        this.goBack = this.goBack.bind(this);
+        this.goBack             = this.goBack.bind(this);
+        this.toggleAsset        = this.toggleAsset.bind(this);
+        this.openMenu           = this.openMenu.bind(this);
+        this.setCurrentView     = this.setCurrentView.bind(this);
 
         this.state = {
-            thisProject: false
+            thisProject: false,
+            currentView: 'Compare',
+            viewMenuOpen: false,
+            currentLayout: 'Tall',
+            layoutMenuOpen: false,
+            selectedAssets: {}
         }
 
     }
@@ -84,11 +95,23 @@ export default class Project extends Component {
         this.props.push('/home/');
     }
 
-    selectAsset() {
+    toggleAsset(assetId) {
 
+        let selectedAssets = this.state.selectedAssets;
+
+        if (typeof selectedAssets[assetId] != 'undefined' && selectedAssets[assetId]) {
+            delete selectedAssets[assetId];
+        } else {
+            selectedAssets[assetId] = assetId;
+        }
+
+        this.setState({
+            selectedAssets: selectedAssets
+        });
+        
     }
 
-    generateItem(image, i) {
+    generateItem(type, image, i) {
 
         let rowCount = 5, tileMargin = 50;
         let totalMargin = (rowCount + 1) * tileMargin, tileWidth = (width - totalMargin) / 5;
@@ -108,28 +131,101 @@ export default class Project extends Component {
             assetDescrip += '...';
         }
 
-        return (
-            <TouchableHighlight onPress={this.selectAsset} key={'assets' + image['image_id']} style={[styles.gridTile, { width: tileWidth } ]} 
-                activeOpacity={1} underlayColor="#F2F2F2" 
-                tvParallaxProperties={hoverProps} hasTVPreferredFocus={focus}>
-                <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
-                     <Image style={styles.tileBackground} resizeMode="cover" source={{ uri: image['image_url'] }}>
-                        <Text style={styles.tileName}>{image['image_name']}</Text>
-                        <Text style={styles.tileDescription}>{assetDescrip}</Text>
-                    </Image>
-                </View>
-            </TouchableHighlight>
-        );
+        if (type == 'grid') {
+            let key = 'assetsGrid' + image['image_id'];
+            return (
+                <TouchableHighlight style={[styles.gridTile, { width: tileWidth } ]} key={key} 
+                    activeOpacity={1} underlayColor="#F2F2F2" 
+                    tvParallaxProperties={hoverProps} hasTVPreferredFocus={focus}>
+                    <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
+                         <Image style={styles.tileBackground} resizeMode="cover" source={{ uri: image['image_url'] }}>
+                            <Text style={styles.tileName}>{image['image_name']}</Text>
+                            <Text style={styles.tileDescription}>{assetDescrip}</Text>
+                        </Image>
+                    </View>
+                </TouchableHighlight>
+            );
+        } else if (type == 'slide') {
+            let key = 'assetsSlide' + image['image_id'];
+            let slideWidth  = width;
+            let slideHeight = height - 350;
+            return (
+                <TouchableHighlight style={[styles.slideTile, { width: slideWidth, height: slideHeight } ]} key={key}>
+                    <View style={styles.slideContain}>
+                        <View style={[styles.tileImage, { width: (slideWidth * 0.7), height: slideHeight } ]} 
+                            activeOpacity={1} underlayColor="#F2F2F2" 
+                            tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
+                            <View style={styles.imageContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
+                                 <Image style={styles.imageBackground} resizeMode="contain" source={{ uri: image['image_url'] }} />
+                            </View>
+                        </View>
+                        <View style={[styles.slideTileInfo, { width: (slideWidth * 0.3), height: slideHeight } ]}>
+                            <Text style={styles.slideTileName}>{image['image_name']}</Text>
+                            <Text style={styles.slideTileDescription}>{assetDescrip}</Text>
+                        </View>
+                    </View>
+                </TouchableHighlight>
+            );
+        } else if (type == 'selection') {
+            let key = 'assetsSelection' + image['image_id'];
+            let checkmark;
+            if (typeof this.state.selectedAssets[key] != 'undefined' && this.state.selectedAssets[key] == true) {
+                checkmark = (
+                    <View style={styles.checkmarkIcon}></View>
+                );
+            }
+            return (
+                <TouchableHighlight onPress={() => this.toggleAsset(image['image_id'])} key={key} style={[styles.selectionTile, { width: 275 } ]} 
+                    activeOpacity={1} underlayColor="#F2F2F2" 
+                    tvParallaxProperties={hoverProps} hasTVPreferredFocus={focus}>
+                    <View style={styles.selectionContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
+                        {checkmark}
+                        <Image style={styles.selectionBackground} resizeMode="cover" source={{ uri: image['image_url'] }} />
+                    </View>
+                </TouchableHighlight>
+            );
+        }
 
+    }
+
+    openMenu(menu) {
+        if (menu == 'view') {
+            this.setState({
+                viewMenuOpen: true,
+                layoutMenuOpen: false
+            });
+        } else if (menu == 'layout') {
+            this.setState({
+                viewMenuOpen: false,
+                layoutMenuOpen: true
+            });
+        }
+    }
+
+    setCurrentView(sel) {
+        this.setState({
+            viewMenuOpen: false,
+            layoutMenuOpen: false,
+            currentView: sel
+        });
+    }
+
+    setCurrentLayout(sel) {
+        this.setState({
+            viewMenuOpen: false,
+            layoutMenuOpen: false,
+            currentLayout: sel
+        });
     }
 
     render() {
 
         let { userProjects, gotProjects, routeParams, currentPhase, currentPhaseData, gotPhase } = this.props;
+        let { currentView, viewMenuOpen, layoutMenuOpen, currentLayout, selectedAssets } = this.state;
 
         console.info('Project', gotProjects, userProjects, routeParams.projectId, this.props);
 
-        let listAssets, thisProject = this.state.thisProject; 
+        let gridAssets, slideAssets, compareAssets, thisProject = this.state.thisProject; 
         if (thisProject && gotPhase) {
             
             let projName        = thisProject['project_name'];
@@ -151,31 +247,119 @@ export default class Project extends Component {
             this.itemCount  = 0;
 
             let i = -1;
-            listAssets = phaseData.map( image => {
 
-                i++;
+            if (currentView == 'Slide') {
+                slideAssets = phaseData.map( asset => {
+                    i++;
+                    return this.generateItem('slide', asset, i);
+                });
+            } else if (currentView == 'Compare') {
+                let selectionAssets = phaseData.map( asset => {
+                    i++;
+                    return this.generateItem('selection', asset, i);
+                });
+                compareAssets = (
+                    <View style={styles.compareAssets}>
+                        <CompareAssets 
+                            thisProject={thisProject}
+                            phaseData={phaseData}
+                            selectedAssets={selectedAssets}
+                            layout={currentLayout}
+                        />
+                        <ScrollView style={[styles.selectionStrip, { width: width } ]} horizontal={true} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
+                            {selectionAssets}
+                        </ScrollView>
+                    </View>
+                );
+            } else {
+                gridAssets = phaseData.map( asset => {
+                    i++;
+                    return this.generateItem('grid', asset, i);
+                });
+            }
 
-                return this.generateItem(image, i);
-
-            });
-
-        } else {
-            listAssets = <Text>Loading...</Text>;
         }
+
+        // dropdown comp
+        let showViewMenu;
+        if (viewMenuOpen) {
+            showViewMenu = (
+                <View style={styles.viewMenuContain}>
+                    <TouchableHighlight onPress={() => this.setCurrentView('Slide')} style={styles.bodyLink} 
+                    activeOpacity={1} underlayColor="#F2F2F2" 
+                    tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
+                        <Text>Slide</Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight onPress={() => this.setCurrentView('Compare')} style={styles.bodyLink} 
+                    activeOpacity={1} underlayColor="#F2F2F2" 
+                    tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
+                        <Text>Compare</Text>
+                    </TouchableHighlight>
+                </View>
+            );
+        }
+
+        let viewMenu = (
+            <View style={styles.viewMenu}>
+                <TouchableHighlight onPress={() => this.openMenu('view')} style={styles.headerLink} 
+                activeOpacity={1} underlayColor="#F2F2F2" 
+                tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
+                    <Text style={styles.headerLinkText}>{currentView}</Text>
+                </TouchableHighlight>
+                {showViewMenu}
+            </View>
+        );
+
+        let showLayoutMenu;
+        if (layoutMenuOpen) {
+            showLayoutMenu = (
+                <View style={styles.viewMenuContain}>
+                    <TouchableHighlight onPress={() => this.setCurrentLayout('Tall')} style={styles.bodyLink} 
+                    activeOpacity={1} underlayColor="#F2F2F2" 
+                    tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
+                        <Text>Tall</Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight onPress={() => this.setCurrentLayout('Wide')} style={styles.bodyLink} 
+                    activeOpacity={1} underlayColor="#F2F2F2" 
+                    tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
+                        <Text>Wide</Text>
+                    </TouchableHighlight>
+                </View>
+            );
+        }
+
+        let layoutMenu = (
+            <View style={styles.layoutMenu}>
+                <TouchableHighlight onPress={() => this.openMenu('layout')} style={styles.headerLink} 
+                activeOpacity={1} underlayColor="#F2F2F2" 
+                tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
+                    <Text style={styles.headerLinkText}>{currentLayout}</Text>
+                </TouchableHighlight>
+                {showLayoutMenu}
+            </View>
+        );
 
         return (
             <View style={styles.body}>
                 <View style={styles.bodyHeader}>
-                     <TouchableHighlight onPress={this.goBack} style={styles.bodyLink} 
+                    <View style={styles.leftCtrls}>
+                        <TouchableHighlight onPress={this.goBack} style={styles.headerLink} 
                         activeOpacity={1} underlayColor="#F2F2F2" 
                         tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
-                        <Text>Back to Projects</Text>
-                    </TouchableHighlight>
+                            <Text style={styles.headerLinkText}>Back to Projects</Text>
+                        </TouchableHighlight>
+                    </View>
                     <Text style={styles.bodyHeaderText}>View Project {routeParams.projectId}</Text>
+                    <View style={styles.rightCtrls}>
+                        {viewMenu}
+                        {layoutMenu}
+                    </View>
                 </View>
-                <View style={styles.gridContain}>
-                    {listAssets}
-                </View>
+                <ScrollView style={styles.gridContain} horizontal={true} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
+                    {gridAssets}
+                    {slideAssets}
+                    {compareAssets}
+                </ScrollView>
             </View>
         );
     }

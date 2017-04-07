@@ -18,13 +18,30 @@ $b_font: skolar-sans-latin, 'Proxima Nova', sans-serif;*/
 .bodyHeader {
   height: 200;
   flex-direction: column;
-  justify-content: center; }
+  justify-content: center;
+  background-color: #E3E4E5; }
 
 .bodyHeaderText {
   text-align: center;
   align-self: center;
   font-size: 48;
   color: #747474; }
+
+.leftCtrls {
+  position: absolute;
+  left: 25;
+  top: 50; }
+
+.rightCtrls {
+  position: absolute;
+  right: 25;
+  top: 50; }
+
+.headerLinkText {
+  font-size: 24;
+  padding: 7;
+  border-color: black;
+  border-width: 3; }
 
 .btn {
   background-color: #CF5B6A;
@@ -188,3 +205,54 @@ $b_font: skolar-sans-latin, 'Proxima Nova', sans-serif;*/
   font-size: 18px;
   background-color: transparent;
   color: white; }
+
+.slideTile, .slideContain {
+  flex-direction: row;
+  flex-wrap: wrap; }
+
+.tileImage {
+  justify-content: center; }
+
+.imageContain, .imageBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.slideTileInfo {
+  background-color: #E3E4E5;
+  padding: 25px; }
+
+.slideTileName {
+  text-align: left;
+  color: #747474;
+  font-size: 36; }
+
+.slideTileDescription {
+  text-align: left;
+  color: #747474; }
+
+.checkmarkIcon {
+  width: 20;
+  height: 20;
+  background-color: red; }
+
+.selectionStrip {
+  padding: 35px; }
+
+.selectionTile {
+  height: 170;
+  justify-content: center;
+  margin-right: 35; }
+
+.selectionContain, .selectionBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
+.tallCompareContain {
+  flex-direction: row;
+  flex-wrap: wrap; }

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes }  from 'react';
 import { connect }                      from 'react-redux';
 import { bindActionCreators }           from 'redux';
-import * as browseActions               from '../../redux/modules/browse';
+import * as userActions                 from '../../redux/modules/user';
 import { routerActions }                from 'react-router-redux';
 import ApiClient                        from '../../helpers/ApiClient';
 
@@ -15,7 +15,8 @@ import {
     Linking,
     TouchableHighlight,
     Image,
-    Dimensions
+    Dimensions,
+    TextInput
 } from 'react-native';
 
 let { width, height } = Dimensions.get('window');
@@ -28,10 +29,10 @@ const deepcopy                      = require("deepcopy");
 
 @connect(
     ( state ) => ({
-        userProjects: state.browse.userProjects,
-        gotProjects: state.browse.gotProjects
+        userHash: state.user.userHash,
+        userData: state.user.userData
     }),
-    ( dispatch ) => bindActionCreators(Object.assign({}, browseActions, routerActions), dispatch)
+    ( dispatch ) => bindActionCreators(Object.assign({}, userActions, routerActions), dispatch)
 )
 
 export default class Home extends Component {
@@ -40,9 +41,13 @@ export default class Home extends Component {
 
         super();
 
-        this.viewProject = this.viewProject.bind(this);
+        this.attemptLogin = this.attemptLogin.bind(this);
+        this.updateEmail = this.updateEmail.bind(this);
+        this.updatePassword = this.updatePassword.bind(this);
 
-        this.state = {}
+        this.state = {
+            loggingIn: false
+        }
 
     }
 
@@ -50,96 +55,129 @@ export default class Home extends Component {
 
         let self = this;
 
-        console.info('Home componentDidMount');
+    }
 
-        let browseInfo = {
-            userHash: 'CbuPHhjw2Zk1LCzTJH2Cw3MNMi7VWhFD'
-        }
+    attemptLogin() {
 
-        client.get('/browse/', browseInfo).then(
-            (data) => {
-                if (typeof data['UserProjects'] == 'undefined') {
-                    console.info('undefined response');
-                    this.props.fetchProjectsFailureAction();
-                } else if (data['UserProjects'] == false) {
-                    console.info('false response');
-                    this.props.fetchProjectsEmptyAction();
-                } else if (Object.keys(data['UserProjects']).length > 0) {
-                    console.info('fetchProjectsSuccessAction', data['UserProjects']);
+        let self = this;
 
-                    this.props.fetchProjectsSuccessAction(data['UserProjects']);
+        if (this.state.email && this.state.password) {
 
-                } else {
-                    console.info('empty response');
-                }
-            }, (err) => {
-                console.log(err);   
+            self.setState({
+                loggingIn: true
+            });
+
+            let loginInfo = {
+                email:      this.state.email,
+                pass:       this.state.password,
+                hasHash:    false
             }
-        );
+
+            client.get('/login', loginInfo, 'POST').then(
+                (data) => {
+
+                    console.log('/login', loginInfo, data);
+
+                    if (typeof data['LoginAttempt'] != 'undefined' &&
+                        data['LoginAttempt'] == 'success') {
+                        
+                        self.setState({
+                            loggingIn: false
+                        });
+
+                        let userHash = data['UserHash'];
+
+                        AsyncStorage.setItem('userHash', userHash + '', (err, userRes) => {
+                            self.props.fetchUserSuccessAction(userHash);
+                            self.props.push('/browse/');
+                        });
+
+                    } else {
+
+                        self.setState({
+                            loggingIn: false
+                        });
+
+                        alert(data['Alert']);
+
+                    }
+                    
+                }
+            ).catch((err) => {
+                console.error(err);
+            });
+        } else {
+            alert('Please enter your email and password.');
+        }
 
     }
 
-    viewProject(projId) {        
-        this.props.push('/project/' + projId);
+    updateEmail(text) {
+        this.setState({ email: text });
+    }
+
+    updatePassword(text) {
+        this.setState({ password: text });
     }
 
     render() {
 
-        let { userProjects, gotProjects } = this.props;
+        // let { } = this.props;
 
-        console.info('Home', gotProjects, userProjects, Object.keys(userProjects).length);
+        let buttonText = 'Log In';
 
-        let listProjects, rowCount = 5, tileMargin = 50;
-        let totalMargin = (rowCount + 1) * tileMargin, tileWidth = (width - totalMargin) / 5;
-        if (Object.keys(userProjects).length > 0 && gotProjects) { 
-            
-            let newProjects = deepcopy(userProjects);
-            newProjects = Object.keys(newProjects).map(x => newProjects[x]);
-            newProjects.reverse();
-            projCount = 0;
-
-            listProjects = newProjects.map( project => {
-                if (project['finished'] == '1') {
-
-                    projCount++; 
-                    project['phaseImagesData'] = Object.keys(project['phaseImagesData']).map(x => project['phaseImagesData'][x]);
-
-                    let projId = project['project_id'];
-                    let description = project['project_descrip'];
-                    if (description.length > 30) {
-                        description = description.substr(0, 30) + '...';
-                    }
-
-                    let focus = false;
-                    if (projCount == 1) {
-                        focus = true;
-                    }
-
-                    return (
-                        <TouchableHighlight onPress={() => this.viewProject(projId)} data-project-id={projId} key={'project' + projId} style={[styles.gridTile, { width: tileWidth } ]} 
-                        activeOpacity={1} underlayColor="#F2F2F2" 
-                        tvParallaxProperties={hoverProps} hasTVPreferredFocus={focus}>
-                            <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
-                                <Image style={styles.tileBackground} resizeMode="cover" source={{ uri: project['phaseImagesData'][0]['image_url'] }}>
-                                    <Text style={styles.tileName}>{project['project_name']}</Text>
-                                    <Text style={styles.tileDescription}>{description}</Text>
-                                </Image>
-                            </View>
-                        </TouchableHighlight>
-                    )
-
-                }
-            });
-
+        if (this.state.loggingIn) {
+            buttonText = 'Logging in...';
         }
 
         return (
-            <View style={styles.body}>
-                <View style={styles.bodyHeader}>
-                    <Text style={styles.bodyHeaderText}>Browse Projects</Text>
+            <View style={styles.homeBody}>
+                <View style={styles.bodyLeft}>
+                    <View style={styles.loginForm}>
+                        <View style={styles.borderBottom}>
+                            <TextInput
+                                ref="login1"
+                                style={styles.textInput}
+                                onChangeText={this.updateEmail}
+                                value={this.state.email}
+                                placeholder="Enter Your Email"
+                                placeholderTextColor="#9B9B9B"
+                                autoCapitalize="none"
+                                selectionColor="#e25147"
+                                keyboardType="email-address"
+                                returnKeyType="next"
+                                onSubmitEditing={this.nextInput}
+                                onFocus={() => this.setState({ currentInput: '1' })}
+                            />
+                        </View>
+                        <TextInput
+                            ref="login2"
+                            style={styles.textInput}
+                            onChangeText={this.updatePassword}
+                            value={this.state.password}
+                            secureTextEntry={true}
+                            placeholder="Enter Your Password"
+                            placeholderTextColor="#9B9B9B"
+                            autoCapitalize="none"
+                            selectionColor="#e25147"
+                            returnKeyType="done"
+                            onSubmitEditing={this.attemptLogin}
+                            onFocus={() => this.setState({ currentInput: '2' })}
+                        />
+                        <TouchableHighlight activeOpacity={1} underlayColor="#F27E76" style={styles.loginBtn} onPress={ this.attemptLogin }>
+                            <Text style={styles.btnText}>{buttonText}</Text>
+                        </TouchableHighlight>
+                    </View>
                 </View>
-                <View style={styles.gridContain}>
-                    {listProjects}
+                <View style={styles.bodyRight}>
+                    <View style={styles.rightTop}>
+                        <Text>Professional Presentations</Text>
+                        <Text>Meetings with clients and team members will be more productive - everyone can see</Text>
+                        <Text>Presentations look professional and enhance your value much like a good paper - it's free</Text>
+                    </View>
+                    <View style={styles.rightBottom}>
+                        <Text>Image of people meeting or presenting?</Text>
+                    </View>
                 </View>
             </View>
         );

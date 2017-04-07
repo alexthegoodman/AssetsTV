@@ -1,8 +1,8 @@
 import { createStore as _createStore, applyMiddleware, compose } from 'redux';
 import createMiddleware from './middleware/clientMiddleware';
 import { routerMiddleware } from 'react-router-redux';
-// import promiseMiddleware from 'redux-promise';
-// import thunk             from 'redux-thunk';
+//import promiseMiddleware from 'redux-promise';
+//import thunk             from 'redux-thunk';
 
 // const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 

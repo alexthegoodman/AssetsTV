@@ -17,7 +17,7 @@ import { ConnectedRouter, syncHistoryWithStore }    from 'react-router-redux';
 const client                = new ApiClient();
 const store                 = createStore(nativeHistory, client, window.__data);
 const history               = syncHistoryWithStore(nativeHistory, store);
-history.push('/home');
+history.push('/');
 
 //const DevTools 		= require('./DevTools/DevTools');
 

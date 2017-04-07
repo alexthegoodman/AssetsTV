@@ -1,19 +1,19 @@
 import { combineReducers }              from 'redux';
-//import multireducer                     from 'multireducer';
 import { routerReducer }                from 'react-router-redux';
+//import multireducer                     from 'multireducer';
 //import {reducer as reduxAsyncConnect}   from 'redux-async-connect';
+//import {reducer as form}				  from 'redux-form';
 
-import browse               from './browse';
-
-// import {reducer as form}    from 'redux-form';
+import browse             from './browse';
+import user               from './user';
 
 export default combineReducers({
     routing: routerReducer,
+    browse,
+    user
     //reduxAsyncConnect,
-    browse
     // multireducer: multireducer({
-    //     counter1: counter,
-    //     counter2: counter,
-    //     counter3: counter
+    //     reducerA: reducerA,
+    //     reducerB: reducerB
     // })
 });

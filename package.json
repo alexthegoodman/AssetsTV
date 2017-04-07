@@ -48,6 +48,8 @@
     "redux-devtools": "^3.3.2",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.2.0",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0",
     "superagent": "^3.5.1"
   },
   "devDependencies": {

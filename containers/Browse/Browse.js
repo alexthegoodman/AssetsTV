@@ -16,7 +16,8 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     Image,
-    Dimensions
+    Dimensions,
+    ScrollView
 } from 'react-native';
 
 let { width, height } = Dimensions.get('window');
@@ -28,6 +29,12 @@ const JefNode                       = require('json-easy-filter').JefNode;
 const deepcopy                      = require("deepcopy");
 
 import SimpleHeader             from '../../components/SimpleHeader/SimpleHeader';
+
+// react-native-svg and other linkable libraries have difficulties with tvOS
+// import Back1       from '../../svgComponents/svg/Back1';
+// needs WebView
+// import SVGImage from 'react-native-svg-image';
+// no svg's yet
 
 @connect(
     ( state ) => ({
@@ -74,6 +81,36 @@ export default class Browse extends Component {
                     console.info('fetchProjectsSuccessAction', data['UserProjects']);
 
                     this.props.fetchProjectsSuccessAction(data['UserProjects']);
+
+                    // ideal spot to fetch specific phases?
+
+                    client.get('/browse/users', browseInfo).then(
+                        (data) => {
+
+                            console.log('/browse/users', data);
+                            
+                            if (typeof data['ProjectUsers'] != 'undefined' &&
+                                data['ProjectUsers'] != false) {
+                                
+                                this.props.fetchProjectUsersSuccessAction(data['ProjectUsers']);
+                                
+                                // let thisUser = new JefNode(data['ProjectUsers']).filter(function(node) {
+                                //     if (node.key == 'userHash' && node.value == userHash) {
+                                //         return node.parent.value;
+                                //     }
+                                // });
+
+                                // this.props.setUserId(thisUser[0]['id']);
+                            
+                            } else {
+                                this.props.fetchProjectUsersFailureAction();
+                            }
+                            
+                        }, (err) => {
+                            console.log(err);
+                            this.props.fetchProjectUsersFailureAction();
+                        }
+                    );
 
                 } else {
                     console.info('empty response');
@@ -128,8 +165,8 @@ export default class Browse extends Component {
                     }
 
                     return (
-                        <View style={[styles.tileBox,  { width: tileWidth, marginLeft: tileMargin } ]}>
-                            <TouchableOpacity onPress={() => this.viewProject(projId)} data-project-id={projId} key={'project' + projId} style={[styles.gridTile]} 
+                        <View style={[styles.tileBox,  { width: tileWidth, marginLeft: tileMargin } ]} key={'project' + projId}>
+                            <TouchableOpacity onPress={() => this.viewProject(projId)} data-project-id={projId} style={[styles.gridTile]} 
                             activeOpacity={1} underlayColor="#F2F2F2" 
                             tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
                                 <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
@@ -154,16 +191,19 @@ export default class Browse extends Component {
                 <SimpleHeader
                     title={'Browse Projects'}
                     leftCtrls={(
-                        <TouchableOpacity onPress={this.logOut} style={styles.headerLink} 
-                        activeOpacity={1} tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
-                            <Text style={styles.headerLinkText}>Log Out</Text>
-                        </TouchableOpacity>
+                        <TouchableHighlight onPress={this.logOut} style={styles.headerLink} 
+                        activeOpacity={1} underlayColor="#F2F2F2" tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
+                            <View style={styles.inlineContain}>
+                                <Image style={styles.headerLinkIcon} width={50} height={50} source={require('../../img/png/Back1.png')} />
+                                <Text style={styles.headerLinkText}>Log Out</Text>
+                            </View>
+                        </TouchableHighlight>
                     )}
                     rightCtrls={(<View></View>)}
                 />
-                <View style={styles.gridContain}>
+                <ScrollView contentContainerStyle={styles.gridContain} horizontal={false} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
                     {listProjects}
-                </View>
+                </ScrollView>
             </View>
         );
     }

@@ -8,12 +8,11 @@
 	flex-direction: column;
    	justify-content: center;
    	background-color: $white;
-   	margin-bottom: 70px;
 }
 
 .bodyHeaderText {
 	font-family: $hFont;
-	font-weight: 400;
+	font-weight: 300;
 	text-align: center;
 	align-self: center;
 	font-size: 48;
@@ -22,7 +21,7 @@
 
 .leftCtrls {
 	position: absolute;
-	left: 25;
+	left: 50;
 	top: 50;
 	flex-direction: row;
    	flex-wrap: wrap;
@@ -30,7 +29,7 @@
 
 .rightCtrls {
 	position: absolute;
-	right: 25;
+	right: 50;
 	top: 50;
 	flex-direction: row;
    	flex-wrap: wrap;
@@ -43,6 +42,11 @@
 
 .headerLinkText {
 	@extend .btnText;
+	font-weight: 400;
+}
+
+.headerLinkIcon {
+	left: -5px;
 }
 
 .inlineContain {

@@ -2,6 +2,16 @@
 	
 }
 
+.compareAssetsContain {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	flex-direction: row;
+   	flex-wrap: wrap;
+}
+
 .wideCompareContain {
 	
 }
@@ -13,4 +23,22 @@
 
 .compareTile {
 	border-radius: 5px;
+}
+
+.centerContent {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	justify-content: center;
+}
+
+.emptySelectionNote {
+	font-family: $bFont;
+	text-align: center;
+	align-self: center;
+	color: $darkGrey;
+	font-size: 48;
+	width: 1000;
 }

@@ -37,6 +37,8 @@
     "react-native-css": "^1.2.52",
     "react-native-device-info": "^0.10.1",
     "react-native-redux-router": "^1.0.7",
+    "react-native-svg": "^5.1.7",
+    "react-native-svg-image": "^1.0.0",
     "react-redux": "^5.0.3",
     "react-router": "^4.0.0",
     "react-router-native": "^4.0.0",
@@ -61,7 +63,9 @@
   "jest": {
     "preset": "react-native"
   },
-    "rnpm": {
-        "assets": ["./fonts/"]
-    }
+  "rnpm": {
+    "assets": [
+      "./fonts/"
+    ]
+  }
 }

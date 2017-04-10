@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00BABA8AD79646D48AF59BD9 /* SkolarSansLatinExtended-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E4FC7FE666D244D797D98A8C /* SkolarSansLatinExtended-LightItalic.otf */; };
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
@@ -96,6 +95,7 @@
 		9EEB57C3729240F9BDABCDAD /* SkolarSansLatin-ExtraboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FC4A6FA0B43C5A4AF4D67 /* SkolarSansLatin-ExtraboldItalic.otf */; };
 		A0C294F6DF9E42708A98A6AA /* SkolarSansLatin-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0692306C774247DAA13400DF /* SkolarSansLatin-Light.otf */; };
 		A486219F0FE84AE197188E7F /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DB1B0F9BA6194647ABB1CFE6 /* Roboto-Medium.ttf */; };
+		A944E5CCD5DE4697A360E0DA /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D97D308F3324AA8A3B25DB8 /* libRNSVG.a */; };
 		ABC54018DC4D44FBA2F86EB5 /* ProximaNovaCond-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0F4F68FBF9E749BFB037E708 /* ProximaNovaCond-Semibold.otf */; };
 		AC7B641D00684BE482E9D3EC /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C822F2EE459F45B5B2F04116 /* ProximaNova-Regular.otf */; };
 		AE22D31CAB874C0CB4079BF0 /* SkolarSansLatin-Extrabold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4C3D2F2C3A8468481A5258E /* SkolarSansLatin-Extrabold.otf */; };
@@ -387,6 +387,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		C3105A991E9BFC0B0077670A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B70FEFFF95DB416E9D416CBF /* RNSVG.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0CF68AC11AF0540F00FF9E5C;
+			remoteInfo = RNSVG;
+		};
 		C378BA5A1E7F1A0700E5F8E5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B5387DBEFF424DD18B5547F2 /* RNDeviceInfo.xcodeproj */;
@@ -463,6 +470,7 @@
 		86BC79BCF8B243C9ADC31A0B /* SourceSansPro-SemiboldIt.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SourceSansPro-SemiboldIt.otf"; path = "../fonts/source-sans-pro/SourceSansPro-SemiboldIt.otf"; sourceTree = "<group>"; };
 		86EC6064CDBE48A5B4F3687C /* AzoSans-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AzoSans-Bold.otf"; path = "../fonts/cc/AzoSans-Bold.otf"; sourceTree = "<group>"; };
 		8B2687A0EE804DB8B1A78CF9 /* SkolarSansLatinExtended-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SkolarSansLatinExtended-Black.otf"; path = "../fonts/cc/SkolarSansLatinExtended-Black.otf"; sourceTree = "<group>"; };
+		8D97D308F3324AA8A3B25DB8 /* libRNSVG.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSVG.a; sourceTree = "<group>"; };
 		92699C34A03B4F2BA8909AC9 /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "ProximaNova-Bold.otf"; path = "../fonts/proxima-nova/ProximaNova-Bold.otf"; sourceTree = "<group>"; };
 		92C3B919005A4CC09352F783 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../fonts/roboto/Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		9873DEE3A87B473D9326F317 /* SkolarSansLatinExtended-Extrabold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SkolarSansLatinExtended-Extrabold.otf"; path = "../fonts/cc/SkolarSansLatinExtended-Extrabold.otf"; sourceTree = "<group>"; };
@@ -478,6 +486,7 @@
 		AFDE7011B4204864845004F7 /* SourceSansPro-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SourceSansPro-Light.otf"; path = "../fonts/source-sans-pro/SourceSansPro-Light.otf"; sourceTree = "<group>"; };
 		B0D87AD82ED84B76A61116B7 /* iconfont.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = iconfont.ttf; path = ../fonts/iconfont/iconfont.ttf; sourceTree = "<group>"; };
 		B5387DBEFF424DD18B5547F2 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
+		B70FEFFF95DB416E9D416CBF /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		B9AA4199BAC44187A26046FC /* ProximaNovaCond-LightIt.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "ProximaNovaCond-LightIt.otf"; path = "../fonts/proxima-nova/ProximaNovaCond-LightIt.otf"; sourceTree = "<group>"; };
 		BBB3DC93FA354EC69C85D0A3 /* SkolarSansLatinExtended-Extralight.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SkolarSansLatinExtended-Extralight.otf"; path = "../fonts/cc/SkolarSansLatinExtended-Extralight.otf"; sourceTree = "<group>"; };
 		BD449C9E49954C75919AA0FA /* SkolarSansLatin-ThinItalic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SkolarSansLatin-ThinItalic.otf"; path = "../fonts/cc/SkolarSansLatin-ThinItalic.otf"; sourceTree = "<group>"; };
@@ -529,6 +538,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				6B928E12AFF14A1CBFDCD100 /* libRNDeviceInfo.a in Frameworks */,
+				A944E5CCD5DE4697A360E0DA /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -782,6 +792,7 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				B5387DBEFF424DD18B5547F2 /* RNDeviceInfo.xcodeproj */,
+				B70FEFFF95DB416E9D416CBF /* RNSVG.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -815,6 +826,14 @@
 				00E356EE1AD99517003FC87E /* AssetsTVTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* AssetsTV-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* AssetsTV-tvOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C3105A7C1E9BFC0B0077670A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C3105A9A1E9BFC0B0077670A /* libRNSVG.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -992,6 +1011,10 @@
 				{
 					ProductGroup = C378BA3E1E7F1A0700E5F8E5 /* Products */;
 					ProjectRef = B5387DBEFF424DD18B5547F2 /* RNDeviceInfo.xcodeproj */;
+				},
+				{
+					ProductGroup = C3105A7C1E9BFC0B0077670A /* Products */;
+					ProjectRef = B70FEFFF95DB416E9D416CBF /* RNSVG.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1178,6 +1201,13 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C3105A9A1E9BFC0B0077670A /* libRNSVG.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSVG.a;
+			remoteRef = C3105A991E9BFC0B0077670A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		C378BA5B1E7F1A0700E5F8E5 /* libRNDeviceInfo.a */ = {
@@ -1487,12 +1517,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = AssetsTVTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1513,12 +1545,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = AssetsTVTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1541,6 +1575,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = AssetsTV/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1565,6 +1600,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = AssetsTV/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1582,6 +1618,7 @@
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1595,11 +1632,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
+					"$(SRCROOT)/node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = "AssetsTV-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1617,6 +1657,7 @@
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1630,11 +1671,14 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
+					"$(SRCROOT)/node_modules/react-native-svg/ios/**",
 				);
 				INFOPLIST_FILE = "AssetsTV-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1666,6 +1710,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.AssetsTV-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1691,6 +1736,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.AssetsTV-tvOSTests";

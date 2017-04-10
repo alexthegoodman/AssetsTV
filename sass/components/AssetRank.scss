@@ -1,0 +1,46 @@
+.assetRankBody {
+	margin-top: 100;
+}
+
+.rankHeadline {
+	font-family: $bFont;
+	font-size: 36;
+	color: $darkGrey;
+	margin-bottom: 10;
+}
+
+.averageRank {
+	flex-direction: row;
+   	flex-wrap: wrap;
+   	margin-bottom: 10;
+}
+
+.averageRankValue, .rankValue {
+	font-family: $bFont;
+	font-weight: 600;
+	font-size: 28;
+	color: $pink;
+	width: 25;
+}
+
+.averageRankLabel, .rankName {
+	font-family: $bFont;
+	font-size: 24;
+	font-weight: 300;
+	color: $darkGrey;
+	top: 5;
+}
+
+.userRank {
+	flex-direction: row;
+   	flex-wrap: wrap;
+   	margin-bottom: 5;
+}
+
+.rankName {
+	
+}
+
+.rankValue {
+	
+}

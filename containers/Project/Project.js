@@ -14,6 +14,7 @@ import {
     AsyncStorage,
     Linking,
     TouchableOpacity,
+    TouchableHighlight,
     Image,
     Dimensions,
     ScrollView
@@ -29,9 +30,11 @@ const deepcopy                      = require("deepcopy");
 
 import SimpleHeader             from '../../components/SimpleHeader/SimpleHeader';
 import CompareAssets             from '../../components/CompareAssets/CompareAssets';
+import AssetRank             from '../../components/AssetRank/AssetRank';
 
 @connect(
     ( state ) => ({
+        projectUsers: state.browse.projectUsers,
         userProjects: state.browse.userProjects,
         gotProjects: state.browse.gotProjects,
         currentPhaseData: state.browse.currentPhaseData,
@@ -54,7 +57,7 @@ export default class Project extends Component {
 
         this.state = {
             thisProject: false,
-            currentView: 'Compare',
+            currentView: 'Slide',
             viewMenuOpen: false,
             currentLayout: 'Tall',
             layoutMenuOpen: false,
@@ -156,13 +159,14 @@ export default class Project extends Component {
                         <View style={[styles.tileImage, { width: (slideWidth * 0.7), height: slideHeight } ]} 
                             activeOpacity={1} underlayColor="#F2F2F2" 
                             tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
-                            <View style={styles.imageContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
-                                 <Image style={styles.imageBackground} resizeMode="contain" source={{ uri: image['image_url'] }} />
+                            <View style={styles.imageContain}>
+                                 <Image style={styles.imageBackground} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8} resizeMode="contain" source={{ uri: image['image_url'] }} />
                             </View>
                         </View>
                         <View style={[styles.slideTileInfo, { width: (slideWidth * 0.3), height: slideHeight } ]}>
                             <Text style={styles.slideTileName}>{image['image_name']}</Text>
                             <Text style={styles.slideTileDescription}>{assetDescrip}</Text>
+                            <AssetRank assetData={image} projectUsers={this.props.projectUsers} />
                         </View>
                     </View>
                 </TouchableOpacity>
@@ -286,27 +290,27 @@ export default class Project extends Component {
         if (viewMenuOpen) {
             showViewMenu = (
                 <View style={styles.viewMenuContain}>
-                    <TouchableOpacity onPress={() => this.setCurrentView('Slide')} style={styles.bodyLink} 
+                    <TouchableHighlight onPress={() => this.setCurrentView('Slide')} style={styles.bodyLink} 
                     activeOpacity={1} underlayColor="#F2F2F2" 
-                    tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
+                    tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
                         <Text>Slide</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.setCurrentView('Compare')} style={styles.bodyLink} 
+                    </TouchableHighlight>
+                    <TouchableHighlight onPress={() => this.setCurrentView('Compare')} style={styles.bodyLink} 
                     activeOpacity={1} underlayColor="#F2F2F2" 
-                    tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
+                    tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
                         <Text>Compare</Text>
-                    </TouchableOpacity>
+                    </TouchableHighlight>
                 </View>
             );
         }
 
         let viewMenu = (
             <View style={styles.viewMenu}>
-                <TouchableOpacity onPress={() => this.openMenu('view')} style={styles.headerLink} 
+                <TouchableHighlight onPress={() => this.openMenu('view')} style={styles.headerLink} 
                 activeOpacity={1} underlayColor="#F2F2F2" 
-                tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
-                    <Text style={styles.headerLinkText}>{currentView}</Text>
-                </TouchableOpacity>
+                tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
+                    <Text style={styles.headerLinkText}>View: {currentView}</Text>
+                </TouchableHighlight>
                 {showViewMenu}
             </View>
         );
@@ -315,42 +319,50 @@ export default class Project extends Component {
         if (layoutMenuOpen) {
             showLayoutMenu = (
                 <View style={styles.viewMenuContain}>
-                    <TouchableOpacity onPress={() => this.setCurrentLayout('Tall')} style={styles.bodyLink} 
+                    <TouchableHighlight onPress={() => this.setCurrentLayout('Tall')} style={styles.bodyLink} 
                     activeOpacity={1} underlayColor="#F2F2F2" 
-                    tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
+                    tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
                         <Text>Tall</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.setCurrentLayout('Wide')} style={styles.bodyLink} 
+                    </TouchableHighlight>
+                    <TouchableHighlight onPress={() => this.setCurrentLayout('Wide')} style={styles.bodyLink} 
                     activeOpacity={1} underlayColor="#F2F2F2" 
-                    tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
+                    tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
                         <Text>Wide</Text>
-                    </TouchableOpacity>
+                    </TouchableHighlight>
                 </View>
             );
         }
 
         let layoutMenu = (
             <View style={styles.layoutMenu}>
-                <TouchableOpacity onPress={() => this.openMenu('layout')} style={styles.headerLink} 
+                <TouchableHighlight onPress={() => this.openMenu('layout')} style={styles.headerLink} 
                 activeOpacity={1} underlayColor="#F2F2F2" 
-                tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
-                    <Text style={styles.headerLinkText}>{currentLayout}</Text>
-                </TouchableOpacity>
+                tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
+                    <Text style={styles.headerLinkText}>Layout: {currentLayout}</Text>
+                </TouchableHighlight>
                 {showLayoutMenu}
             </View>
         );
+
+        let scrollHorizontal = true;
+        if (currentView == 'Slide' && currentLayout == 'Tall') {
+            scrollHorizontal = false;
+        }
 
         return (
             <View style={styles.body}>
 
                 <SimpleHeader
-                    title={projName + '(ID:'+routeParams.projectId+')'}
+                    title={projName + ' - '+routeParams.projectId}
                     leftCtrls={(
-                        <TouchableOpacity onPress={this.goBack} style={styles.headerLink} 
+                        <TouchableHighlight onPress={this.goBack} style={styles.headerLink} 
                         activeOpacity={1} underlayColor="#F2F2F2" 
-                        tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
-                            <Text style={styles.headerLinkText}>Back to Projects</Text>
-                        </TouchableOpacity>
+                        tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
+                            <View style={styles.inlineContain}>
+                                <Image style={styles.headerLinkIcon} width={50} height={50} source={require('../../img/png/Back1.png')} />
+                                <Text style={styles.headerLinkText}>Back to Projects</Text>
+                            </View>
+                        </TouchableHighlight>
                     )}
                     rightCtrls={(
                         <View style={styles.inlineContain}>
@@ -360,7 +372,7 @@ export default class Project extends Component {
                     )}
                 />
 
-                <ScrollView style={styles.gridContain} horizontal={true} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
+                <ScrollView contentContainerStyle={styles.projectContain} horizontal={scrollHorizontal} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
                     {gridAssets}
                     {slideAssets}
                     {compareAssets}

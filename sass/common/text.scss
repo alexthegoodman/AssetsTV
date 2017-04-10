@@ -1,25 +1,18 @@
 .btn {
-	/*align-self: center;*/
-	width: 245px;
+	/*width: 245px;*/
 	justify-content: center;
-	padding: 10px 15px 12px 15px;
-	background-color: $pink;
-	border-radius: 3px;
-
-	/*&:hover {
-		box-shadow: $big_shadow;
-		background: $green_d;
-	}*/
+	border-radius: 5px;
+	padding: 7px 15px;
 }
 
 .btnText {
 	/* align-self on Text to open radius on Touchable */
 	align-self: center;
 	height: 45px;
-	padding-top: 10px;
+	padding-top: 8px;
 	text-align: center;
-	color: white;
-	font-size: 22px;
+	color: $darkGrey;
+	font-size: 24px;
 	line-height: 28px;
 	font-family: $hFont;
 }

@@ -96,12 +96,12 @@ export default class CompareAssets extends Component {
                 return;
             });
         } else {
-            compareContent = <Text style={styles.headline}>Select some assets to compare side by side. Use the layout button to change the layout.</Text>
+            compareContent = <View style={styles.centerContent}><Text style={styles.emptySelectionNote}>Select some assets to compare side by side. Change the view and layout above.</Text></View>
         }
         
         return (
             <View style={[styles.compareAssetsBody, { height: slideHeight } ]}>
-                <View style={[styles.compareAssetsContin, layoutStyle]}>
+                <View style={[styles.compareAssetsContain, layoutStyle]}>
                     {compareContent}
                 </View>
             </View>

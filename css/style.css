@@ -17,12 +17,11 @@
   height: 170;
   flex-direction: column;
   justify-content: center;
-  background-color: #EBEBEB;
-  margin-bottom: 70px; }
+  background-color: #EBEBEB; }
 
 .bodyHeaderText {
   font-family: Azo Sans;
-  font-weight: 400;
+  font-weight: 300;
   text-align: center;
   align-self: center;
   font-size: 48;
@@ -30,14 +29,14 @@
 
 .leftCtrls {
   position: absolute;
-  left: 25;
+  left: 50;
   top: 50;
   flex-direction: row;
   flex-wrap: wrap; }
 
 .rightCtrls {
   position: absolute;
-  right: 25;
+  right: 50;
   top: 50;
   flex-direction: row;
   flex-wrap: wrap; }
@@ -45,30 +44,30 @@
 .headerLink {
   z-index: 100; }
 
+.headerLinkText {
+  font-weight: 400; }
+
+.headerLinkIcon {
+  left: -5px; }
+
 .inlineContain {
   flex-direction: row;
   flex-wrap: wrap; }
 
 .btn, .headerLink {
-  /*align-self: center;*/
-  width: 245px;
+  /*width: 245px;*/
   justify-content: center;
-  padding: 10px 15px 12px 15px;
-  background-color: #F26A7E;
-  border-radius: 3px;
-  /*&:hover {
-		box-shadow: $big_shadow;
-		background: $green_d;
-	}*/ }
+  border-radius: 5px;
+  padding: 7px 15px; }
 
 .btnText, .headerLinkText {
   /* align-self on Text to open radius on Touchable */
   align-self: center;
   height: 45px;
-  padding-top: 10px;
+  padding-top: 8px;
   text-align: center;
-  color: white;
-  font-size: 22px;
+  color: #747474;
+  font-size: 24px;
   line-height: 28px;
   font-family: Azo Sans; }
 
@@ -183,41 +182,10 @@
   left: 40;
   padding: 10px; }
 
-.slideTile, .slideContain {
-  flex-direction: row;
-  flex-wrap: wrap; }
-
-.tileImage {
-  justify-content: center; }
-
-.imageContain, .imageBackground {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; }
-
-.slideTileInfo {
-  background-color: #E3E4E5;
-  padding: 25px; }
-
-.slideTileName {
-  text-align: left;
-  color: #747474;
-  font-size: 36; }
-
-.slideTileDescription {
-  text-align: left;
-  color: #747474; }
-
-.checkmarkIcon {
-  width: 20;
-  height: 20;
-  background-color: red; }
-
 .gridContain {
   flex-direction: row;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  padding-top: 70px; }
 
 .tileBox {
   height: 325;
@@ -242,11 +210,11 @@
 
 .tileName {
   font-family: Skolar Sans Latin;
-  font-weight: 300;
+  font-weight: 400;
   text-align: center;
   font-size: 28px;
   background-color: transparent;
-  color: #4B4B4B;
+  color: #747474;
   margin-top: 25; }
 
 /*
@@ -257,6 +225,11 @@
 	background-color: transparent;
 	color: white;
 }*/
+.projectContain {
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-top: 50; }
+
 .viewMenu {
   margin-right: 50; }
 
@@ -277,9 +250,114 @@
   bottom: 0;
   border-radius: 5px; }
 
+.slideTile {
+  margin-bottom: 50;
+  border-radius: 5; }
+
+.slideTile, .slideContain {
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-radius: 5; }
+
+.tileImage {
+  justify-content: center;
+  border-radius: 5; }
+
+.imageContain, .imageBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 5; }
+
+.imageBackground {
+  overflow: visible;
+  border-radius: 5px; }
+
+.slideTileInfo {
+  /*background-color: #F1F1F1;*/
+  padding: 25px; }
+
+.slideTileName {
+  font-family: Azo Sans;
+  text-align: left;
+  color: #747474;
+  font-size: 36; }
+
+.slideTileDescription {
+  font-family: Azo Sans;
+  text-align: left;
+  color: #747474;
+  font-size: 24;
+  margin-top: 10; }
+
+.checkmarkIcon {
+  width: 20;
+  height: 20;
+  background-color: red; }
+
+.compareAssetsContain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  flex-direction: row;
+  flex-wrap: wrap; }
+
 .tallCompareContain {
   flex-direction: row;
   flex-wrap: wrap; }
 
 .compareTile {
   border-radius: 5px; }
+
+.centerContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center; }
+
+.emptySelectionNote {
+  font-family: Skolar Sans Latin;
+  text-align: center;
+  align-self: center;
+  color: #747474;
+  font-size: 48;
+  width: 1000; }
+
+.assetRankBody {
+  margin-top: 100; }
+
+.rankHeadline {
+  font-family: Skolar Sans Latin;
+  font-size: 36;
+  color: #747474;
+  margin-bottom: 10; }
+
+.averageRank {
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 10; }
+
+.averageRankValue, .rankValue {
+  font-family: Skolar Sans Latin;
+  font-weight: 600;
+  font-size: 28;
+  color: #F26A7E;
+  width: 25; }
+
+.averageRankLabel, .rankName {
+  font-family: Skolar Sans Latin;
+  font-size: 24;
+  font-weight: 300;
+  color: #747474;
+  top: 5; }
+
+.userRank {
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 5; }

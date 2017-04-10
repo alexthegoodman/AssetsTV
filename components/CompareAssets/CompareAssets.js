@@ -49,25 +49,30 @@ export default class CompareAssets extends Component {
         let slideWidth  = width;
         let slideHeight = height - 400;
 
-        let layoutStyle, tileStyle, assetCount = Object.keys(selectedAssets).length;
+        let layoutStyle, tileStyle, internalTileStyle, assetCount = Object.keys(selectedAssets).length;
         if (assetCount == 1) {
             layoutStyle = styles.tallCompareContain;
             tileStyle = [ styles.tallCompareTile, { width: slideWidth, height: slideHeight } ];
+            internalTileStyle = [ styles.compareTile, { width: slideWidth, height: slideHeight } ];
         } else if (assetCount == 2) {
             if (layout == 'Wide') {
                 layoutStyle = styles.wideCompareContain;
                 tileStyle = [ styles.wideCompareTile, { width: slideWidth, height: slideHeight / 2 } ];
+                internalTileStyle = [ styles.compareTile, { width: slideWidth, height: (slideHeight - 100) / 2 } ];
             } else if (layout == 'Tall') {
                 layoutStyle = styles.tallCompareContain;
                 tileStyle = [ styles.tallCompareTile, { width: slideWidth / 2, height: slideHeight } ];
+                internalTileStyle = [ styles.compareTile, { width: (slideWidth - 100) / 2, height: slideHeight } ];
             }
         } else {
             if (layout == 'Wide') {
                 layoutStyle = styles.wideCompareContain;
                 tileStyle = [ styles.wideCompareTile, { width: slideWidth, height: slideHeight / 2 } ];
+                internalTileStyle = [ styles.compareTile, { width: slideWidth, height: (slideHeight - 100) / 2 } ];
             } else if (layout == 'Tall') {
                 layoutStyle = styles.tallCompareContain;
                 tileStyle = [ styles.tallCompareTile, { width: slideWidth / 2, height: slideHeight } ];
+                internalTileStyle = [ styles.compareTile, { width: (slideWidth - 100) / 2, height: slideHeight } ];
             }
         }
 
@@ -78,9 +83,12 @@ export default class CompareAssets extends Component {
                     return (
                         <View style={tileStyle} key={'compareAsset' + image['image_id']} 
                             activeOpacity={1} underlayColor="#F2F2F2" 
-                            tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}>
+                            tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}
+                            >
                             <View style={styles.tileContain}>
-                                <Image style={styles.tileBackground} resizeMode="contain" source={{ uri: image['image_url'] }} />
+                                <View style={internalTileStyle} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
+                                    <Image style={styles.tileBackground} resizeMode="contain" source={{ uri: image['image_url'] }} />
+                                </View>
                             </View>
                         </View>
                     );
@@ -88,7 +96,7 @@ export default class CompareAssets extends Component {
                 return;
             });
         } else {
-            compareContent = <Text>Select some assets to compare side by side. Use the layout button to change the layout.</Text>
+            compareContent = <Text style={styles.headline}>Select some assets to compare side by side. Use the layout button to change the layout.</Text>
         }
         
         return (

@@ -13,7 +13,7 @@ import {
     NavigatorIOS,
     AsyncStorage,
     Linking,
-    TouchableHighlight,
+    TouchableOpacity,
     Image,
     Dimensions,
     TextInput
@@ -164,9 +164,9 @@ export default class Home extends Component {
                             onSubmitEditing={this.attemptLogin}
                             onFocus={() => this.setState({ currentInput: '2' })}
                         />
-                        <TouchableHighlight activeOpacity={1} underlayColor="#F27E76" style={styles.loginBtn} onPress={ this.attemptLogin }>
+                        <TouchableOpacity activeOpacity={1} underlayColor="#F27E76" style={styles.loginBtn} onPress={ this.attemptLogin }>
                             <Text style={styles.btnText}>{buttonText}</Text>
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={styles.bodyRight}>

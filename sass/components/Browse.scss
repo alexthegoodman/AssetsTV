@@ -1,0 +1,48 @@
+.gridContain {
+	flex-direction: row;
+   	flex-wrap: wrap;
+}
+
+.tileBox {
+	height: 325;
+	margin-bottom: 100;
+}
+
+.gridTile {
+	height: 300;
+	background-color: $darkGrey;
+	justify-content: center;
+	border-radius: 5px;
+}
+
+.tileBackground, .tileContain {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 5px;
+}
+
+.tileBackground {
+	border-radius: 5px;
+}
+
+.tileName {
+	font-family: $bFont;
+	font-weight: 300;
+	text-align: center;
+	font-size: 28px;
+	background-color: transparent;
+	color: $black;
+	margin-top: 25;
+}
+
+/*
+.tileDescription {
+	text-align: center;
+	margin-top: 15px;
+	font-size: 18px;
+	background-color: transparent;
+	color: white;
+}*/

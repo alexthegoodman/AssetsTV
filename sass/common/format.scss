@@ -1,43 +1,53 @@
 .body {
 	flex: 1;
+	background-color: white;
 }
 
 .bodyHeader {
-	height: 200;
+	height: 170;
 	flex-direction: column;
    	justify-content: center;
-   	background-color: $lightGrey;
+   	background-color: $white;
+   	margin-bottom: 70px;
 }
 
 .bodyHeaderText {
+	font-family: $hFont;
+	font-weight: 400;
 	text-align: center;
 	align-self: center;
 	font-size: 48;
-	color: $darkGrey;
+	color: $black;
 }
 
 .leftCtrls {
 	position: absolute;
 	left: 25;
 	top: 50;
+	flex-direction: row;
+   	flex-wrap: wrap;
 }
 
 .rightCtrls {
 	position: absolute;
 	right: 25;
 	top: 50;
+	flex-direction: row;
+   	flex-wrap: wrap;
 }
 
 .headerLink {
-
+	@extend .btn;
+	z-index: 100;
 }
 
 .headerLinkText {
-	font-size: 24;
-	padding: 7;
-	border-color: black;
-	border-width: 3;
+	@extend .btnText;
 }
 
+.inlineContain {
+	flex-direction: row;
+   	flex-wrap: wrap;
+}
 
 

@@ -11,8 +11,6 @@ $google: 	#e93f2e;
 $pinterest: #b81621;
 
 /* Colors */
-$pink: 		#FFA0CF;
-$darkPink: 	#FF7FBE;
 $blue: 		#70E5FF;
 $darkBlue: 	#38BCCD;
 $blueD: 	$darkBlue;
@@ -35,8 +33,14 @@ $white: 	#F5F7F5;
 $aero: 		#7BB9E6;
 $aeroD: 	#73AED7;
 
-$green: 	#F26A7E;
-$greenD:   	#CF5B6A;
+$new_pink: 		#F26A7E;
+$new_pink_d: 	#CF5B6A;
+
+$pink: $new_pink;
+$pink_d: $new_pink;
+
+$green: 	$new_pink;
+$greenD:   	$new_pink;
 
 $grey: 		#D2D2D2;
 $darkGrey: 	#747474;
@@ -62,9 +66,5 @@ $tightShadow: 	rgba(0, 0, 0, 0.4) 0px 1px 1px 0px;
 $tightInset: 	rgba(0, 0, 0, 0.2) 0px 1px 5px 0px inset;
 $bigShadow: 	0px 2px 4px rgba(0,0,0,0.25);
 
-$hFont: serif;
-$bFont: sans-serif;
-
-/*
-$h_font: azo-sans-web, 'Proxima Nova', serif;
-$b_font: skolar-sans-latin, 'Proxima Nova', sans-serif;*/
+$hFont: Azo Sans;
+$bFont: Skolar Sans Latin;

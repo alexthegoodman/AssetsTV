@@ -4,61 +4,73 @@
 /* Transitions */
 /* Paddings */
 /* Shadows */
-/*
-$h_font: azo-sans-web, 'Proxima Nova', serif;
-$b_font: skolar-sans-latin, 'Proxima Nova', sans-serif;*/
 /*@import "base/reset";
 @import "base/general";*/
-.commonText, .btnText, .headline, .copy, .linkText, .textInput {
+.commonText, .headline, .copy, .linkText, .textInput {
   /*font-family: SourceSansPro-Light;*/ }
 
 .body {
-  flex: 1; }
+  flex: 1;
+  background-color: white; }
 
 .bodyHeader {
-  height: 200;
+  height: 170;
   flex-direction: column;
   justify-content: center;
-  background-color: #E3E4E5; }
+  background-color: #EBEBEB;
+  margin-bottom: 70px; }
 
 .bodyHeaderText {
+  font-family: Azo Sans;
+  font-weight: 400;
   text-align: center;
   align-self: center;
   font-size: 48;
-  color: #747474; }
+  color: #4B4B4B; }
 
 .leftCtrls {
   position: absolute;
   left: 25;
-  top: 50; }
+  top: 50;
+  flex-direction: row;
+  flex-wrap: wrap; }
 
 .rightCtrls {
   position: absolute;
   right: 25;
-  top: 50; }
+  top: 50;
+  flex-direction: row;
+  flex-wrap: wrap; }
 
-.headerLinkText {
-  font-size: 24;
-  padding: 7;
-  border-color: black;
-  border-width: 3; }
+.headerLink {
+  z-index: 100; }
 
-.btn {
-  background-color: #CF5B6A;
-  border-radius: 100px;
-  align-self: center;
+.inlineContain {
+  flex-direction: row;
+  flex-wrap: wrap; }
+
+.btn, .headerLink {
+  /*align-self: center;*/
   width: 245px;
-  justify-content: center; }
+  justify-content: center;
+  padding: 10px 15px 12px 15px;
+  background-color: #F26A7E;
+  border-radius: 3px;
+  /*&:hover {
+		box-shadow: $big_shadow;
+		background: $green_d;
+	}*/ }
 
-.btnText {
+.btnText, .headerLinkText {
   /* align-self on Text to open radius on Touchable */
   align-self: center;
-  color: white;
   height: 45px;
   padding-top: 10px;
-  font-weight: 600;
-  font-size: 18px;
-  text-align: center; }
+  text-align: center;
+  color: white;
+  font-size: 22px;
+  line-height: 28px;
+  font-family: Azo Sans; }
 
 .headline {
   font-weight: 600;
@@ -171,41 +183,6 @@ $b_font: skolar-sans-latin, 'Proxima Nova', sans-serif;*/
   left: 40;
   padding: 10px; }
 
-.gridContain {
-  flex-direction: row;
-  flex-wrap: wrap; }
-
-.gridTile {
-  height: 200;
-  /*width: 300;*/
-  background-color: #747474;
-  justify-content: center;
-  margin-left: 50;
-  margin-bottom: 50; }
-
-.tileBackground, .tileContain {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; }
-
-.tileContain {
-  background-color: white; }
-
-.tileName {
-  text-align: center;
-  font-size: 24px;
-  background-color: transparent;
-  color: white; }
-
-.tileDescription {
-  text-align: center;
-  margin-top: 15px;
-  font-size: 18px;
-  background-color: transparent;
-  color: white; }
-
 .slideTile, .slideContain {
   flex-direction: row;
   flex-wrap: wrap; }
@@ -238,21 +215,71 @@ $b_font: skolar-sans-latin, 'Proxima Nova', sans-serif;*/
   height: 20;
   background-color: red; }
 
+.gridContain {
+  flex-direction: row;
+  flex-wrap: wrap; }
+
+.tileBox {
+  height: 325;
+  margin-bottom: 100; }
+
+.gridTile {
+  height: 300;
+  background-color: #747474;
+  justify-content: center;
+  border-radius: 5px; }
+
+.tileBackground, .tileContain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 5px; }
+
+.tileBackground {
+  border-radius: 5px; }
+
+.tileName {
+  font-family: Skolar Sans Latin;
+  font-weight: 300;
+  text-align: center;
+  font-size: 28px;
+  background-color: transparent;
+  color: #4B4B4B;
+  margin-top: 25; }
+
+/*
+.tileDescription {
+	text-align: center;
+	margin-top: 15px;
+	font-size: 18px;
+	background-color: transparent;
+	color: white;
+}*/
+.viewMenu {
+  margin-right: 50; }
+
 .selectionStrip {
   padding: 35px; }
 
 .selectionTile {
   height: 170;
   justify-content: center;
-  margin-right: 35; }
+  margin-right: 35;
+  border-radius: 5px; }
 
 .selectionContain, .selectionBackground {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0; }
+  bottom: 0;
+  border-radius: 5px; }
 
 .tallCompareContain {
   flex-direction: row;
   flex-wrap: wrap; }
+
+.compareTile {
+  border-radius: 5px; }

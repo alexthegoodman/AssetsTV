@@ -14,6 +14,7 @@ import {
     AsyncStorage,
     Linking,
     TouchableHighlight,
+    TouchableOpacity,
     Image,
     Dimensions
 } from 'react-native';
@@ -25,6 +26,8 @@ const styles                        = require('../../css/style.js');
 const DeviceInfo                    = require('react-native-device-info');
 const JefNode                       = require('json-easy-filter').JefNode;
 const deepcopy                      = require("deepcopy");
+
+import SimpleHeader             from '../../components/SimpleHeader/SimpleHeader';
 
 @connect(
     ( state ) => ({
@@ -43,6 +46,7 @@ export default class Browse extends Component {
         super();
 
         this.viewProject = this.viewProject.bind(this);
+        this.logOut = this.logOut.bind(this);
 
         this.state = {}
 
@@ -85,14 +89,20 @@ export default class Browse extends Component {
         this.props.push('/project/' + projId);
     }
 
+    logOut() {
+        AsyncStorage.removeItem('userHash', (err, res) => {
+            this.props.push('/home/');
+        });
+    }
+
     render() {
 
         let { userProjects, gotProjects } = this.props;
 
         console.info('Home', gotProjects, userProjects, Object.keys(userProjects).length);
 
-        let listProjects, rowCount = 5, tileMargin = 50;
-        let totalMargin = (rowCount + 1) * tileMargin, tileWidth = (width - totalMargin) / 5;
+        let listProjects, rowCount = 3, tileMargin = 70;
+        let totalMargin = (rowCount + 1) * tileMargin, tileWidth = (width - totalMargin) / rowCount;
         if (Object.keys(userProjects).length > 0 && gotProjects) { 
             
             let newProjects = deepcopy(userProjects);
@@ -118,16 +128,20 @@ export default class Browse extends Component {
                     }
 
                     return (
-                        <TouchableHighlight onPress={() => this.viewProject(projId)} data-project-id={projId} key={'project' + projId} style={[styles.gridTile, { width: tileWidth } ]} 
-                        activeOpacity={1} underlayColor="#F2F2F2" 
-                        tvParallaxProperties={hoverProps} hasTVPreferredFocus={focus}>
-                            <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
-                                <Image style={styles.tileBackground} resizeMode="cover" source={{ uri: project['phaseImagesData'][0]['image_url'] }}>
-                                    <Text style={styles.tileName}>{project['project_name']}</Text>
-                                    <Text style={styles.tileDescription}>{description}</Text>
-                                </Image>
-                            </View>
-                        </TouchableHighlight>
+                        <View style={[styles.tileBox,  { width: tileWidth, marginLeft: tileMargin } ]}>
+                            <TouchableOpacity onPress={() => this.viewProject(projId)} data-project-id={projId} key={'project' + projId} style={[styles.gridTile]} 
+                            activeOpacity={1} underlayColor="#F2F2F2" 
+                            tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
+                                <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
+                                    <Image 
+                                        style={styles.tileBackground} 
+                                        resizeMode="cover" 
+                                        source={{ uri: project['phaseImagesData'][0]['image_url'] }} 
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                            <Text style={styles.tileName}>{project['project_name']}</Text>
+                        </View>
                     )
 
                 }
@@ -137,9 +151,16 @@ export default class Browse extends Component {
 
         return (
             <View style={styles.body}>
-                <View style={styles.bodyHeader}>
-                    <Text style={styles.bodyHeaderText}>Browse Projects</Text>
-                </View>
+                <SimpleHeader
+                    title={'Browse Projects'}
+                    leftCtrls={(
+                        <TouchableOpacity onPress={this.logOut} style={styles.headerLink} 
+                        activeOpacity={1} tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
+                            <Text style={styles.headerLinkText}>Log Out</Text>
+                        </TouchableOpacity>
+                    )}
+                    rightCtrls={(<View></View>)}
+                />
                 <View style={styles.gridContain}>
                     {listProjects}
                 </View>

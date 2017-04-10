@@ -1,0 +1,23 @@
+.viewMenu {
+	margin-right: 50;
+}
+
+.selectionStrip {
+	padding: 35px;
+}
+
+.selectionTile {
+	height: 170;
+	justify-content: center;
+	margin-right: 35;
+	border-radius: 5px;
+}
+
+.selectionContain, .selectionBackground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 5px;
+}

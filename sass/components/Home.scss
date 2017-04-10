@@ -1,44 +1,3 @@
-.gridContain {
-	flex-direction: row;
-   	flex-wrap: wrap;
-}
-
-.gridTile {
-	height: 200;
-	/*width: 300;*/
-	background-color: $darkGrey;
-	justify-content: center;
-	margin-left: 50;
-	margin-bottom: 50;
-}
-
-.tileBackground, .tileContain {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-}
-
-.tileContain {
-	background-color: white;
-}
-
-.tileName {
-	text-align: center;
-	font-size: 24px;
-	background-color: transparent;
-	color: white;
-}
-
-.tileDescription {
-	text-align: center;
-	margin-top: 15px;
-	font-size: 18px;
-	background-color: transparent;
-	color: white;
-}
-
 .slideTile, .slideContain {
 	flex-direction: row;
    	flex-wrap: wrap;
@@ -80,24 +39,6 @@
 	width: 20;
 	height: 20;
 	background-color: red;
-}
-
-.selectionStrip {
-	padding: 35px;
-}
-
-.selectionTile {
-	height: 170;
-	justify-content: center;
-	margin-right: 35;
-}
-
-.selectionContain, .selectionBackground {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
 }
 
 

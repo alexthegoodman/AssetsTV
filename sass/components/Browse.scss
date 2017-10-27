@@ -6,7 +6,8 @@
 
 .tileBox {
 	height: 325;
-	margin-bottom: 100;
+	/*margin-bottom: 100;*/
+	margin-bottom: 75;
 }
 
 .gridTile {
@@ -36,7 +37,26 @@
 	font-size: 28px;
 	background-color: transparent;
 	color: $darkGrey;
-	margin-top: 25;
+	/*margin-top: 25;*/
+
+	top: -70;
+	left: 25;
+	font-size: 32;
+	color: white;
+	text-align: left;
+	z-index: 30;
+}
+
+.tileTitle {
+	font-family: $bFont;
+	font-weight: 400;
+	font-size: 32;
+	color: white;
+	text-align: left;
+	background-color: transparent;
+	position: absolute;
+	bottom: 25;
+	left: 25;
 }
 
 /*

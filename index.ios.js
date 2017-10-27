@@ -10,8 +10,9 @@ import Store         from './containers/store';
 import App           from './containers/App/App';
 import Home          from './containers/Home/Home';
 
-global.hoverProps = { enabled: true, shiftDistanceX: 4.0, shiftDistanceY: 4.0, tiltAngle: 0.1, magnification: 1.2 };
-global.smallHoverProps = { enabled: true, shiftDistanceX: 2.0, shiftDistanceY: 2.0, tiltAngle: 0.05, magnification: 1.1 };
+global.hoverProps = { enabled: true, shiftDistanceX: 3.0, shiftDistanceY: 3.0, tiltAngle: 0.05, magnification: 1.15 };
+global.smallHoverProps = { enabled: true, shiftDistanceX: 2.0, shiftDistanceY: 2.0, tiltAngle: 0.04, magnification: 1.1 };
+global.fullscreenHoverProps = { enabled: true, shiftDistanceX: 1.0, shiftDistanceY: 1.0, tiltAngle: 0.01, magnification: 1.01 };
 
 // hide react native warnings
 console.disableYellowBox = true;

@@ -17,7 +17,8 @@ import {
     TouchableOpacity,
     Image,
     Dimensions,
-    ScrollView
+    ScrollView,
+    AlertIOS
 } from 'react-native';
 
 let { width, height } = Dimensions.get('window');
@@ -30,11 +31,7 @@ const deepcopy                      = require("deepcopy");
 
 import SimpleHeader             from '../../components/SimpleHeader/SimpleHeader';
 
-// react-native-svg and other linkable libraries have difficulties with tvOS
-// import Back1       from '../../svgComponents/svg/Back1';
-// needs WebView
-// import SVGImage from 'react-native-svg-image';
-// no svg's yet
+import Back1       from '../../svgComponents/svg/Back1';
 
 @connect(
     ( state ) => ({
@@ -138,7 +135,7 @@ export default class Browse extends Component {
 
         console.info('Home', gotProjects, userProjects, Object.keys(userProjects).length);
 
-        let listProjects, rowCount = 3, tileMargin = 70;
+        let listProjects, rowCount = 3, tileMargin = 70, blurImage;
         let totalMargin = (rowCount + 1) * tileMargin, tileWidth = (width - totalMargin) / rowCount;
         if (Object.keys(userProjects).length > 0 && gotProjects) { 
             
@@ -162,6 +159,7 @@ export default class Browse extends Component {
                     let focus = false;
                     if (projCount == 1) {
                         focus = true;
+                        blurImage = project['phaseImagesData'][0]['image_url'];
                     }
 
                     return (
@@ -169,15 +167,18 @@ export default class Browse extends Component {
                             <TouchableOpacity onPress={() => this.viewProject(projId)} data-project-id={projId} style={[styles.gridTile]} 
                             activeOpacity={1} underlayColor="#F2F2F2" 
                             tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
-                                <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
+                                <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.3} shadowRadius={10}>
                                     <Image 
                                         style={styles.tileBackground} 
                                         resizeMode="cover" 
                                         source={{ uri: project['phaseImagesData'][0]['image_url'] }} 
-                                    />
+                                    >
+                                        <Text style={styles.tileTitle}>{project['project_name']}</Text>
+                                    </Image>
+                                    
                                 </View>
                             </TouchableOpacity>
-                            <Text style={styles.tileName}>{project['project_name']}</Text>
+                            {/*<Text style={styles.tileName}>{project['project_name']}</Text>*/}
                         </View>
                     )
 
@@ -188,22 +189,31 @@ export default class Browse extends Component {
 
         return (
             <View style={styles.body}>
-                <SimpleHeader
-                    title={'Browse Projects'}
-                    leftCtrls={(
-                        <TouchableHighlight onPress={this.logOut} style={styles.headerLink} 
-                        activeOpacity={1} underlayColor="#F2F2F2" tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
-                            <View style={styles.inlineContain}>
-                                <Image style={styles.headerLinkIcon} width={50} height={50} source={require('../../img/png/Back1.png')} />
-                                <Text style={styles.headerLinkText}>Log Out</Text>
-                            </View>
-                        </TouchableHighlight>
-                    )}
-                    rightCtrls={(<View></View>)}
-                />
-                <ScrollView contentContainerStyle={styles.gridContain} horizontal={false} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
-                    {listProjects}
-                </ScrollView>
+                <Image style={{ zIndex: 1, position: 'absolute', width: width, height: 170 }} source={{ uri: blurImage }} />
+                
+                <View style={[styles.body, { zIndex: 4 }]}>
+                    <SimpleHeader
+                        title={'Browse Projects'}
+                        leftCtrls={(
+                            <TouchableHighlight onPress={this.logOut} style={styles.headerLink} 
+                            activeOpacity={1} underlayColor="rgba(255,255,255,0.1)" tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
+                                <View style={styles.inlineContain}>
+                                    <Back1 width={50} height={50} color="white" />
+                                    <Text style={styles.headerLinkText}>Log Out</Text>
+                                </View>
+                            </TouchableHighlight>
+                        )}
+                        rightCtrls={(<View></View>)}
+                    />
+                    <Image style={[styles.bodyBack, { height: height, width: width }]} resizeMode="cover" source={require('../../img/backs/browseBack.jpg')}>
+                        <ScrollView style={{ height: height, width: width }} contentContainerStyle={styles.gridContain} horizontal={false} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
+                            {listProjects}
+                            {listProjects}
+                            {listProjects}
+                        </ScrollView>
+                    </Image>
+                </View>
+                
             </View>
         );
     }

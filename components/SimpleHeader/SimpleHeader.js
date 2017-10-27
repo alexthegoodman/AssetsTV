@@ -25,6 +25,8 @@ const styles                        = require('../../css/style.js');
 const JefNode                       = require('json-easy-filter').JefNode;
 const deepcopy                      = require("deepcopy");
 
+const { BlurView, VibrancyView } = require('react-native-blur');
+
 export default class SimpleHeader extends Component {
 
     constructor() {
@@ -49,13 +51,19 @@ export default class SimpleHeader extends Component {
         
         return (
             <View style={styles.bodyHeader}>
-                <View style={styles.leftCtrls}>
-                    {leftCtrls}
+                
+                <BlurView blurType="dark" blurAmount={30} style={[styles.bodyHeaderBlur, { width: width }]} />
+
+                <View style={styles.bodyHeaderContain}>
+                    <View style={styles.leftCtrls}>
+                        {leftCtrls}
+                    </View>
+                    <Text style={styles.bodyHeaderText}>{title}</Text>
+                    <View style={styles.rightCtrls}>
+                        {rightCtrls}
+                    </View>
                 </View>
-                <Text style={styles.bodyHeaderText}>{title}</Text>
-                <View style={styles.rightCtrls}>
-                    {rightCtrls}
-                </View>
+                
             </View>
         );
     }

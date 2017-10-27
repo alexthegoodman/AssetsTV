@@ -11,21 +11,35 @@
 
 .body {
   flex: 1;
-  background-color: white; }
+  /*background-color: white;*/ }
 
-.bodyHeader {
+.bodyBack {
+  flex: 1; }
+
+.bodyHeader, .bodyHeaderContain {
   height: 170;
   flex-direction: column;
   justify-content: center;
-  background-color: #EBEBEB; }
+  /*background-color: $white;*/ }
+
+.bodyHeaderContain {
+  z-index: 20; }
+
+.bodyHeaderBlur {
+  position: absolute;
+  height: 170;
+  top: 0;
+  left: 0;
+  z-index: 10; }
 
 .bodyHeaderText {
   font-family: Azo Sans;
-  font-weight: 300;
+  font-weight: 400;
   text-align: center;
   align-self: center;
   font-size: 48;
-  color: #4B4B4B; }
+  color: white;
+  background-color: transparent; }
 
 .leftCtrls {
   position: absolute;
@@ -45,10 +59,12 @@
   z-index: 100; }
 
 .headerLinkText {
-  font-weight: 400; }
+  font-weight: 400;
+  color: white; }
 
 .headerLinkIcon {
-  left: -5px; }
+  margin-right: 7px;
+  top: 4; }
 
 .inlineContain {
   flex-direction: row;
@@ -66,7 +82,6 @@
   height: 45px;
   padding-top: 8px;
   text-align: center;
-  color: #747474;
   font-size: 24px;
   line-height: 28px;
   font-family: Azo Sans; }
@@ -189,7 +204,8 @@
 
 .tileBox {
   height: 325;
-  margin-bottom: 100; }
+  /*margin-bottom: 100;*/
+  margin-bottom: 75; }
 
 .gridTile {
   height: 300;
@@ -215,7 +231,24 @@
   font-size: 28px;
   background-color: transparent;
   color: #747474;
-  margin-top: 25; }
+  /*margin-top: 25;*/
+  top: -70;
+  left: 25;
+  font-size: 32;
+  color: white;
+  text-align: left;
+  z-index: 30; }
+
+.tileTitle {
+  font-family: Skolar Sans Latin;
+  font-weight: 400;
+  font-size: 32;
+  color: white;
+  text-align: left;
+  background-color: transparent;
+  position: absolute;
+  bottom: 25;
+  left: 25; }
 
 /*
 .tileDescription {
@@ -296,6 +329,13 @@
   width: 20;
   height: 20;
   background-color: red; }
+
+.blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; }
 
 .compareAssetsContain {
   position: absolute;

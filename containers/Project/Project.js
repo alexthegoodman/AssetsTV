@@ -17,7 +17,8 @@ import {
     TouchableHighlight,
     Image,
     Dimensions,
-    ScrollView
+    ScrollView,
+    AlertIOS
 } from 'react-native';
 
 let { width, height } = Dimensions.get('window');
@@ -29,8 +30,12 @@ const JefNode                       = require('json-easy-filter').JefNode;
 const deepcopy                      = require("deepcopy");
 
 import SimpleHeader             from '../../components/SimpleHeader/SimpleHeader';
-import CompareAssets             from '../../components/CompareAssets/CompareAssets';
-import AssetRank             from '../../components/AssetRank/AssetRank';
+import CompareAssets            from '../../components/CompareAssets/CompareAssets';
+import AssetRank                from '../../components/AssetRank/AssetRank';
+
+import Back1      from '../../svgComponents/svg/Back1';
+import Grid       from '../../svgComponents/svg/Grid';
+import Hamburger  from '../../svgComponents/svg/Hamburger';
 
 @connect(
     ( state ) => ({
@@ -154,7 +159,7 @@ export default class Project extends Component {
             let slideWidth  = width;
             let slideHeight = height - 350;
             return (
-                <TouchableOpacity activeOpacity={1} style={[styles.slideTile, { width: slideWidth, height: slideHeight } ]} key={key}>
+                <TouchableOpacity tvParallaxProperties={fullscreenHoverProps} activeOpacity={1} style={[styles.slideTile, { width: slideWidth, height: slideHeight } ]} key={key}>
                     <View style={styles.slideContain}>
                         <View style={[styles.tileImage, { width: (slideWidth * 0.7), height: slideHeight } ]} 
                             activeOpacity={1} underlayColor="#F2F2F2" 
@@ -195,15 +200,31 @@ export default class Project extends Component {
 
     openMenu(menu) {
         if (menu == 'view') {
-            this.setState({
-                viewMenuOpen: true,
-                layoutMenuOpen: false
-            });
+            // this.setState({
+            //     viewMenuOpen: true,
+            //     layoutMenuOpen: false
+            // });
+            AlertIOS.alert(
+                'Pick View',
+                'Sliding and comparing have their own ideal circumstances.',
+                [
+                    {text: 'Slide', onPress: () => this.setCurrentView('Slide') },
+                    {text: 'Compare', onPress: () => this.setCurrentView('Compare') },
+                ],
+            );
         } else if (menu == 'layout') {
-            this.setState({
-                viewMenuOpen: false,
-                layoutMenuOpen: true
-            });
+            // this.setState({
+            //     viewMenuOpen: false,
+            //     layoutMenuOpen: true
+            // });
+            AlertIOS.alert(
+                'Pick Layout',
+                'Each layout is ideal for different image shapes.',
+                [
+                    {text: 'Tall', onPress: () => this.setCurrentLayout('Tall') },
+                    {text: 'Wide', onPress: () => this.setCurrentLayout('Wide') },
+                ],
+            );
         }
     }
 
@@ -230,7 +251,7 @@ export default class Project extends Component {
 
         console.info('Project', gotProjects, userProjects, routeParams.projectId, this.props);
 
-        let gridAssets, slideAssets, compareAssets, thisProject = this.state.thisProject, projName; 
+        let gridAssets, slideAssets, compareAssets, thisProject = this.state.thisProject, projName, blurImage; 
         if (thisProject && gotPhase) {
             
             projName        = thisProject['project_name'];
@@ -250,6 +271,14 @@ export default class Project extends Component {
             this.phaseDataLength = phaseData.length;
             this.total      = 0;
             this.itemCount  = 0;
+            
+            let projCount = 0;
+            phaseData.map( asset => {
+                projCount++;
+                if (projCount == 1) {
+                    blurImage = asset['image_url'];
+                }
+            });
 
             let i = -1;
 
@@ -285,60 +314,66 @@ export default class Project extends Component {
 
         }
 
-        // dropdown comp
+        // dropdown comp?
         let showViewMenu;
-        if (viewMenuOpen) {
-            showViewMenu = (
-                <View style={styles.viewMenuContain}>
-                    <TouchableHighlight onPress={() => this.setCurrentView('Slide')} style={styles.bodyLink} 
-                    activeOpacity={1} underlayColor="#F2F2F2" 
-                    tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
-                        <Text>Slide</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight onPress={() => this.setCurrentView('Compare')} style={styles.bodyLink} 
-                    activeOpacity={1} underlayColor="#F2F2F2" 
-                    tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
-                        <Text>Compare</Text>
-                    </TouchableHighlight>
-                </View>
-            );
-        }
+        // if (viewMenuOpen) {
+        //     showViewMenu = (
+        //         <View style={styles.viewMenuContain}>
+        //             <TouchableHighlight onPress={() => this.setCurrentView('Slide')} style={styles.bodyLink} 
+        //             activeOpacity={1} underlayColor="rgba(255,255,255,0.1)"
+        //             tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
+        //                 <Text>Slide</Text>
+        //             </TouchableHighlight>
+        //             <TouchableHighlight onPress={() => this.setCurrentView('Compare')} style={styles.bodyLink} 
+        //             activeOpacity={1} underlayColor="rgba(255,255,255,0.1)"
+        //             tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
+        //                 <Text>Compare</Text>
+        //             </TouchableHighlight>
+        //         </View>
+        //     );
+        // }
 
         let viewMenu = (
             <View style={styles.viewMenu}>
                 <TouchableHighlight onPress={() => this.openMenu('view')} style={styles.headerLink} 
-                activeOpacity={1} underlayColor="#F2F2F2" 
+                activeOpacity={1} underlayColor="rgba(255,255,255,0.1)"
                 tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
-                    <Text style={styles.headerLinkText}>View: {currentView}</Text>
+                    <View style={styles.inlineContain}>
+                        <View style={styles.headerLinkIcon}><Hamburger width={35} height={35} color="white" /></View>
+                        <Text style={styles.headerLinkText}>{currentView}</Text>
+                    </View>
                 </TouchableHighlight>
                 {showViewMenu}
             </View>
         );
 
         let showLayoutMenu;
-        if (layoutMenuOpen) {
-            showLayoutMenu = (
-                <View style={styles.viewMenuContain}>
-                    <TouchableHighlight onPress={() => this.setCurrentLayout('Tall')} style={styles.bodyLink} 
-                    activeOpacity={1} underlayColor="#F2F2F2" 
-                    tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
-                        <Text>Tall</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight onPress={() => this.setCurrentLayout('Wide')} style={styles.bodyLink} 
-                    activeOpacity={1} underlayColor="#F2F2F2" 
-                    tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
-                        <Text>Wide</Text>
-                    </TouchableHighlight>
-                </View>
-            );
-        }
+        // if (layoutMenuOpen) {
+        //     showLayoutMenu = (
+        //         <View style={styles.viewMenuContain}>
+        //             <TouchableHighlight onPress={() => this.setCurrentLayout('Tall')} style={styles.bodyLink} 
+        //             activeOpacity={1} underlayColor="rgba(255,255,255,0.1)"
+        //             tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
+        //                 <Text>Tall</Text>
+        //             </TouchableHighlight>
+        //             <TouchableHighlight onPress={() => this.setCurrentLayout('Wide')} style={styles.bodyLink} 
+        //             activeOpacity={1} underlayColor="rgba(255,255,255,0.1)"
+        //             tvParallaxProperties={{ enabled: false }} hasTVPreferredFocus={false}>
+        //                 <Text>Wide</Text>
+        //             </TouchableHighlight>
+        //         </View>
+        //     );
+        // }
 
         let layoutMenu = (
             <View style={styles.layoutMenu}>
                 <TouchableHighlight onPress={() => this.openMenu('layout')} style={styles.headerLink} 
-                activeOpacity={1} underlayColor="#F2F2F2" 
+                activeOpacity={1} underlayColor="rgba(255,255,255,0.1)"
                 tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
-                    <Text style={styles.headerLinkText}>Layout: {currentLayout}</Text>
+                    <View style={styles.inlineContain}>
+                        <View style={styles.headerLinkIcon}><Grid width={35} height={35} color="white" /></View>
+                        <Text style={styles.headerLinkText}>{currentLayout}</Text>
+                    </View>
                 </TouchableHighlight>
                 {showLayoutMenu}
             </View>
@@ -351,32 +386,35 @@ export default class Project extends Component {
 
         return (
             <View style={styles.body}>
-
-                <SimpleHeader
-                    title={projName + ' - '+routeParams.projectId}
-                    leftCtrls={(
-                        <TouchableHighlight onPress={this.goBack} style={styles.headerLink} 
-                        activeOpacity={1} underlayColor="#F2F2F2" 
-                        tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
+                <Image style={{ zIndex: 1, position: 'absolute', width: width, height: 170 }} source={{ uri: blurImage }} />
+                
+                <View style={[styles.body, { zIndex: 4 }]}>
+                    <SimpleHeader
+                        title={projName + ' - '+routeParams.projectId}
+                        leftCtrls={(
+                            <TouchableHighlight onPress={this.goBack} style={styles.headerLink} 
+                            activeOpacity={1} underlayColor="rgba(255,255,255,0.1)" 
+                            tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
+                                <View style={styles.inlineContain}>
+                                    <Back1 width={50} height={50} color="white" />
+                                    <Text style={styles.headerLinkText}>Back to Projects</Text>
+                                </View>
+                            </TouchableHighlight>
+                        )}
+                        rightCtrls={(
                             <View style={styles.inlineContain}>
-                                <Image style={styles.headerLinkIcon} width={50} height={50} source={require('../../img/png/Back1.png')} />
-                                <Text style={styles.headerLinkText}>Back to Projects</Text>
+                                {viewMenu}
+                                {layoutMenu}
                             </View>
-                        </TouchableHighlight>
-                    )}
-                    rightCtrls={(
-                        <View style={styles.inlineContain}>
-                            {viewMenu}
-                            {layoutMenu}
-                        </View>
-                    )}
-                />
+                        )}
+                    />
 
-                <ScrollView contentContainerStyle={styles.projectContain} horizontal={scrollHorizontal} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
-                    {gridAssets}
-                    {slideAssets}
-                    {compareAssets}
-                </ScrollView>
+                    <ScrollView contentContainerStyle={styles.projectContain} horizontal={scrollHorizontal} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
+                        {gridAssets}
+                        {slideAssets}
+                        {compareAssets}
+                    </ScrollView>
+                </View>
             </View>
         );
     }

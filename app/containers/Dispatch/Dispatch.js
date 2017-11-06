@@ -2,9 +2,7 @@ import React, { Component }  from 'react';
 import { connect }                      from 'react-redux';
 import { bindActionCreators }           from 'redux';
 import * as userActions                 from '../../redux/modules/user';
-import * as browseActions                 from '../../redux/modules/browse';
-//import * as interfacesActions                 from '../../redux/modules/interfaces';
-
+import * as interfacesActions                 from '../../redux/modules/interfaces';
 import ApiClient                        from '../../api/client';
 
 import {
@@ -17,8 +15,6 @@ import {
     StatusBar
 } from 'react-native';
 
-import Login             from '../Login/Login';
-
 const client                        = new ApiClient();
 const styles                        = require('../../css/style.js');
 const DeviceInfo                    = require('react-native-device-info');
@@ -30,7 +26,7 @@ const JefNode                       = require('json-easy-filter').JefNode;
         userHash: state.user.userHash,
         userData: state.user.userData
     }),
-    ( dispatch ) => bindActionCreators(Object.assign({}, browseActions, userActions), dispatch)
+    ( dispatch ) => bindActionCreators(Object.assign({}, interfacesActions, userActions), dispatch)
 )
 
 export default class Dispatch extends Component {
@@ -44,9 +40,9 @@ export default class Dispatch extends Component {
         this.state = {}
 
         console.info('dispatch constructor');
-        
+
     }
-    
+
     componentDidMount() {
 
         console.info('dispatch componentDidMount');
@@ -57,26 +53,28 @@ export default class Dispatch extends Component {
         AsyncStorage.getItem('userHash', (err, userRes) => {
 
             console.info('get userHash 1', err, userRes, self.props, self.context);
-            
+
             if (!userRes || userRes == null) {
                 self.props.fetchUserFailureAction(userRes);
-                self.props.navigation.navigate('Login')
+                // self.props.navigation.navigate('Login')
             } else {
                 self.props.fetchUserSuccessAction(userRes);
                 // problem is not naving, not the setup, but when you are both naving on a certain setup
-                self.props.navigation.navigate('BrowseRoutes')
+                // self.props.navigation.navigate('BrowseRoutes')
             }
+
+            self.props.navigation.navigate('Home')
 
             setTimeout(() => {
                 self.props.showContentAction();
             }, 700)
-            
+
         });
 
     }
 
     render() {
-        
+
         // let {  } = this.state;
 
         // Dispatch sends you where you belong
@@ -84,7 +82,7 @@ export default class Dispatch extends Component {
 
         return (
             <View style={styles.body}>
-                <StatusBar barStyle="light-content" />
+
             </View>
         )
 

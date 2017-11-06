@@ -1,7 +1,4 @@
 import React, { Component, PropTypes }  from 'react';
-// import config                           from '../../config';
-// import { bindActionCreators }           from 'redux';
-// import { connect }                      from 'react-redux';
 
 import ApiClient            from '../../api/client';
 const client                = new ApiClient();
@@ -52,7 +49,7 @@ export default class GeneralInfo extends Component {
 
         return (
             <View style={styles.generalBody}>
-                
+
             </View>
         );
     }

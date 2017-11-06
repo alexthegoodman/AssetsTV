@@ -2,7 +2,7 @@ import React, { Component, PropTypes }  from 'react';
 import { connect }                      from 'react-redux';
 import { bindActionCreators }           from 'redux';
 import * as userActions                 from '../../redux/modules/user';
-import { routerActions }                from 'react-router-redux';
+import * as browseActions                 from '../../redux/modules/browse';
 import ApiClient                        from '../../api/client';
 
 import {
@@ -32,7 +32,7 @@ const deepcopy                      = require("deepcopy");
         userHash: state.user.userHash,
         userData: state.user.userData
     }),
-    ( dispatch ) => bindActionCreators(Object.assign({}, userActions, routerActions), dispatch)
+    ( dispatch ) => bindActionCreators(Object.assign({}, userActions, browseActions), dispatch)
 )
 
 export default class Home extends Component {
@@ -80,7 +80,7 @@ export default class Home extends Component {
 
                     if (typeof data['LoginAttempt'] != 'undefined' &&
                         data['LoginAttempt'] == 'success') {
-                        
+
                         self.setState({
                             loggingIn: false
                         });
@@ -101,7 +101,7 @@ export default class Home extends Component {
                         alert(data['Alert']);
 
                     }
-                    
+
                 }
             ).catch((err) => {
                 console.error(err);

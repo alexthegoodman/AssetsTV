@@ -1,8 +1,4 @@
 import React, { Component, PropTypes }  from 'react';
-import { connect }                      from 'react-redux';
-import { bindActionCreators }           from 'redux';
-import * as browseActions               from '../../redux/modules/browse';
-import { routerActions }                from 'react-router-redux';
 import ApiClient                        from '../../api/client';
 
 import {
@@ -81,8 +77,8 @@ export default class CompareAssets extends Component {
             compareContent = phaseData.map( image => {
                 if (typeof selectedAssets[image['image_id']] != 'undefined' && selectedAssets[image['image_id']]) {
                     return (
-                        <View style={tileStyle} key={'compareAsset' + image['image_id']} 
-                            activeOpacity={1} underlayColor="#F2F2F2" 
+                        <View style={tileStyle} key={'compareAsset' + image['image_id']}
+                            activeOpacity={1} underlayColor="#F2F2F2"
                             tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}
                             >
                             <View style={styles.tileContain}>
@@ -98,7 +94,7 @@ export default class CompareAssets extends Component {
         } else {
             compareContent = <View style={styles.centerContent}><Text style={styles.emptySelectionNote}>Select some assets to compare side by side. Change the view and layout above.</Text></View>
         }
-        
+
         return (
             <View style={[styles.compareAssetsBody, { height: slideHeight } ]}>
                 <View style={[styles.compareAssetsContain, layoutStyle]}>

@@ -14,7 +14,7 @@ import Routes                                from './routes';
 import App  			from './containers/App/App';
 import browse             from './redux/modules/browse';
 import user               from './redux/modules/user';
-//import interfaces 		from './redux/modules/interfaces';
+import interfaces 		from './redux/modules/interfaces';
 
 import {
     Text,
@@ -38,17 +38,17 @@ const appReducer = combineReducers({
 	nav: navReducer,
 	browse,
 	user,
-	//interfaces
+	interfaces
 });
 
 class NavStore extends React.Component {
 	render() {
 		return (
-			<Routes 
+			<Routes
 				navigation={addNavigationHelpers({
 					dispatch: this.props.dispatch,
 					state: this.props.nav,
-				})} 
+				})}
 			/>
 		);
 	}
@@ -87,4 +87,3 @@ export default class Store extends React.Component {
 		);
 	}
 }
-

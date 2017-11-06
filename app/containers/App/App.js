@@ -2,7 +2,7 @@ import React, { Component, PropTypes }  from 'react';
 import { connect }                      from 'react-redux';
 import { bindActionCreators }           from 'redux';
 import * as userActions                 from '../../redux/modules/user';
-import { routerActions }                from 'react-router-redux';
+import * as browseActions                 from '../../redux/modules/browse';
 import ApiClient                        from '../../api/client';
 
 import {
@@ -24,9 +24,10 @@ const JefNode                       = require('json-easy-filter').JefNode;
 @connect(
     ( state ) => ({
         userHash: state.user.userHash,
-        userData: state.user.userData
+        userData: state.user.userData,
+        showContent: state.interfaces.showContent
     }),
-    ( dispatch ) => bindActionCreators(Object.assign({}, userActions, routerActions), dispatch)
+    ( dispatch ) => bindActionCreators(Object.assign({}, userActions, browseActions), dispatch)
 )
 
 export default class App extends Component {
@@ -40,9 +41,9 @@ export default class App extends Component {
         this.state = {}
 
         console.info('app constructor');
-        
+
     }
-    
+
     componentDidMount() {
 
         console.info('app componentDidMount');
@@ -52,14 +53,21 @@ export default class App extends Component {
     }
 
     render() {
-        
-        // let {  } = this.state;
 
-        return (
-            <View style={styles.body}>
-                
-            </View>
-        )
+      let { showContent } = this.props;
+
+      //App covers the React Navigation transition (currently uncontrollable on per-route level)
+
+      let bodyStyle;
+      // if (!showContent) {
+      //     bodyStyle = styles.hiddenBody;
+      // }
+
+      return (
+          <View style={[styles.appBody, bodyStyle]}>
+              {this.props.children}
+          </View>
+      )
 
     }
 

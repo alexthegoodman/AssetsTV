@@ -2,7 +2,7 @@ import React, { Component, PropTypes }  from 'react';
 import { connect }                      from 'react-redux';
 import { bindActionCreators }           from 'redux';
 import * as browseActions               from '../../redux/modules/browse';
-import { routerActions }                from 'react-router-redux';
+import * as userActions                 from '../../redux/modules/user';
 import ApiClient                        from '../../api/client';
 
 import {
@@ -40,7 +40,7 @@ import Back1       from '../../svgComponents/svg/Back1';
         userProjects: state.browse.userProjects,
         gotProjects: state.browse.gotProjects
     }),
-    ( dispatch ) => bindActionCreators(Object.assign({}, browseActions, routerActions), dispatch)
+    ( dispatch ) => bindActionCreators(Object.assign({}, browseActions, userActions), dispatch)
 )
 
 export default class Browse extends Component {
@@ -85,12 +85,12 @@ export default class Browse extends Component {
                         (data) => {
 
                             console.log('/browse/users', data);
-                            
+
                             if (typeof data['ProjectUsers'] != 'undefined' &&
                                 data['ProjectUsers'] != false) {
-                                
+
                                 this.props.fetchProjectUsersSuccessAction(data['ProjectUsers']);
-                                
+
                                 // let thisUser = new JefNode(data['ProjectUsers']).filter(function(node) {
                                 //     if (node.key == 'userHash' && node.value == userHash) {
                                 //         return node.parent.value;
@@ -98,11 +98,11 @@ export default class Browse extends Component {
                                 // });
 
                                 // this.props.setUserId(thisUser[0]['id']);
-                            
+
                             } else {
                                 this.props.fetchProjectUsersFailureAction();
                             }
-                            
+
                         }, (err) => {
                             console.log(err);
                             this.props.fetchProjectUsersFailureAction();
@@ -113,13 +113,13 @@ export default class Browse extends Component {
                     console.info('empty response');
                 }
             }, (err) => {
-                console.log(err);   
+                console.log(err);
             }
         );
 
     }
 
-    viewProject(projId) {        
+    viewProject(projId) {
         this.props.push('/project/' + projId);
     }
 
@@ -137,8 +137,8 @@ export default class Browse extends Component {
 
         let listProjects, rowCount = 3, tileMargin = 70, blurImage;
         let totalMargin = (rowCount + 1) * tileMargin, tileWidth = (width - totalMargin) / rowCount;
-        if (Object.keys(userProjects).length > 0 && gotProjects) { 
-            
+        if (Object.keys(userProjects).length > 0 && gotProjects) {
+
             let newProjects = deepcopy(userProjects);
             newProjects = Object.keys(newProjects).map(x => newProjects[x]);
             newProjects.reverse();
@@ -147,7 +147,7 @@ export default class Browse extends Component {
             listProjects = newProjects.map( project => {
                 if (project['finished'] == '1') {
 
-                    projCount++; 
+                    projCount++;
                     project['phaseImagesData'] = Object.keys(project['phaseImagesData']).map(x => project['phaseImagesData'][x]);
 
                     let projId = project['project_id'];
@@ -164,18 +164,18 @@ export default class Browse extends Component {
 
                     return (
                         <View style={[styles.tileBox,  { width: tileWidth, marginLeft: tileMargin } ]} key={'project' + projId}>
-                            <TouchableOpacity onPress={() => this.viewProject(projId)} data-project-id={projId} style={[styles.gridTile]} 
-                            activeOpacity={1} underlayColor="#F2F2F2" 
+                            <TouchableOpacity onPress={() => this.viewProject(projId)} data-project-id={projId} style={[styles.gridTile]}
+                            activeOpacity={1} underlayColor="#F2F2F2"
                             tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
                                 <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.3} shadowRadius={10}>
-                                    <Image 
-                                        style={styles.tileBackground} 
-                                        resizeMode="cover" 
-                                        source={{ uri: project['phaseImagesData'][0]['image_url'] }} 
+                                    <Image
+                                        style={styles.tileBackground}
+                                        resizeMode="cover"
+                                        source={{ uri: project['phaseImagesData'][0]['image_url'] }}
                                     >
                                         <Text style={styles.tileTitle}>{project['project_name']}</Text>
                                     </Image>
-                                    
+
                                 </View>
                             </TouchableOpacity>
                             {/*<Text style={styles.tileName}>{project['project_name']}</Text>*/}
@@ -190,12 +190,12 @@ export default class Browse extends Component {
         return (
             <View style={styles.body}>
                 <Image style={{ zIndex: 1, position: 'absolute', width: width, height: 170 }} source={{ uri: blurImage }} />
-                
+
                 <View style={[styles.body, { zIndex: 4 }]}>
                     <SimpleHeader
                         title={'Browse Projects'}
                         leftCtrls={(
-                            <TouchableHighlight onPress={this.logOut} style={styles.headerLink} 
+                            <TouchableHighlight onPress={this.logOut} style={styles.headerLink}
                             activeOpacity={1} underlayColor="rgba(255,255,255,0.1)" tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
                                 <View style={styles.inlineContain}>
                                     <Back1 width={50} height={50} color="white" />
@@ -213,7 +213,7 @@ export default class Browse extends Component {
                         </ScrollView>
                     </Image>
                 </View>
-                
+
             </View>
         );
     }

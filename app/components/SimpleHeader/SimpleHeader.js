@@ -1,8 +1,4 @@
 import React, { Component, PropTypes }  from 'react';
-import { connect }                      from 'react-redux';
-import { bindActionCreators }           from 'redux';
-import * as browseActions               from '../../redux/modules/browse';
-import { routerActions }                from 'react-router-redux';
 import ApiClient                        from '../../api/client';
 
 import {
@@ -42,16 +38,16 @@ export default class SimpleHeader extends Component {
         let self = this;
 
         console.info('SimpleHeader componentDidMount');
-        
+
     }
 
     render() {
 
         let { title, leftCtrls, rightCtrls } = this.props;
-        
+
         return (
             <View style={styles.bodyHeader}>
-                
+
                 <BlurView blurType="dark" blurAmount={30} style={[styles.bodyHeaderBlur, { width: width }]} />
 
                 <View style={styles.bodyHeaderContain}>
@@ -63,7 +59,7 @@ export default class SimpleHeader extends Component {
                         {rightCtrls}
                     </View>
                 </View>
-                
+
             </View>
         );
     }

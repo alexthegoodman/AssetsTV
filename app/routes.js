@@ -8,10 +8,11 @@ import {
     Easing
 } from 'react-native';
 
-import App          from './App/App';
-import Home         from './Home/Home';
-import Browse       from './Browse/Browse';
-import Project      from './Project/Project';
+import App          from './containers/App/App';
+import Dispatch     from './containers/Dispatch/Dispatch';
+import Home         from './containers/Home/Home';
+import Browse       from './containers/Browse/Browse';
+import Project      from './containers/Project/Project';
 
 const BrowseRoutes = StackNavigator({
     Browse: {
@@ -96,8 +97,9 @@ const MainTabs = TabNavigator({
 
 const Routes = StackNavigator({
     Dispatch: { screen: Dispatch },
-    Login: { screen: Login },
-    Index: { screen: MainTabs }
+    //Login: { screen: Login },
+    Index: { screen: MainTabs },
+    Home: { screen: Home }
 }, {
     headerMode: 'none',
     navigationOptions: { gesturesEnabled: false },
@@ -116,8 +118,8 @@ export default Routes;
 //         console.info('validate routing');
 
 //         cb();
-    
-//     }; 
+
+//     };
 
 //     return (
 //         <StackRoute onEnter={validate} path="/" component={App}>

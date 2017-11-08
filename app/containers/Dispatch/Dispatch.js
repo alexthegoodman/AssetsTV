@@ -56,14 +56,14 @@ export default class Dispatch extends Component {
 
             if (!userRes || userRes == null) {
                 self.props.fetchUserFailureAction(userRes);
-                // self.props.navigation.navigate('Login')
+                self.props.navigation.navigate('Login')
             } else {
                 self.props.fetchUserSuccessAction(userRes);
                 // problem is not naving, not the setup, but when you are both naving on a certain setup
-                // self.props.navigation.navigate('BrowseRoutes')
+                self.props.navigation.navigate('Index')
             }
 
-            self.props.navigation.navigate('Home')
+            //self.props.navigation.navigate('Login')
 
             setTimeout(() => {
                 self.props.showContentAction();

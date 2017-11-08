@@ -30,6 +30,7 @@ const JefNode                       = require('json-easy-filter').JefNode;
 const deepcopy                      = require("deepcopy");
 
 import SimpleHeader             from '../../components/SimpleHeader/SimpleHeader';
+import TabHeader             from '../../components/TabHeader/TabHeader';
 
 import Back1       from '../../svgComponents/svg/Back1';
 
@@ -51,6 +52,7 @@ export default class Browse extends Component {
 
         this.viewProject = this.viewProject.bind(this);
         this.logOut = this.logOut.bind(this);
+        this.renderTileInternal = this.renderTileInternal.bind(this);
 
         this.state = {}
 
@@ -120,13 +122,56 @@ export default class Browse extends Component {
     }
 
     viewProject(projId) {
-        this.props.push('/project/' + projId);
+        this.props.navigation.navigate('Project', { projectId: projId });
     }
 
     logOut() {
         AsyncStorage.removeItem('userHash', (err, res) => {
-            this.props.push('/home/');
+            this.props.navigation.navigate('Login');
         });
+    }
+
+    renderTileInternal(projCount, project) {
+
+      let rowCount = 3, tileMargin = 70, blurImage, addedClasses;
+      //et totalMargin = (rowCount + 1) * tileMargin, tileWidth = (width - totalMargin) / rowCount;
+      if (projCount == 0) {
+        tileWidth = (width / 3) * 2;
+        addedClasses = styles.featuredTile;
+      } else {
+        tileWidth = width / 3;
+      }
+
+      let projId = project['project_id'];
+      let description = project['project_descrip'];
+      if (description.length > 30) {
+          description = description.substr(0, 30) + '...';
+      }
+
+      let focus = false;
+      if (projCount == 1) {
+          focus = true;
+          blurImage = project['phaseImagesData'][0]['image_url'];
+      }
+
+      return (
+          <View style={[styles.tileBox, addedClasses, { width: tileWidth, marginLeft: tileMargin } ]} key={'project' + projId}>
+              <TouchableOpacity onPress={() => this.viewProject(projId)} data-project-id={projId} style={[styles.gridTile, addedClasses]}
+              activeOpacity={1} underlayColor="#F2F2F2"
+              tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
+                  <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.3} shadowRadius={10}>
+                      <Image
+                          style={styles.tileBackground}
+                          resizeMode="cover"
+                          source={{ uri: project['phaseImagesData'][0]['image_url'] }}
+                      >
+                          <Text style={styles.tileTitle}>{project['project_name']}</Text>
+                      </Image>
+                  </View>
+              </TouchableOpacity>
+              {/*<Text style={styles.tileName}>{project['project_name']}</Text>*/}
+          </View>
+      )
     }
 
     render() {
@@ -135,83 +180,92 @@ export default class Browse extends Component {
 
         console.info('Home', gotProjects, userProjects, Object.keys(userProjects).length);
 
-        let listProjects, rowCount = 3, tileMargin = 70, blurImage;
-        let totalMargin = (rowCount + 1) * tileMargin, tileWidth = (width - totalMargin) / rowCount;
-        if (Object.keys(userProjects).length > 0 && gotProjects) {
+        let listProjects;
+
+        if (gotProjects) {
+          if (Object.keys(userProjects).length > 0) {
 
             let newProjects = deepcopy(userProjects);
             newProjects = Object.keys(newProjects).map(x => newProjects[x]);
             newProjects.reverse();
-            projCount = 0;
+            let projCount = -1, arrCount = -1, projArr = [], pairNum = 0;
 
-            listProjects = newProjects.map( project => {
+            newProjects.map( project => {
                 if (project['finished'] == '1') {
 
                     projCount++;
                     project['phaseImagesData'] = Object.keys(project['phaseImagesData']).map(x => project['phaseImagesData'][x]);
 
-                    let projId = project['project_id'];
-                    let description = project['project_descrip'];
-                    if (description.length > 30) {
-                        description = description.substr(0, 30) + '...';
+                    if (projCount == 0) {
+                      pairNum = 0;
+                      arrCount++;
+                    } else {
+                      if (projCount % 2) {
+
+                        pairNum = 1;
+                        arrCount++;
+                      } else {
+                        pairNum = 0;
+                      }
                     }
 
-                    let focus = false;
-                    if (projCount == 1) {
-                        focus = true;
-                        blurImage = project['phaseImagesData'][0]['image_url'];
+                    console.info(projCount, arrCount);
+
+                    if (typeof projArr[arrCount] == 'undefined') {
+                      projArr[arrCount] = [];
                     }
 
-                    return (
-                        <View style={[styles.tileBox,  { width: tileWidth, marginLeft: tileMargin } ]} key={'project' + projId}>
-                            <TouchableOpacity onPress={() => this.viewProject(projId)} data-project-id={projId} style={[styles.gridTile]}
-                            activeOpacity={1} underlayColor="#F2F2F2"
-                            tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
-                                <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.3} shadowRadius={10}>
-                                    <Image
-                                        style={styles.tileBackground}
-                                        resizeMode="cover"
-                                        source={{ uri: project['phaseImagesData'][0]['image_url'] }}
-                                    >
-                                        <Text style={styles.tileTitle}>{project['project_name']}</Text>
-                                    </Image>
+                    projArr[arrCount][pairNum] = this.renderTileInternal(projCount, project);
 
-                                </View>
-                            </TouchableOpacity>
-                            {/*<Text style={styles.tileName}>{project['project_name']}</Text>*/}
-                        </View>
-                    )
+                    return;
 
                 }
             });
 
+            let columnCount = 0;
+            listProjects = projArr.map( columnData => {
+
+                console.info(columnData)
+                columnCount++;
+
+                let classes;
+                if (columnCount == 1) {
+                  classes = [styles.featuredColumn, { width: (width / 3) * 2 }];
+                } else {
+                  classes = styles.projectColumn;
+                }
+
+                let item1, item2;
+                if (typeof columnData[0] != 'undefined') {
+                  item1 = columnData[0];
+                }
+                if (typeof columnData[1] != 'undefined') {
+                  item2 = columnData[1];
+                }
+
+                return (
+                  <View key={'column' + columnCount} style={classes}>
+                    {item1}
+                    {item2}
+                  </View>
+                );
+
+            });
+
+          } else {
+            listProjects = <View style={styles.noticeContain}><Text style={styles.noticeText}>You haven't joined or created any projects yet!</Text></View>
+          }
         }
 
         return (
             <View style={styles.body}>
-                <Image style={{ zIndex: 1, position: 'absolute', width: width, height: 170 }} source={{ uri: blurImage }} />
+                {/*<Image style={{ zIndex: 1, position: 'absolute', width: width, height: 170 }} source={{ uri: blurImage }} />*/}
 
                 <View style={[styles.body, { zIndex: 4 }]}>
-                    <SimpleHeader
-                        title={'Browse Projects'}
-                        leftCtrls={(
-                            <TouchableHighlight onPress={this.logOut} style={styles.headerLink}
-                            activeOpacity={1} underlayColor="rgba(255,255,255,0.1)" tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
-                                <View style={styles.inlineContain}>
-                                    <Back1 width={50} height={50} color="white" />
-                                    <Text style={styles.headerLinkText}>Log Out</Text>
-                                </View>
-                            </TouchableHighlight>
-                        )}
-                        rightCtrls={(<View></View>)}
-                    />
-                    <Image style={[styles.bodyBack, { height: height, width: width }]} resizeMode="cover" source={require('../../img/backs/browseBack.jpg')}>
-                        <ScrollView style={{ height: height, width: width }} contentContainerStyle={styles.gridContain} horizontal={false} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
-                            {listProjects}
-                            {listProjects}
-                            {listProjects}
-                        </ScrollView>
-                    </Image>
+                    <TabHeader />
+                    <ScrollView style={{ height: height, width: width }} contentContainerStyle={[styles.gridContain, { paddingRight: 70 }]} horizontal={true} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
+                        {listProjects}
+                    </ScrollView>
                 </View>
 
             </View>

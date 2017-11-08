@@ -10,31 +10,32 @@ import {
 
 import App          from './containers/App/App';
 import Dispatch     from './containers/Dispatch/Dispatch';
-import Home         from './containers/Home/Home';
+import Login        from './containers/Login/Login';
 import Browse       from './containers/Browse/Browse';
 import Project      from './containers/Project/Project';
+import Settings     from './containers/Settings/Settings';
 
-const BrowseRoutes = StackNavigator({
-    Browse: {
-        screen: Browse
-    },
-    Project: {
-        screen: Project,
-        //path: 'project/:projectId'
-    },
-    // PhasePicker: {
-    //     screen: PhasePicker
-    // },
-    // Asset: {
-    //     screen: Asset,
-    //     //path: 'asset/:assetId'
-    // }
-}, {
-    headerMode: 'none',
-    navigationOptions: { gesturesEnabled: true },
-    initialRouteName: 'Browse'
-});
-
+// const BrowseRoutes = StackNavigator({
+//     Browse: {
+//         screen: Browse
+//     },
+//     Project: {
+//         screen: Project,
+//         //path: 'project/:projectId'
+//     },
+//     // PhasePicker: {
+//     //     screen: PhasePicker
+//     // },
+//     // Asset: {
+//     //     screen: Asset,
+//     //     //path: 'asset/:assetId'
+//     // }
+// }, {
+//     headerMode: 'none',
+//     navigationOptions: { gesturesEnabled: true },
+//     initialRouteName: 'Browse'
+// });
+//
 // const SettingsRoutes = StackNavigator({
 //     Settings: {
 //         screen: Settings
@@ -45,61 +46,27 @@ const BrowseRoutes = StackNavigator({
 //     initialRouteName: 'Settings'
 // });
 
-const MainTabs = TabNavigator({
-    BrowseRoutes: {
-        screen: BrowseRoutes,
-        navigationOptions: {
-            tabBarLabel: 'Browse',
-            // tabBarIcon: ({ tintColor, focused }) => (
-            //     <SimpleLineIcons
-            //         name={'grid'}
-            //         size={22}
-            //         style={{ color: tintColor }}
-            //     />
-            // ),
-        },
+const MainTabs = StackNavigator({
+    Browse: {
+        screen: Browse
     },
-    // Settings: {
-    //     screen: SettingsRoutes,
-    //     navigationOptions: {
-    //         tabBarLabel: 'Settings',
-    //         tabBarIcon: ({ tintColor, focused }) => (
-    //             <SimpleLineIcons
-    //                 name={'menu'}
-    //                 size={22}
-    //                 style={{ color: tintColor }}
-    //             />
-    //         ),
-    //     },
-    // }
+    Project: {
+        screen: Project,
+        //path: 'project/:projectId'
+    },
+    Settings: {
+        screen: Settings
+    }
 }, {
     headerMode: 'none',
     navigationOptions: { gesturesEnabled: true },
-    initialRouteName: 'BrowseRoutes',
-    swipeEnabled: true,
-    animationEnabled: true,
-
-    tabBarOptions: {
-        activeTintColor: '#F26A7E',
-        labelStyle: {
-            fontSize: 12,
-            fontFamily: 'Skolar Sans Latin'
-        },
-        style: {
-            height: 70,
-            backgroundColor: '#E5E5E5',
-            paddingTop: 14,
-            paddingBottom: 10
-        }
-    }
-
+    initialRouteName: 'Browse',
 });
 
 const Routes = StackNavigator({
     Dispatch: { screen: Dispatch },
-    //Login: { screen: Login },
-    Index: { screen: MainTabs },
-    Home: { screen: Home }
+    Login: { screen: Login },
+    Index: { screen: MainTabs }
 }, {
     headerMode: 'none',
     navigationOptions: { gesturesEnabled: false },

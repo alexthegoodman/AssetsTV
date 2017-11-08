@@ -29,8 +29,16 @@ module.exports = StyleSheet.create({
     "body": {
         "flex": 1
     },
+    "appBody": {
+        "flex": 1,
+        "backgroundColor": "white"
+    },
     "bodyBack": {
         "flex": 1
+    },
+    "inlineContain": {
+        "flexDirection": "row",
+        "flexWrap": "wrap"
     },
     "bodyHeader": {
         "height": 170,
@@ -51,7 +59,7 @@ module.exports = StyleSheet.create({
         "zIndex": 10
     },
     "bodyHeaderText": {
-        "fontFamily": "American Typewriter",
+        "fontFamily": "Azo Sans",
         "fontWeight": "400",
         "textAlign": "center",
         "alignSelf": "center",
@@ -91,17 +99,21 @@ module.exports = StyleSheet.create({
         "textAlign": "center",
         "fontSize": 24,
         "lineHeight": 28,
-        "fontFamily": "American Typewriter"
+        "fontFamily": "Azo Sans"
     },
     "headerLinkIcon": {
         "marginRight": 7,
         "top": 4
     },
-    "inlineContain": {
-        "flexDirection": "row",
-        "flexWrap": "wrap"
-    },
     "btn": {
+        "justifyContent": "center",
+        "borderRadius": 5,
+        "paddingTop": 7,
+        "paddingBottom": 7,
+        "paddingRight": 15,
+        "paddingLeft": 15
+    },
+    "loginBtn": {
         "justifyContent": "center",
         "borderRadius": 5,
         "paddingTop": 7,
@@ -116,7 +128,16 @@ module.exports = StyleSheet.create({
         "textAlign": "center",
         "fontSize": 24,
         "lineHeight": 28,
-        "fontFamily": "American Typewriter"
+        "fontFamily": "Azo Sans"
+    },
+    "loginBtnText": {
+        "alignSelf": "center",
+        "height": 45,
+        "paddingTop": 8,
+        "textAlign": "center",
+        "fontSize": 24,
+        "lineHeight": 28,
+        "fontFamily": "Azo Sans"
     },
     "centerLink": {
         "alignSelf": "center",
@@ -208,20 +229,42 @@ module.exports = StyleSheet.create({
         "paddingRight": 10,
         "paddingLeft": 10
     },
+    "homeBody": {
+        "flex": 1,
+        "flexDirection": "row"
+    },
+    "bodyLeft": {
+        "flex": 1
+    },
+    "loginForm": {
+        "flex": 1,
+        "flexDirection": "column"
+    },
     "gridContain": {
         "flexDirection": "row",
         "flexWrap": "wrap",
         "paddingTop": 70
     },
     "tileBox": {
-        "height": 325,
+        "height": 350,
         "marginBottom": 75
     },
+    "featuredColumn": {
+        "height": 775,
+        "zIndex": 10,
+        "marginRight": 70
+    },
+    "projectColumn": {
+        "height": 775
+    },
     "gridTile": {
-        "height": 300,
+        "height": 350,
         "backgroundColor": "#747474",
         "justifyContent": "center",
         "borderRadius": 5
+    },
+    "featuredTile": {
+        "height": 775
     },
     "tileBackground": {
         "position": "absolute",
@@ -240,7 +283,7 @@ module.exports = StyleSheet.create({
         "borderRadius": 5
     },
     "tileName": {
-        "fontFamily": "American Typewriter",
+        "fontFamily": "Skolar Sans Latin",
         "fontWeight": "400",
         "textAlign": "left",
         "fontSize": 32,
@@ -251,7 +294,7 @@ module.exports = StyleSheet.create({
         "zIndex": 30
     },
     "tileTitle": {
-        "fontFamily": "American Typewriter",
+        "fontFamily": "Skolar Sans Latin",
         "fontWeight": "400",
         "fontSize": 32,
         "color": "white",
@@ -260,6 +303,22 @@ module.exports = StyleSheet.create({
         "position": "absolute",
         "bottom": 25,
         "left": 25
+    },
+    "noticeContain": {
+        "flex": 1,
+        "paddingTop": 75,
+        "paddingBottom": 75,
+        "paddingRight": 60,
+        "paddingLeft": 60
+    },
+    "noticeText": {
+        "fontFamily": "Azo Sans",
+        "fontWeight": "400",
+        "fontSize": 38,
+        "color": "#747474",
+        "textAlign": "center",
+        "lineHeight": 58,
+        "flex": 1
     },
     "projectContain": {
         "flexDirection": "row",
@@ -336,13 +395,13 @@ module.exports = StyleSheet.create({
         "paddingLeft": 25
     },
     "slideTileName": {
-        "fontFamily": "American Typewriter",
+        "fontFamily": "Azo Sans",
         "textAlign": "left",
         "color": "#747474",
         "fontSize": 36
     },
     "slideTileDescription": {
-        "fontFamily": "American Typewriter",
+        "fontFamily": "Azo Sans",
         "textAlign": "left",
         "color": "#747474",
         "fontSize": 24,
@@ -385,7 +444,7 @@ module.exports = StyleSheet.create({
         "justifyContent": "center"
     },
     "emptySelectionNote": {
-        "fontFamily": "American Typewriter",
+        "fontFamily": "Skolar Sans Latin",
         "textAlign": "center",
         "alignSelf": "center",
         "color": "#747474",
@@ -396,7 +455,7 @@ module.exports = StyleSheet.create({
         "marginTop": 100
     },
     "rankHeadline": {
-        "fontFamily": "American Typewriter",
+        "fontFamily": "Skolar Sans Latin",
         "fontSize": 36,
         "color": "#747474",
         "marginBottom": 10
@@ -407,28 +466,28 @@ module.exports = StyleSheet.create({
         "marginBottom": 10
     },
     "averageRankValue": {
-        "fontFamily": "American Typewriter",
+        "fontFamily": "Skolar Sans Latin",
         "fontWeight": "600",
         "fontSize": 28,
         "color": "#F26A7E",
         "width": 25
     },
     "rankValue": {
-        "fontFamily": "American Typewriter",
+        "fontFamily": "Skolar Sans Latin",
         "fontWeight": "600",
         "fontSize": 28,
         "color": "#F26A7E",
         "width": 25
     },
     "averageRankLabel": {
-        "fontFamily": "American Typewriter",
+        "fontFamily": "Skolar Sans Latin",
         "fontSize": 24,
         "fontWeight": "300",
         "color": "#747474",
         "top": 5
     },
     "rankName": {
-        "fontFamily": "American Typewriter",
+        "fontFamily": "Skolar Sans Latin",
         "fontSize": 24,
         "fontWeight": "300",
         "color": "#747474",

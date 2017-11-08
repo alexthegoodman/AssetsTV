@@ -76,7 +76,7 @@ export default class Project extends Component {
         let self = this;
 
         let thisProject = new JefNode(self.props.userProjects).filter(function(node) {
-            if (node.key == 'project_id' && node.value == self.props.routeParams.projectId) {
+            if (node.key == 'project_id' && node.value == self.props.navigation.state.params.projectId) {
                 return node.parent.value;
             }
         });
@@ -92,8 +92,8 @@ export default class Project extends Component {
 
         console.info('Project componentDidMount', projectId);
 
-        if (this.props.routeParams.phaseId) {
-            phaseId = this.props.routeParams.phaseId;
+        if (this.props.navigation.state.params.phaseId) {
+            phaseId = this.props.navigation.state.params.phaseId;
         }
 
         this.props.fetchPhaseSuccessAction(projectId, phaseId, thisProject['phaseImagesList'], thisProject['phaseList'], thisProject['phaseImagesData']);
@@ -101,7 +101,7 @@ export default class Project extends Component {
     }
 
     goBack() {
-        this.props.push('/browse/');
+        this.props.navigation.goBack();
     }
 
     toggleAsset(assetId) {
@@ -246,10 +246,10 @@ export default class Project extends Component {
 
     render() {
 
-        let { userProjects, gotProjects, routeParams, currentPhase, currentPhaseData, gotPhase } = this.props;
+        let { userProjects, gotProjects, currentPhase, currentPhaseData, gotPhase, navigation } = this.props;
         let { currentView, viewMenuOpen, layoutMenuOpen, currentLayout, selectedAssets } = this.state;
 
-        console.info('Project', gotProjects, userProjects, routeParams.projectId, this.props);
+        console.info('Project', gotProjects, userProjects, navigation.state.params, this.props);
 
         let gridAssets, slideAssets, compareAssets, thisProject = this.state.thisProject, projName, blurImage;
         if (thisProject && gotPhase) {
@@ -390,7 +390,7 @@ export default class Project extends Component {
 
                 <View style={[styles.body, { zIndex: 4 }]}>
                     <SimpleHeader
-                        title={projName + ' - '+routeParams.projectId}
+                        title={projName + ' - '+navigation.state.params.projectId}
                         leftCtrls={(
                             <TouchableHighlight onPress={this.goBack} style={styles.headerLink}
                             activeOpacity={1} underlayColor="rgba(255,255,255,0.1)"

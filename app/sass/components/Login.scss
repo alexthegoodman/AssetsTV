@@ -1,0 +1,21 @@
+.homeBody {
+  flex: 1;
+  flex-direction: row;
+}
+
+.bodyLeft {
+  flex: 1;
+}
+
+.loginForm {
+  flex: 1;
+  flex-direction: column;
+}
+
+.loginBtn {
+  @extend .btn;
+}
+
+.loginBtnText {
+  @extend .btnText;
+}

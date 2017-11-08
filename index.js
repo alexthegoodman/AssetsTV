@@ -9,7 +9,7 @@ import {
 import Store         from './app/store';
 
 global.hoverProps = { enabled: true, shiftDistanceX: 3.0, shiftDistanceY: 3.0, tiltAngle: 0.05, magnification: 1.15 };
-global.smallHoverProps = { enabled: true, shiftDistanceX: 2.0, shiftDistanceY: 2.0, tiltAngle: 0.04, magnification: 1.1 };
+global.smallHoverProps = { enabled: true, shiftDistanceX: 2.0, shiftDistanceY: 2.0, tiltAngle: 0.02, magnification: 1.05 };
 global.fullscreenHoverProps = { enabled: true, shiftDistanceX: 1.0, shiftDistanceY: 1.0, tiltAngle: 0.01, magnification: 1.01 };
 
 // hide react native warnings

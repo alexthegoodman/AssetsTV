@@ -48,7 +48,7 @@ export default class SimpleHeader extends Component {
         return (
             <View style={styles.bodyHeader}>
 
-                <BlurView blurType="dark" blurAmount={30} style={[styles.bodyHeaderBlur, { width: width }]} />
+              <BlurView blurType="dark" blurAmount={30} style={[styles.bodyHeaderBlur, { width: width }]} />
 
                 <View style={styles.bodyHeaderContain}>
                     <View style={styles.leftCtrls}>

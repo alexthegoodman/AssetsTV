@@ -14,8 +14,6 @@ import {
     Linking
 } from 'react-native';
 
-import Home             from '../Home/Home';
-
 const client                        = new ApiClient();
 const styles                        = require('../../css/style.js');
 const DeviceInfo                    = require('react-native-device-info');
@@ -59,9 +57,9 @@ export default class App extends Component {
       //App covers the React Navigation transition (currently uncontrollable on per-route level)
 
       let bodyStyle;
-      // if (!showContent) {
-      //     bodyStyle = styles.hiddenBody;
-      // }
+      if (!showContent) {
+          bodyStyle = styles.hiddenBody;
+      }
 
       return (
           <View style={[styles.appBody, bodyStyle]}>

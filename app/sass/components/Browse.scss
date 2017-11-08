@@ -5,16 +5,30 @@
 }
 
 .tileBox {
-	height: 325;
+	height: 350;
 	/*margin-bottom: 100;*/
 	margin-bottom: 75;
 }
 
+.featuredColumn {
+	height: 775px;
+	z-index: 10;
+	margin-right: 70;
+}
+
+.projectColumn {
+	height: 775px;
+}
+
 .gridTile {
-	height: 300;
+	height: 350;
 	background-color: $darkGrey;
 	justify-content: center;
 	border-radius: 5px;
+}
+
+.featuredTile {
+	height: 775px;
 }
 
 .tileBackground, .tileContain {
@@ -57,6 +71,21 @@
 	position: absolute;
 	bottom: 25;
 	left: 25;
+}
+
+.noticeContain {
+	flex: 1;
+	padding: 75 60;
+}
+
+.noticeText {
+	font-family: $hFont;
+	font-weight: 400;
+	font-size: 38;
+	color: $darkGrey;
+	text-align: center;
+	line-height: 58;
+	flex: 1;
 }
 
 /*

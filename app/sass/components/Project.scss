@@ -1,93 +1,65 @@
-.projectContain {
-	flex-direction: row;
-   	flex-wrap: wrap;
-   	padding-top: 50;
+.contentView {
+  flex: 1;
 }
 
-.viewMenu {
-	margin-right: 50;
+.assetSlide {
+  flex: 1;
+  z-index: 100;
+  padding-top: 70px;
 }
 
-.selectionStrip {
-	padding: 35px;
+.slideContain {
+  padding-right: 70px;
 }
 
-.selectionTile {
-	height: 170;
-	justify-content: center;
-	margin-right: 35;
-	border-radius: 5px;
+.compareCtrls {
+  // position: absolute;
+  height: 200;
+  // bottom: 0;
+  background-color: $grey;
+  left: 0;
 }
 
-.selectionContain, .selectionBackground {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	border-radius: 5px;
+.toggleContain {
+  height: 200;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: #E3E3E3;
+  padding: 60 50;
+  //z-index: 70;
 }
 
-.slideTile {
-	margin-bottom: 50;
-	border-radius: 5;
+.compareToggle {
+  @extend .btn;
+  width: 250;
+  height: 80;
+  border-radius: 10;
+  background-color: $grey;
 }
 
-.slideTile, .slideContain {
-	flex-direction: row;
-   	flex-wrap: wrap;
-   	border-radius: 5;
+.compareToggleText {
+  @extend .btnText;
+  padding: 10px 0;
+  font-size: 28;
+  color: $black;
 }
 
-.tileImage {
-	justify-content: center;
-	border-radius: 5;
+.compareToggleIcon {
+  top: 4;
 }
 
-.imageContain, .imageBackground {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	border-radius: 5;
+.compareSlide {
+  flex: 1;
+  padding: 25 0 25 0;
 }
 
-.imageBackground {
-	overflow: visible;
-	border-radius: 5px;
+.slideContain {
+
 }
 
-.slideTileInfo {
-	/*background-color: #F1F1F1;*/
-	padding: 25px;
-}
-
-.slideTileName {
-	font-family: $hFont;
-	text-align: left;
-	color: $darkGrey;
-	font-size: 36;
-}
-
-.slideTileDescription {
-	font-family: $hFont;
-	text-align: left;
-	color: $darkGrey;
-	font-size: 24;
-	margin-top: 10;
-}
-
-.checkmarkIcon {
-	width: 20;
-	height: 20;
-	background-color: red;
-}
-
-.blur {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+.assetRankContainer {
+  position: absolute;
+  top: 22;
+  right: 25;
 }

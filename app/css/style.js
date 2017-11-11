@@ -21,13 +21,28 @@ module.exports = StyleSheet.create({
         "textDecorationLine": "underline"
     },
     "textInput": {
-        "height": 52,
-        "backgroundColor": "transparent",
-        "fontSize": 18,
-        "fontWeight": "400"
+        "backgroundColor": "rgba(255, 255, 255, 0.7)",
+        "fontSize": 22,
+        "fontWeight": "400",
+        "borderRadius": 5,
+        "paddingTop": 18,
+        "paddingBottom": 18,
+        "paddingRight": 0,
+        "paddingLeft": 0
+    },
+    "noRankingsNoteText": {
+        "fontSize": 28,
+        "fontWeight": "600",
+        "color": "#D2D2D2"
+    },
+    "tabHeaderLinkText": {
+        "fontSize": 32,
+        "color": "#4B4B4B",
+        "fontWeight": "600"
     },
     "body": {
-        "flex": 1
+        "flex": 1,
+        "backgroundColor": "#F2F2F2"
     },
     "appBody": {
         "flex": 1,
@@ -119,7 +134,33 @@ module.exports = StyleSheet.create({
         "paddingTop": 7,
         "paddingBottom": 7,
         "paddingRight": 15,
-        "paddingLeft": 15
+        "paddingLeft": 15,
+        "backgroundColor": "#F26A7E",
+        "width": 350,
+        "alignSelf": "center"
+    },
+    "compareToggle": {
+        "justifyContent": "center",
+        "borderRadius": 10,
+        "paddingTop": 7,
+        "paddingBottom": 7,
+        "paddingRight": 15,
+        "paddingLeft": 15,
+        "width": 250,
+        "height": 80,
+        "backgroundColor": "#D2D2D2"
+    },
+    "fullscreenBtn": {
+        "justifyContent": "center",
+        "borderRadius": 5,
+        "paddingTop": 7,
+        "paddingBottom": 7,
+        "paddingRight": 15,
+        "paddingLeft": 15,
+        "backgroundColor": "#EBEBEB",
+        "width": 300,
+        "alignSelf": "center",
+        "marginTop": 50
     },
     "btnText": {
         "alignSelf": "center",
@@ -131,6 +172,29 @@ module.exports = StyleSheet.create({
         "fontFamily": "Azo Sans"
     },
     "loginBtnText": {
+        "alignSelf": "center",
+        "height": 45,
+        "paddingTop": 8,
+        "textAlign": "center",
+        "fontSize": 24,
+        "lineHeight": 28,
+        "fontFamily": "Azo Sans",
+        "color": "white"
+    },
+    "compareToggleText": {
+        "alignSelf": "center",
+        "height": 45,
+        "paddingTop": 10,
+        "textAlign": "center",
+        "fontSize": 28,
+        "lineHeight": 28,
+        "fontFamily": "Azo Sans",
+        "paddingBottom": 10,
+        "paddingRight": 0,
+        "paddingLeft": 0,
+        "color": "#4B4B4B"
+    },
+    "fullscreenLinkText": {
         "alignSelf": "center",
         "height": 45,
         "paddingTop": 8,
@@ -233,76 +297,90 @@ module.exports = StyleSheet.create({
         "flex": 1,
         "flexDirection": "row"
     },
-    "bodyLeft": {
-        "flex": 1
+    "bodyFullBackground": {
+        "position": "absolute",
+        "top": 0,
+        "left": 0,
+        "zIndex": 1
+    },
+    "bodyFullBlur": {
+        "position": "absolute",
+        "top": 0,
+        "left": 0,
+        "zIndex": 3
+    },
+    "bodyFullForm": {
+        "flex": 1,
+        "zIndex": 10,
+        "justifyContent": "center",
+        "flexDirection": "row"
     },
     "loginForm": {
-        "flex": 1,
-        "flexDirection": "column"
+        "flexDirection": "column",
+        "justifyContent": "center",
+        "width": 500
+    },
+    "formLogo": {
+        "width": 230,
+        "height": 150
     },
     "gridContain": {
         "flexDirection": "row",
         "flexWrap": "wrap",
         "paddingTop": 70
     },
-    "tileBox": {
-        "height": 350,
-        "marginBottom": 75
-    },
-    "featuredColumn": {
+    "largeColumn": {
         "height": 775,
         "zIndex": 10,
         "marginRight": 70
     },
-    "projectColumn": {
+    "smallColumn": {
         "height": 775
+    },
+    "tileBox": {
+        "marginBottom": 75,
+        "borderRadius": 10,
+        "backgroundColor": "white"
+    },
+    "tileGridThing": {
+        "borderRadius": 10,
+        "overflow": "hidden"
     },
     "gridTile": {
-        "height": 350,
-        "backgroundColor": "#747474",
-        "justifyContent": "center",
-        "borderRadius": 5
-    },
-    "featuredTile": {
-        "height": 775
-    },
-    "tileBackground": {
-        "position": "absolute",
-        "top": 0,
-        "left": 0,
-        "right": 0,
-        "bottom": 0,
-        "borderRadius": 5
+        "borderRadius": 10,
+        "overflow": "hidden"
     },
     "tileContain": {
-        "position": "absolute",
-        "top": 0,
-        "left": 0,
-        "right": 0,
-        "bottom": 0,
-        "borderRadius": 5
+        "flex": 1,
+        "borderRadius": 10,
+        "overflow": "hidden"
     },
-    "tileName": {
-        "fontFamily": "Skolar Sans Latin",
-        "fontWeight": "400",
-        "textAlign": "left",
-        "fontSize": 32,
-        "backgroundColor": "transparent",
-        "color": "white",
-        "top": -70,
-        "left": 25,
-        "zIndex": 30
+    "tileThumbnail": {
+        "backgroundColor": "#F2F2F2"
+    },
+    "thumbnailContain": {
+        "borderBottomWidth": 1,
+        "borderBottomColor": "#E3E4E5"
     },
     "tileTitle": {
-        "fontFamily": "Skolar Sans Latin",
-        "fontWeight": "400",
-        "fontSize": 32,
-        "color": "white",
+        "fontFamily": "Azo Sans",
+        "fontWeight": "600",
+        "fontSize": 36,
+        "color": "#4B4B4B",
         "textAlign": "left",
         "backgroundColor": "transparent",
-        "position": "absolute",
-        "bottom": 25,
-        "left": 25
+        "top": 10,
+        "left": 7
+    },
+    "smallTitle": {
+        "fontSize": 32,
+        "top": 15,
+        "left": 35
+    },
+    "largeTitle": {
+        "fontSize": 42,
+        "left": 55,
+        "top": 35
     },
     "noticeContain": {
         "flex": 1,
@@ -320,104 +398,47 @@ module.exports = StyleSheet.create({
         "lineHeight": 58,
         "flex": 1
     },
-    "projectContain": {
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "paddingTop": 50
+    "contentView": {
+        "flex": 1
     },
-    "viewMenu": {
-        "marginRight": 50
-    },
-    "selectionStrip": {
-        "paddingTop": 35,
-        "paddingBottom": 35,
-        "paddingRight": 35,
-        "paddingLeft": 35
-    },
-    "selectionTile": {
-        "height": 170,
-        "justifyContent": "center",
-        "marginRight": 35,
-        "borderRadius": 5
-    },
-    "selectionContain": {
-        "position": "absolute",
-        "top": 0,
-        "left": 0,
-        "right": 0,
-        "bottom": 0,
-        "borderRadius": 5
-    },
-    "selectionBackground": {
-        "position": "absolute",
-        "top": 0,
-        "left": 0,
-        "right": 0,
-        "bottom": 0,
-        "borderRadius": 5
-    },
-    "slideTile": {
-        "marginBottom": 50,
-        "borderRadius": 5,
-        "flexDirection": "row",
-        "flexWrap": "wrap"
+    "assetSlide": {
+        "flex": 1,
+        "zIndex": 100,
+        "paddingTop": 70
     },
     "slideContain": {
-        "flexDirection": "row",
-        "flexWrap": "wrap",
-        "borderRadius": 5
+        "paddingRight": 70
     },
-    "tileImage": {
-        "justifyContent": "center",
-        "borderRadius": 5
+    "compareCtrls": {
+        "height": 200,
+        "backgroundColor": "#D2D2D2",
+        "left": 0
     },
-    "imageContain": {
+    "toggleContain": {
+        "height": 200,
         "position": "absolute",
-        "top": 0,
         "left": 0,
-        "right": 0,
         "bottom": 0,
-        "borderRadius": 5
+        "backgroundColor": "#E3E3E3",
+        "paddingTop": 60,
+        "paddingBottom": 60,
+        "paddingRight": 50,
+        "paddingLeft": 50
     },
-    "imageBackground": {
-        "position": "absolute",
-        "top": 0,
-        "left": 0,
-        "right": 0,
-        "bottom": 0,
-        "borderRadius": 5,
-        "overflow": "visible"
+    "compareToggleIcon": {
+        "top": 4
     },
-    "slideTileInfo": {
+    "compareSlide": {
+        "flex": 1,
         "paddingTop": 25,
+        "paddingRight": 0,
         "paddingBottom": 25,
-        "paddingRight": 25,
-        "paddingLeft": 25
+        "paddingLeft": 0
     },
-    "slideTileName": {
-        "fontFamily": "Azo Sans",
-        "textAlign": "left",
-        "color": "#747474",
-        "fontSize": 36
-    },
-    "slideTileDescription": {
-        "fontFamily": "Azo Sans",
-        "textAlign": "left",
-        "color": "#747474",
-        "fontSize": 24,
-        "marginTop": 10
-    },
-    "checkmarkIcon": {
-        "width": 20,
-        "height": 20,
-        "backgroundColor": "red"
-    },
-    "blur": {
+    "assetRankContainer": {
         "position": "absolute",
-        "top": 0,
-        "left": 0,
-        "right": 0,
-        "bottom": 0
+        "top": 22,
+        "right": 25
     },
     "compareAssetsContain": {
         "position": "absolute",
@@ -452,50 +473,95 @@ module.exports = StyleSheet.create({
         "width": 1000
     },
     "assetRankBody": {
-        "marginTop": 100
+        "marginTop": 0
     },
     "rankHeadline": {
         "fontFamily": "Skolar Sans Latin",
-        "fontSize": 36,
+        "fontSize": 26,
         "color": "#747474",
         "marginBottom": 10
     },
     "averageRank": {
         "flexDirection": "row",
         "flexWrap": "wrap",
-        "marginBottom": 10
+        "top": -5
     },
     "averageRankValue": {
         "fontFamily": "Skolar Sans Latin",
         "fontWeight": "600",
-        "fontSize": 28,
+        "fontSize": 34,
         "color": "#F26A7E",
-        "width": 25
+        "marginRight": 9
     },
     "rankValue": {
         "fontFamily": "Skolar Sans Latin",
         "fontWeight": "600",
-        "fontSize": 28,
+        "fontSize": 34,
         "color": "#F26A7E",
-        "width": 25
+        "marginRight": 9
     },
     "averageRankLabel": {
         "fontFamily": "Skolar Sans Latin",
-        "fontSize": 24,
+        "fontSize": 28,
         "fontWeight": "300",
         "color": "#747474",
-        "top": 5
+        "top": 4
     },
     "rankName": {
         "fontFamily": "Skolar Sans Latin",
-        "fontSize": 24,
+        "fontSize": 28,
         "fontWeight": "300",
         "color": "#747474",
-        "top": 5
+        "top": 4
     },
     "userRank": {
         "flexDirection": "row",
         "flexWrap": "wrap",
         "marginBottom": 5
+    },
+    "tabHeader": {
+        "backgroundColor": "#E3E4E5",
+        "paddingTop": 0,
+        "paddingRight": 60,
+        "paddingBottom": 0,
+        "paddingLeft": 60
+    },
+    "tabHeaderContain": {
+        "flexDirection": "row"
+    },
+    "tabHeaderLogo": {
+        "top": 50
+    },
+    "tabHeaderNav": {
+        "flexDirection": "row",
+        "marginLeft": 70
+    },
+    "tabHeaderLink": {
+        "paddingTop": 50,
+        "paddingRight": 40,
+        "paddingBottom": 50,
+        "paddingLeft": 40,
+        "borderBottomColor": "transparent",
+        "borderBottomWidth": 7,
+        "position": "relative"
+    },
+    "tabHeaderIcon": {
+        "position": "absolute",
+        "top": -12,
+        "left": -20
+    },
+    "tabHeaderLinkHover": {
+        "borderBottomColor": "#4B4B4B"
+    },
+    "fullscreenBody": {
+        "zIndex": 200,
+        "backgroundColor": "#4B4B4B",
+        "paddingTop": 50,
+        "paddingBottom": 50,
+        "paddingRight": 0,
+        "paddingLeft": 0
+    },
+    "fullscreenAssetContainer": {
+        "alignSelf": "center"
     }
 });

@@ -1,0 +1,43 @@
+.tabHeader {
+  background-color: $lightGrey;
+  padding: 0 60 0 60;
+}
+
+.tabHeaderContain {
+  flex-direction: row;
+}
+
+.tabHeaderLogo {
+  top: 50;
+}
+
+.tabHeaderNav {
+  flex-direction: row;
+  margin-left: 70px;
+}
+
+.tabHeaderLink {
+  // margin-left: 80px;
+  padding: 50 40 50 40;
+  // top: 7px;
+  border-bottom-color: transparent;
+  border-bottom-width: 7;
+  position: relative;
+}
+
+.tabHeaderIcon {
+  position: absolute;
+  top: -12px;
+  left: -20;
+}
+
+.tabHeaderLinkText {
+  @extend .commonText;
+  font-size: 32;
+  color: $black;
+  font-weight: 600;
+}
+
+.tabHeaderLinkHover {
+  border-bottom-color: $black;
+}

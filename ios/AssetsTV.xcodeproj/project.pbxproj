@@ -131,7 +131,6 @@
 		F44523713BEA4FD59AC1563C /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89D67262624A4FDFB5F55844 /* iconfont.ttf */; };
 		F49F6EC11BF0483EB4090A00 /* SkolarSansLatinExtended-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3080A621B5074D3098091C5B /* SkolarSansLatinExtended-LightItalic.otf */; };
 		F74D0622F78F461AA0445C37 /* SourceSansPro-SemiboldIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2A51C51CEF1C41A7B6BFBAA1 /* SourceSansPro-SemiboldIt.otf */; };
-		FAADD0281FB2458D00282006 /* libRNDeviceInfo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE4DDAF1FB118F500DE2B5E /* libRNDeviceInfo-tvOS.a */; };
 		FAADD0291FB2458D00282006 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE4DDB51FB118F500DE2B5E /* libRNSVG-tvOS.a */; };
 		FAADD02A1FB258FD00282006 /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FAE4DDA91FB118F500DE2B5E /* libRNBlur.a */; };
 		FAE4DDE41FB23EAC00DE2B5E /* AzoSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8ACA43767E474249A9C55D20 /* AzoSans-Bold.otf */; };
@@ -676,7 +675,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAADD0281FB2458D00282006 /* libRNDeviceInfo-tvOS.a in Frameworks */,
 				FAADD0291FB2458D00282006 /* libRNSVG-tvOS.a in Frameworks */,
 				2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */,
 				2D02E4C21E0B4AEC006451C7 /* libRCTAnimation.a in Frameworks */,

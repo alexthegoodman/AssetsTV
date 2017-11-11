@@ -1,0 +1,38 @@
+.fullscreenBody {
+  z-index: 200;
+  background-color: $black;
+  padding: 50 0;
+}
+
+.fullscreenAssetContainer {
+  align-self: center;
+}
+
+.fullscreenAsset {
+
+}
+
+.fullscreenBtn {
+  @extend .btn;
+  background-color: $white;
+  border-radius: 5px;
+  width: 300;
+  align-self: center;
+  margin-top: 50;
+}
+//
+// .inlineContain {
+//
+// }
+//
+// .fullscreenIcon {
+//
+// }
+
+.fullscreenLinkText {
+  @extend .btnText;
+  // width: 300;
+  // align-self: center;
+  // margin-top: 50;
+  // color: $white;
+}

@@ -40,37 +40,37 @@ export default class CompareAssets extends Component {
 
     render() {
 
-        let { thisProject, phaseData, selectedAssets, layout } = this.props;
+        let { thisProject, phaseData, selectedAssets } = this.props;
 
         let slideWidth  = width;
         let slideHeight = height - 400;
 
         let layoutStyle, tileStyle, internalTileStyle, assetCount = Object.keys(selectedAssets).length;
-        if (assetCount == 1) {
-            layoutStyle = styles.tallCompareContain;
-            tileStyle = [ styles.tallCompareTile, { width: slideWidth, height: slideHeight } ];
-            internalTileStyle = [ styles.compareTile, { width: slideWidth, height: slideHeight } ];
-        } else if (assetCount == 2) {
-            if (layout == 'Wide') {
-                layoutStyle = styles.wideCompareContain;
-                tileStyle = [ styles.wideCompareTile, { width: slideWidth, height: slideHeight / 2 } ];
-                internalTileStyle = [ styles.compareTile, { width: slideWidth, height: (slideHeight - 100) / 2 } ];
-            } else if (layout == 'Tall') {
-                layoutStyle = styles.tallCompareContain;
-                tileStyle = [ styles.tallCompareTile, { width: slideWidth / 2, height: slideHeight } ];
-                internalTileStyle = [ styles.compareTile, { width: (slideWidth - 100) / 2, height: slideHeight } ];
-            }
-        } else {
-            if (layout == 'Wide') {
-                layoutStyle = styles.wideCompareContain;
-                tileStyle = [ styles.wideCompareTile, { width: slideWidth, height: slideHeight / 2 } ];
-                internalTileStyle = [ styles.compareTile, { width: slideWidth, height: (slideHeight - 100) / 2 } ];
-            } else if (layout == 'Tall') {
-                layoutStyle = styles.tallCompareContain;
-                tileStyle = [ styles.tallCompareTile, { width: slideWidth / 2, height: slideHeight } ];
-                internalTileStyle = [ styles.compareTile, { width: (slideWidth - 100) / 2, height: slideHeight } ];
-            }
-        }
+        // if (assetCount == 1) {
+        //     layoutStyle = styles.tallCompareContain;
+        //     tileStyle = [ styles.tallCompareTile, { width: slideWidth, height: slideHeight } ];
+        //     internalTileStyle = [ styles.compareTile, { width: slideWidth, height: slideHeight } ];
+        // } else if (assetCount == 2) {
+        //     if (layout == 'Wide') {
+        //         layoutStyle = styles.wideCompareContain;
+        //         tileStyle = [ styles.wideCompareTile, { width: slideWidth, height: slideHeight / 2 } ];
+        //         internalTileStyle = [ styles.compareTile, { width: slideWidth, height: (slideHeight - 100) / 2 } ];
+        //     } else if (layout == 'Tall') {
+        //         layoutStyle = styles.tallCompareContain;
+        //         tileStyle = [ styles.tallCompareTile, { width: slideWidth / 2, height: slideHeight } ];
+        //         internalTileStyle = [ styles.compareTile, { width: (slideWidth - 100) / 2, height: slideHeight } ];
+        //     }
+        // } else {
+        //     if (layout == 'Wide') {
+        //         layoutStyle = styles.wideCompareContain;
+        //         tileStyle = [ styles.wideCompareTile, { width: slideWidth, height: slideHeight / 2 } ];
+        //         internalTileStyle = [ styles.compareTile, { width: slideWidth, height: (slideHeight - 100) / 2 } ];
+        //     } else if (layout == 'Tall') {
+        //         layoutStyle = styles.tallCompareContain;
+        //         tileStyle = [ styles.tallCompareTile, { width: slideWidth / 2, height: slideHeight } ];
+        //         internalTileStyle = [ styles.compareTile, { width: (slideWidth - 100) / 2, height: slideHeight } ];
+        //     }
+        // }
 
         let compareContent;
         if (assetCount > 0) {

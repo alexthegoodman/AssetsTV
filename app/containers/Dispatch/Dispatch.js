@@ -17,7 +17,7 @@ import {
 
 const client                        = new ApiClient();
 const styles                        = require('../../css/style.js');
-const DeviceInfo                    = require('react-native-device-info');
+
 const JefNode                       = require('json-easy-filter').JefNode;
 //const Orientation                   = require('react-native-orientation');
 

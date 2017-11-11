@@ -59,45 +59,48 @@ export default class AssetRank extends Component {
 
         average = Math.round(total / count);
         if (!isNaN(average)) {
-            averageRank = <View style={styles.averageRank}><Text style={styles.averageRankValue}>{average}</Text><Text style={styles.averageRankLabel}>Average</Text></View>
+            averageRank = (<View style={styles.averageRank}>
+              <Text style={styles.averageRankValue}>{average}</Text>
+              <Text style={styles.averageRankLabel}>Average</Text>
+            </View>);
         } else {
             averageRank = <View style={styles.noRankingsNote}><Text style={styles.noRankingsNoteText}>No Rankings</Text></View>
         }
 
-        let listRankData = Object.keys(rankData[0]).map(x => rankData[0][x]);
-        count = -1;
-        rankList = listRankData.map( rank => {
-
-            count++;
-            if (rank != 0) {
-
-                firstname = '';
-                lastname = '';
-
-                thisUserHash = Object.keys(rankData[0])[count];
-
-                thisUser = new JefNode(projectUsers).filter(function(node) {
-                    if (node.key == 'id' && node.value == thisUserHash) {
-                        return node.parent.value;
-                    }
-                });
-
-                // user may have been invited, not joined
-                if (typeof thisUser[0] != 'undefined') {
-                    firstname = thisUser[0]['firstname'];
-                    lastname = thisUser[0]['lastname'];
-                }
-
-                return <View key={'rankItem' + thisUserHash + assetData['image_id']} style={styles.userRank}><Text style={styles.rankValue}>{rank}</Text><Text style={styles.rankName}>{firstname} {lastname}</Text></View>;
-
-            }
-        });
+        // let listRankData = Object.keys(rankData[0]).map(x => rankData[0][x]);
+        // count = -1;
+        // rankList = listRankData.map( rank => {
+        //
+        //     count++;
+        //     if (rank != 0) {
+        //
+        //         firstname = '';
+        //         lastname = '';
+        //
+        //         thisUserHash = Object.keys(rankData[0])[count];
+        //
+        //         thisUser = new JefNode(projectUsers).filter(function(node) {
+        //             if (node.key == 'id' && node.value == thisUserHash) {
+        //                 return node.parent.value;
+        //             }
+        //         });
+        //
+        //         // user may have been invited, not joined
+        //         if (typeof thisUser[0] != 'undefined') {
+        //             firstname = thisUser[0]['firstname'];
+        //             lastname = thisUser[0]['lastname'];
+        //         }
+        //
+        //         return <View key={'rankItem' + thisUserHash + assetData['image_id']} style={styles.userRank}><Text style={styles.rankValue}>{rank}</Text><Text style={styles.rankName}>{firstname} {lastname}</Text></View>;
+        //
+        //     }
+        // });
 
         return (
             <View style={styles.assetRankBody}>
-                <Text style={styles.rankHeadline}>Latest Rankings</Text>
+                {/*<Text style={styles.rankHeadline}>Latest Rankings</Text>*/}
                 {averageRank}
-                {rankList}
+                {/*rankList*/}
             </View>
         );
     }

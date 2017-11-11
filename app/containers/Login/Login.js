@@ -23,9 +23,9 @@ let { width, height } = Dimensions.get('window');
 
 const client                        = new ApiClient();
 const styles                        = require('../../css/style.js');
-const DeviceInfo                    = require('react-native-device-info');
 const JefNode                       = require('json-easy-filter').JefNode;
 const deepcopy                      = require("deepcopy");
+const { BlurView, VibrancyView }    = require('react-native-blur');
 
 @connect(
     ( state ) => ({
@@ -132,15 +132,19 @@ export default class Login extends Component {
 
         return (
             <View style={styles.homeBody}>
-                <View style={[styles.bodyLeft, { width: (width / 3) * 2 }]}>
+                <Image style={[styles.bodyFullBackground, { width: width, height: height }]} resizeMode="cover" source={require('../../img/backs/demo.jpg')}></Image>
+                <BlurView blurType="dark" blurAmount={10} style={[styles.bodyFullBlur, { width: width, height: height }]} />
+                <View style={[styles.bodyFullForm, { width: width }]}>
+
                     <View style={styles.loginForm}>
+                        <Image style={styles.formLogo} resizeMode="contain" source={require('../../img/brand/logo_hidden_trim.png')} />
                         <TextInput
                             ref="login1"
-                            style={[styles.textInput]}
+                            style={[styles.textInput, { marginBottom: 20 }]}
                             onChangeText={this.updateEmail}
                             value={this.state.email}
                             placeholder="Enter Your Email"
-                            placeholderTextColor="#9B9B9B"
+                            placeholderTextColor="#7B7B7B"
                             autoCapitalize="none"
                             selectionColor="#e25147"
                             //keyboardType="email-address"
@@ -155,28 +159,19 @@ export default class Login extends Component {
                             value={this.state.password}
                             secureTextEntry={true}
                             placeholder="Enter Your Password"
-                            placeholderTextColor="#9B9B9B"
+                            placeholderTextColor="#7B7B7B"
                             autoCapitalize="none"
                             selectionColor="#e25147"
                             returnKeyType="done"
                             //onSubmitEditing={this.attemptLogin}
                             onFocus={() => this.setState({ currentInput: '2' })}
                         />
-                        <TouchableOpacity activeOpacity={1} underlayColor="#F27E76" style={[styles.btn, { marginTop: 75 }]} onPress={ this.attemptLogin }
+                        <TouchableOpacity activeOpacity={1} underlayColor="#F27E76" style={[styles.loginBtn, { marginTop: 35 }]} onPress={ this.attemptLogin }
                         tvParallaxProperties={smallHoverProps}>
-                            <Text style={styles.btnText}>{buttonText}</Text>
+                            <Text style={styles.loginBtnText}>{buttonText}</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
-                <View style={[styles.bodyRight, { width: (width / 3) }]}>
-                    <View style={styles.rightTop}>
-                        <Text>Professional Presentations</Text>
-                        <Text>Meetings with clients and team members will be more productive - everyone can see</Text>
-                        <Text>Presentations look professional and enhance your value much like a good paper - it's free</Text>
-                    </View>
-                    <View style={styles.rightBottom}>
-                        <Text>Image of people meeting or presenting?</Text>
-                    </View>
+
                 </View>
             </View>
         );

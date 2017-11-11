@@ -1,6 +1,6 @@
 import superagent     from 'superagent';
 import config         from '../../config';
-const DeviceInfo      = require('react-native-device-info');
+//const DeviceInfo      = require('react-native-device-info');
 
 //const methods = ['get', 'post', 'put', 'patch', 'del'];
 
@@ -8,11 +8,11 @@ const DeviceInfo      = require('react-native-device-info');
 function formatUrl(path, version = '1.0') {
 
     let pathBase = '';
-    if (DeviceInfo.isEmulator()) {
-       pathBase = 'http://127.0.0.1:3030';
-    } else {
-        pathBase = 'https://assetsbeta.herokuapp.com/api';
-    }
+    // if (DeviceInfo.isEmulator()) {
+        pathBase = 'http://127.0.0.1:3030';
+    // } else {
+        //pathBase = 'https://assetsbeta.herokuapp.com/api';
+    //}
 
     const adjustedPath = path[0] !== '/' ? '/' + path : path;
 

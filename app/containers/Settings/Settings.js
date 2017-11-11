@@ -26,7 +26,7 @@ let { width, height } = Dimensions.get('window');
 
 const client                        = new ApiClient();
 const styles                        = require('../../css/style.js');
-const DeviceInfo                    = require('react-native-device-info');
+
 const JefNode                       = require('json-easy-filter').JefNode;
 const deepcopy                      = require("deepcopy");
 

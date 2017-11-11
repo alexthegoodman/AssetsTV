@@ -14,37 +14,7 @@ import Login        from './containers/Login/Login';
 import Browse       from './containers/Browse/Browse';
 import Project      from './containers/Project/Project';
 import Settings     from './containers/Settings/Settings';
-
-// const BrowseRoutes = StackNavigator({
-//     Browse: {
-//         screen: Browse
-//     },
-//     Project: {
-//         screen: Project,
-//         //path: 'project/:projectId'
-//     },
-//     // PhasePicker: {
-//     //     screen: PhasePicker
-//     // },
-//     // Asset: {
-//     //     screen: Asset,
-//     //     //path: 'asset/:assetId'
-//     // }
-// }, {
-//     headerMode: 'none',
-//     navigationOptions: { gesturesEnabled: true },
-//     initialRouteName: 'Browse'
-// });
-//
-// const SettingsRoutes = StackNavigator({
-//     Settings: {
-//         screen: Settings
-//     }
-// }, {
-//     headerMode: 'none',
-//     navigationOptions: { gesturesEnabled: true },
-//     initialRouteName: 'Settings'
-// });
+import FullscreenAsset from './containers/FullscreenAsset/FullscreenAsset';
 
 const MainTabs = StackNavigator({
     Browse: {
@@ -56,10 +26,13 @@ const MainTabs = StackNavigator({
     },
     Settings: {
         screen: Settings
+    },
+    FullscreenAsset: {
+      screen: FullscreenAsset
     }
 }, {
     headerMode: 'none',
-    navigationOptions: { gesturesEnabled: true },
+    navigationOptions: { gesturesEnabled: false },
     initialRouteName: 'Browse',
 });
 
@@ -74,30 +47,3 @@ const Routes = StackNavigator({
 });
 
 export default Routes;
-
-// export default (store) => {
-
-//     // consider all fetching right here rather than App?
-//     const validate = (nextState, replace, cb) => {
-
-//         //store.dispatch(loadCookieAction());
-
-//         console.info('validate routing');
-
-//         cb();
-
-//     };
-
-//     return (
-//         <StackRoute onEnter={validate} path="/" component={App}>
-
-//             <Route path="home" component={Home} />
-
-//             <Route path="browse" component={Browse} />
-
-//             <Route path="project/:projectId" component={Project} />
-
-//         </StackRoute>
-//     );
-
-// };

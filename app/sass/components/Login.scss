@@ -3,19 +3,43 @@
   flex-direction: row;
 }
 
-.bodyLeft {
+.bodyFullBackground, .bodyFullBlur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.bodyFullBlur {
+  z-index: 3;
+}
+
+.bodyFullForm {
   flex: 1;
+  z-index: 10;
+  justify-content: center;
+  flex-direction: row;
 }
 
 .loginForm {
-  flex: 1;
   flex-direction: column;
+  justify-content: center;
+  width: 500;
+}
+
+.formLogo {
+  width: 230;
+  height: 150;
 }
 
 .loginBtn {
   @extend .btn;
+  background-color: $pink_d;
+  width: 350;
+  align-self: center;
 }
 
 .loginBtnText {
   @extend .btnText;
+  color: white;
 }

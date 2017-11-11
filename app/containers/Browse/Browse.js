@@ -25,7 +25,7 @@ let { width, height } = Dimensions.get('window');
 
 const client                        = new ApiClient();
 const styles                        = require('../../css/style.js');
-const DeviceInfo                    = require('react-native-device-info');
+
 const JefNode                       = require('json-easy-filter').JefNode;
 const deepcopy                      = require("deepcopy");
 
@@ -121,8 +121,19 @@ export default class Browse extends Component {
 
     }
 
-    viewProject(projId) {
-        this.props.navigation.navigate('Project', { projectId: projId });
+    viewProject(projectId) {
+
+        let self = this;
+        // pre-load the project data
+        let thisProject = new JefNode(self.props.userProjects).filter(function(node) {
+            if (node.key == 'project_id' && node.value == projectId) {
+                return node.parent.value;
+            }
+        });
+
+        thisProject = thisProject[0];
+
+        this.props.navigation.navigate('Project', { projectId: projectId, thisProject: thisProject });
     }
 
     logOut() {
@@ -133,13 +144,18 @@ export default class Browse extends Component {
 
     renderTileInternal(projCount, project) {
 
-      let rowCount = 3, tileMargin = 70, blurImage, addedClasses;
+      let rowCount = 3, tileMargin = 70, blurImage, addedClasses, thumbnailHeight, tileHeight, titleClasses;
       //et totalMargin = (rowCount + 1) * tileMargin, tileWidth = (width - totalMargin) / rowCount;
       if (projCount == 0) {
         tileWidth = (width / 3) * 2;
-        addedClasses = styles.featuredTile;
+        addedClasses = styles.largeTile;
+        tileHeight = 775;
+        thumbnailHeight = tileHeight - 130;
+        titleClasses = styles.largeTitle;
       } else {
         tileWidth = width / 3;
+        tileHeight = 350;
+        thumbnailHeight = tileHeight - 80;
       }
 
       let projId = project['project_id'];
@@ -149,28 +165,35 @@ export default class Browse extends Component {
       }
 
       let focus = false;
-      if (projCount == 1) {
+      if (projCount == 0) {
           focus = true;
           blurImage = project['phaseImagesData'][0]['image_url'];
       }
 
       return (
-          <View style={[styles.tileBox, addedClasses, { width: tileWidth, marginLeft: tileMargin } ]} key={'project' + projId}>
-              <TouchableOpacity onPress={() => this.viewProject(projId)} data-project-id={projId} style={[styles.gridTile, addedClasses]}
-              activeOpacity={1} underlayColor="#F2F2F2"
-              tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
-                  <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.3} shadowRadius={10}>
-                      <Image
-                          style={styles.tileBackground}
-                          resizeMode="cover"
-                          source={{ uri: project['phaseImagesData'][0]['image_url'] }}
-                      >
-                          <Text style={styles.tileTitle}>{project['project_name']}</Text>
-                      </Image>
-                  </View>
-              </TouchableOpacity>
-              {/*<Text style={styles.tileName}>{project['project_name']}</Text>*/}
+        <TouchableOpacity onPress={() => this.viewProject(projId)} data-project-id={projId}
+        activeOpacity={1} underlayColor="#F2F2F2"
+        tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
+          <View style={[styles.tileBox, addedClasses, { width: tileWidth, marginLeft: tileMargin, height: tileHeight } ]} key={'project' + projId}
+          shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.2} shadowRadius={14}>
+            <View style={[styles.tileGridThing, { height: tileHeight }]}>
+                <View style={[styles.gridTile, addedClasses, { height: tileHeight }]}>
+                    <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.3} shadowRadius={10}>
+                        <Image
+                            style={[styles.tileThumbnail, { width: tileWidth, height: thumbnailHeight }]}
+                            resizeMode="cover"
+                            source={{ uri: project['phaseImagesData'][0]['image_url'] }}
+                        />
+                        <View style={[styles.thumbnailContain, { width: tileWidth }]}></View>
+                        <View style={styles.tileInfo}>
+                            <Text style={[styles.tileTitle, styles.smallTitle, titleClasses]}>{project['project_name']}</Text>
+                        </View>
+                    </View>
+                </View>
+                {/*<Text style={styles.tileName}>{project['project_name']}</Text>*/}
+              </View>
           </View>
+          </TouchableOpacity>
       )
     }
 
@@ -230,9 +253,9 @@ export default class Browse extends Component {
 
                 let classes;
                 if (columnCount == 1) {
-                  classes = [styles.featuredColumn, { width: (width / 3) * 2 }];
+                  classes = [styles.largeColumn, { width: (width / 3) * 2 }];
                 } else {
-                  classes = styles.projectColumn;
+                  classes = styles.smallColumn;
                 }
 
                 let item1, item2;
@@ -262,7 +285,7 @@ export default class Browse extends Component {
                 {/*<Image style={{ zIndex: 1, position: 'absolute', width: width, height: 170 }} source={{ uri: blurImage }} />*/}
 
                 <View style={[styles.body, { zIndex: 4 }]}>
-                    <TabHeader />
+                    <TabHeader navigation={this.props.navigation} />
                     <ScrollView style={{ height: height, width: width }} contentContainerStyle={[styles.gridContain, { paddingRight: 70 }]} horizontal={true} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
                         {listProjects}
                     </ScrollView>

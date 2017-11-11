@@ -4,73 +4,78 @@
    	padding-top: 70px;
 }
 
-.tileBox {
-	height: 350;
-	/*margin-bottom: 100;*/
-	margin-bottom: 75;
-}
-
-.featuredColumn {
+.largeColumn {
 	height: 775px;
 	z-index: 10;
 	margin-right: 70;
 }
 
-.projectColumn {
+.smallColumn {
 	height: 775px;
 }
+
+.largeTile {}
+
+.assetTile {}
+
+.compareTile {}
+
+// normal tile
+.tileBox {
+	margin-bottom: 75;
+	border-radius: 10px;
+	background-color: white;
+}
+
+.tileGridThing {
+	border-radius: 10px;
+  overflow: hidden;
+}
+
 
 .gridTile {
-	height: 350;
-	background-color: $darkGrey;
-	justify-content: center;
-	border-radius: 5px;
+	border-radius: 10px;
+  overflow: hidden;
 }
 
-.featuredTile {
-	height: 775px;
+.tileContain {
+ 	flex: 1;
+ 	border-radius: 10px;
+ 	overflow: hidden;
 }
 
-.tileBackground, .tileContain {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	border-radius: 5px;
+.tileThumbnail {
+	background-color: #F2F2F2;
 }
 
-.tileBackground {
-	border-radius: 5px;
-}
+.largeThumbnail {}
 
-.tileName {
-	font-family: $bFont;
-	font-weight: 400;
-	text-align: center;
-	font-size: 28px;
-	background-color: transparent;
-	color: $darkGrey;
-	/*margin-top: 25;*/
-
-	top: -70;
-	left: 25;
-	font-size: 32;
-	color: white;
-	text-align: left;
-	z-index: 30;
+.thumbnailContain {
+	border-bottom-width: 1px;
+	border-bottom-color: $lightGrey;
 }
 
 .tileTitle {
-	font-family: $bFont;
-	font-weight: 400;
-	font-size: 32;
-	color: white;
+	font-family: $hFont;
+	font-weight: 600;
+	font-size: 36;
+	color: $black;
 	text-align: left;
 	background-color: transparent;
-	position: absolute;
-	bottom: 25;
-	left: 25;
+	top: 10;
+	left: 7;
+}
+
+.smallTitle {
+	font-size: 32;
+	top: 15;
+	left: 35;
+}
+
+.largeTitle {
+	font-size: 42;
+	left: 55;
+	top: 35;
 }
 
 .noticeContain {
@@ -87,12 +92,3 @@
 	line-height: 58;
 	flex: 1;
 }
-
-/*
-.tileDescription {
-	text-align: center;
-	margin-top: 15px;
-	font-size: 18px;
-	background-color: transparent;
-	color: white;
-}*/

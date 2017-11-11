@@ -1,0 +1,93 @@
+.projectContain {
+	flex-direction: row;
+   	flex-wrap: wrap;
+   	padding-top: 50;
+}
+
+.viewMenu {
+	margin-right: 50;
+}
+
+.selectionStrip {
+	padding: 35px;
+}
+
+.selectionTile {
+	height: 170;
+	justify-content: center;
+	margin-right: 35;
+	border-radius: 5px;
+}
+
+.selectionContain, .selectionBackground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 5px;
+}
+
+.slideTile {
+	margin-bottom: 50;
+	border-radius: 5;
+}
+
+.slideTile, .slideContain {
+	flex-direction: row;
+   	flex-wrap: wrap;
+   	border-radius: 5;
+}
+
+.tileImage {
+	justify-content: center;
+	border-radius: 5;
+}
+
+.imageContain, .imageBackground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-radius: 5;
+}
+
+.imageBackground {
+	overflow: visible;
+	border-radius: 5px;
+}
+
+.slideTileInfo {
+	/*background-color: #F1F1F1;*/
+	padding: 25px;
+}
+
+.slideTileName {
+	font-family: $hFont;
+	text-align: left;
+	color: $darkGrey;
+	font-size: 36;
+}
+
+.slideTileDescription {
+	font-family: $hFont;
+	text-align: left;
+	color: $darkGrey;
+	font-size: 24;
+	margin-top: 10;
+}
+
+.checkmarkIcon {
+	width: 20;
+	height: 20;
+	background-color: red;
+}
+
+.blur {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}

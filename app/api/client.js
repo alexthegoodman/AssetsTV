@@ -5,7 +5,7 @@ import config         from '../../config';
 //const methods = ['get', 'post', 'put', 'patch', 'del'];
 
 // get endpoint in proper format
-function formatUrl(path, version = '1.0') {
+function formatUrl(path, version = '1.0.0') {
 
     let pathBase = '';
     // if (DeviceInfo.isEmulator()) {
@@ -16,8 +16,8 @@ function formatUrl(path, version = '1.0') {
 
     const adjustedPath = path[0] !== '/' ? '/' + path : path;
 
-    // return pathBase + '/v' + version + adjustedPath;
-    return pathBase + adjustedPath;
+    return pathBase + '/v' + version + adjustedPath;
+    //return pathBase + adjustedPath;
 
 }
 

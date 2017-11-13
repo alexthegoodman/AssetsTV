@@ -11,7 +11,8 @@ import {
     Linking,
     TouchableHighlight,
     Image,
-    Dimensions
+    Dimensions,
+    AlertIOS
 } from 'react-native';
 
 let { width, height } = Dimensions.get('window');
@@ -31,8 +32,7 @@ export default class TabHeader extends Component {
 
         super();
 
-        this.openPhasePicker = this.openPhasePicker.bind(this);
-        this.handleNavHover = this.handleNavHover.bind(this);
+        this.handleNavHover   = this.handleNavHover.bind(this);
 
         this.state = {
           hover1: {},
@@ -50,8 +50,6 @@ export default class TabHeader extends Component {
         console.info('TabHeader componentDidMount');
 
     }
-
-    openPhasePicker() {}
 
     handleNavHover(item) {
 
@@ -84,9 +82,9 @@ export default class TabHeader extends Component {
                   <Text style={[styles.tabHeaderLinkText, { paddingLeft: 50 }]}>Back to Browse</Text>
                 </View>
               </TouchableHighlight>
-              <TouchableHighlight onPressIn={() => this.handleNavHover(2)} onPress={this.openPhasePicker} style={[styles.tabHeaderLink, self.state.hover2]}
+              <TouchableHighlight onPressIn={() => this.handleNavHover(2)} onPress={this.props.openPhasePicker} style={[styles.tabHeaderLink, self.state.hover2]}
               activeOpacity={1} underlayColor="rgba(255,255,255,0.4)" hasTVPreferredFocus={false}>
-                  <Text style={styles.tabHeaderLinkText}>Phase 1</Text>
+                  <Text style={styles.tabHeaderLinkText}>{self.props.currentProject.phaseName}</Text>
               </TouchableHighlight>
             </View>
           )

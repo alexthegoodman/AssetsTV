@@ -73,10 +73,10 @@ export default class Login extends Component {
                 hasHash:    false
             }
 
-            client.get('/login', loginInfo, 'POST').then(
+            client.get('/authenticate/user/', loginInfo, 'POST').then(
                 (data) => {
 
-                    console.log('/login', loginInfo, data);
+                    console.log('/authenticate/user', loginInfo, data);
 
                     if (typeof data['LoginAttempt'] != 'undefined' &&
                         data['LoginAttempt'] == 'success') {

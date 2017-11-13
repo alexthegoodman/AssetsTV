@@ -17,7 +17,8 @@ import {
     TouchableHighlight,
     ScrollView,
     Dimensions,
-    Image
+    Image,
+    AlertIOS
 } from 'react-native';
 
 let { width, height }        = Dimensions.get('window');
@@ -45,7 +46,9 @@ import Check      from '../../svgComponents/svg/Check';
         gotProjects: state.browse.gotProjects,
         currentPhaseData: state.browse.currentPhaseData,
         currentPhase: state.browse.currentPhase,
-        gotPhase: state.browse.gotPhase
+        gotPhase: state.browse.gotPhase,
+        currentProject: state.browse.currentProject,
+        setProject: state.browse.setProject
     }),
     ( dispatch ) => bindActionCreators(Object.assign({}, interfacesActions, browseActions), dispatch)
 )
@@ -63,6 +66,8 @@ export default class Project extends Component {
         this.renderCompareAssetList = this.renderCompareAssetList.bind(this);
         this.getImageSize           = this.getImageSize.bind(this);
         this.viewFullscreenAsset    = this.viewFullscreenAsset.bind(this);
+        this.openPhasePicker        = this.openPhasePicker.bind(this);
+        this.setPhase               = this.setPhase.bind(this);
 
         this.state = {
           currentView:      'Slide', // Slide or Compare
@@ -82,6 +87,9 @@ export default class Project extends Component {
         let self = this;
 
         let thisProject = this.props.navigation.state.params.thisProject;
+
+        this.props.setCurrentProjectSuccessAction(thisProject);
+
         let projectId   = thisProject['project_id'];
         let phaseId     = thisProject['phaseId'];
 
@@ -91,14 +99,7 @@ export default class Project extends Component {
             phaseId = this.props.navigation.state.params.phaseId;
         }
 
-        let phaseData   = thisProject['phaseImagesData'];
-        phaseData       = Object.keys(phaseData).map(x => phaseData[x]);
-        this.dataLength = phaseData.length;
-        this.sizeDone   = 0;
-
-        console.info('phaseData', phaseData)
-
-        this.getImageSize(phaseData);
+        this.updateImageSizes(thisProject['phaseImagesData']);
 
         this.props.fetchPhaseSuccessAction(projectId, phaseId, thisProject['phaseImagesList'], thisProject['phaseList'], thisProject['phaseImagesData']);
 
@@ -111,6 +112,23 @@ export default class Project extends Component {
       } else if (self.state.currentView == 'Compare') {
         self.setState({ currentView: 'Slide' })
       }
+    }
+
+    updateImageSizes(phaseData) {
+
+      let self = this;
+
+      this.setState({ retrievedSizes: false })
+
+      //let phaseData   = thisProject['phaseImagesData'];
+      phaseData       = Object.keys(phaseData).map(x => phaseData[x]);
+      this.dataLength = phaseData.length;
+      this.sizeDone   = 0;
+
+      console.info('phaseData', phaseData)
+
+      this.getImageSize(phaseData);
+
     }
 
     getImageSize(phaseData) {
@@ -137,6 +155,43 @@ export default class Project extends Component {
           retrievedSizes: true
         })
       }
+
+    }
+
+    openPhasePicker() {
+
+      let currentProject  = this.props.currentProject;
+      let projectId       = currentProject['project_id'];
+      let phaseId         = currentProject['phaseId'];
+      let phaseList       = currentProject['phaseList'];
+
+      let alertOptions = [], x = 0;
+      for (let key in phaseList) {
+        alertOptions[x] = { text: 'Phase ' + (x + 1), onPress: () => this.setPhase(projectId, phaseList[key]) }
+        x++;
+      }
+      alertOptions[alertOptions.length] = { text: 'Cancel', style: 'cancel' }
+
+      AlertIOS.alert(
+          'Pick Phase',
+          'Select a phase from the ones listed below.',
+          alertOptions
+      );
+
+    }
+
+    setPhase(projectId, phaseId) {
+
+      let self = this;
+
+      let currentProject  = this.props.currentProject;
+      let phaseList       = currentProject['phaseList'];
+
+      this.setState({ retrievedSizes: false });
+      api.updateCurrentPhase(self.props.userHash, projectId, phaseId, phaseList).then((apiData) => {
+        console.info('yay! in component work as well', apiData);
+        self.updateImageSizes(apiData['PhaseImagesData']);
+      });
 
     }
 
@@ -269,30 +324,32 @@ export default class Project extends Component {
           )
         }
 
-
       });
     }
 
     render() {
 
-        let { userProjects, gotProjects, currentPhase, currentPhaseData, gotPhase, navigation } = this.props;
+        let { userHash, userProjects, gotProjects, currentPhase, currentPhaseData, gotPhase, navigation, currentProject, setProject } = this.props;
         let { currentView, viewMenuOpen, layoutMenuOpen, currentLayout, selectedAssets, retrievedSizes, assetSizes } = this.state;
 
-        console.info('Project', gotProjects, userProjects, navigation.state.params, this.props, assetSizes);
+        //console.info('Project', gotProjects, userProjects, navigation.state.params, this.props, assetSizes);
 
-        let thisProject = navigation.state.params.thisProject;
+        // good way to pass it, but must be in redux state for Phase Selection alterations
+        //let thisProject = navigation.state.params.thisProject;
 
         let projName, contentView, fullAssetList, compareAssetList;
-        if (thisProject && gotPhase && retrievedSizes) {
+        let projectId, phaseList, phaseId;
+        if (currentProject && gotPhase && retrievedSizes) {
 
-            projName            = thisProject['project_name'];
-            let projAuthor      = thisProject['project_author'];
-            let projUsersJoined = thisProject['users_joined'];
-            let shareHash       = thisProject['shareHash'];
-            let phaseList       = thisProject['phaseList'];
+            projectId           = currentProject['project_id'];
+            projName            = currentProject['project_name'];
+            let projAuthor      = currentProject['project_author'];
+            let projUsersJoined = currentProject['users_joined'];
+            let shareHash       = currentProject['shareHash'];
+            phaseList           = currentProject['phaseList'];
             // override with sel phase
-            let phaseId         = thisProject['phaseId'];
-            let phaseImagesList = thisProject['phaseImagesList'];
+            phaseId             = currentProject['phaseId'];
+            let phaseImagesList = currentProject['phaseImagesList'];
 
             let newPhaseData    = deepcopy(currentPhaseData);
             let phaseData       = Object.keys(newPhaseData).map(x => newPhaseData[x]);
@@ -312,7 +369,7 @@ export default class Project extends Component {
               disable = false;
               contentView = (
                 <CompareAssets
-                    thisProject={thisProject}
+                    thisProject={currentProject}
                     phaseData={phaseData}
                     selectedAssets={selectedAssets}
                 />
@@ -347,6 +404,8 @@ export default class Project extends Component {
               <TabHeader
                 navigation={this.props.navigation}
                 showBack={true}
+                openPhasePicker={this.openPhasePicker}
+                currentProject={currentProject}
               />
 
               <View style={styles.contentView}>

@@ -68,7 +68,7 @@ export default class Browse extends Component {
             userHash: this.props.userHash
         }
 
-        client.get('/browse/', browseInfo).then(
+        client.get('/get/projects/', browseInfo).then(
             (data) => {
                 if (typeof data['UserProjects'] == 'undefined') {
                     console.info('undefined response');
@@ -83,10 +83,10 @@ export default class Browse extends Component {
 
                     // ideal spot to fetch specific phases?
 
-                    client.get('/browse/users', browseInfo).then(
+                    client.get('/get/users', browseInfo).then(
                         (data) => {
 
-                            console.log('/browse/users', data);
+                            console.log('/get/users', data);
 
                             if (typeof data['ProjectUsers'] != 'undefined' &&
                                 data['ProjectUsers'] != false) {

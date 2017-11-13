@@ -7,7 +7,7 @@ import ApiClient            from './client';
 const client                = new ApiClient();
 
 export default class FetchApi {
-    
+
     constructor(store) {
         console.info('init FetchApi', store)
         // makes standardized call and also updates system in standard way,
@@ -15,86 +15,93 @@ export default class FetchApi {
         this.store = store;
     }
 
-    refreshPhaseComments(userHash, projectId, phaseImagesList) {
-
-        console.info('-api- refreshPhaseComments', userHash, projectId, phaseImagesList)
-
-        let self = this;
-        let store = this.store;
-
-        // load comment data for each image
-        if (Object.keys(phaseImagesList).length > 0) {
-
-            let browseInfo = {
-                userHash: userHash,
-                phaseImagesList: JSON.stringify(phaseImagesList)
-            }
-
-            client.get('/browse/comments', browseInfo).then(
-                (data) => {
-
-                    console.info('browse/comments', data, browseInfo);
-                    
-                    if (typeof data['ProjectComments'] != 'undefined' &&
-                        data['ProjectComments'] != false) {
-                        store.dispatch(browse.fetchProjectCommentsSuccessAction(data['ProjectComments'], projectId));
-                    } else {
-                        store.dispatch(browse.fetchProjectCommentsFailureAction(projectId));
-                    }
-                    
-                }, (err) => {
-                    //console.log(err);
-                    store.dispatch(browse.fetchProjectCommentsFailureAction(projectId));
-                }
-            );
-        }
-    }
-
     // ATTN - should also return promise, return the api data
     // see about try in promise or promise in try
-    // fetchUsers(userHashes) {
+    // promise is a try, always catches, so simply wrap in promises
 
+    // refreshPhaseComments(userHash, projectId, phaseImagesList) {
+    //
+    //     console.info('-api- refreshPhaseComments', userHash, projectId, phaseImagesList)
+    //
+    //     let self = this;
     //     let store = this.store;
-
-    //     try {
-
-    //         store.dispatch(users.startGetUsers());
-
-    //         let privateHash = '47LlOpPJ5YmgDS6ctuGz0ChqQFVbeTR2';
-
-    //         let userInfo = {
-    //             privateHash:    privateHash,
-    //             hashType:       'public',
-    //             userHashes:     JSON.stringify(userHashes),
-    //             filter:         false,
-    //             sort:           false,
-    //             search:         false
+    //
+    //     // load comment data for each image
+    //     if (Object.keys(phaseImagesList).length > 0) {
+    //
+    //         let browseInfo = {
+    //             userHash: userHash,
+    //             phaseImagesList: JSON.stringify(phaseImagesList)
     //         }
-
-    //         client.get('/get/users/', userInfo).then(
-    //             (userData) => {
-
-    //             if (userData['success']) {
-
-    //                 console.info('/get/users/', userData);
-
-    //                 store.dispatch(users.successGetUsers(userData['returnUserData']));
-
-    //             } else {
-    //                 throw ['Users Read Error 212', userData, userInfo];
+    //
+    //         client.get('/get/comments', browseInfo).then(
+    //             (data) => {
+    //
+    //                 console.info('get/comments', data, browseInfo);
+    //
+    //                 if (typeof data['ProjectComments'] != 'undefined' &&
+    //                     data['ProjectComments'] != false) {
+    //                     store.dispatch(browse.fetchProjectCommentsSuccessAction(data['ProjectComments'], projectId));
+    //                 } else {
+    //                     store.dispatch(browse.fetchProjectCommentsFailureAction(projectId));
+    //                 }
+    //
+    //             }, (err) => {
+    //                 //console.log(err);
+    //                 store.dispatch(browse.fetchProjectCommentsFailureAction(projectId));
     //             }
-
-    //         }).catch((err) => {
-    //             throw ['Users Read Error 211', err];
-    //         });
-            
-    //     } catch (err) {
-    //         console.error(err);
-    //         // this.context.mixpanel.track('web request error', { time: new Date(), errorData: err });
-    //         store.dispatch(users.failureGetUsers());
+    //         );
     //     }
-
     // }
+
+    updateCurrentPhase(userHash, projectId, phaseId, phaseList) {
+
+        return new Promise((resolve, reject) => {
+
+          console.info(' -api- updateCurrentPhase', userHash)
+
+          let self = this;
+          let store = this.store;
+
+          if (userHash && phaseId && projectId) {
+
+              let browseInfo = {
+                  userHash: userHash
+              }
+
+              // also see phaseSelector to set currentPhase in redux store
+              client.get('/get/phase/' + projectId + '/' + phaseId + '/', browseInfo).then(
+                  (data) => {
+
+                      console.log('/get/phase/' + projectId + '/' + phaseId + '/', data);
+
+                      if (typeof data['PhaseImagesData'] != 'undefined' &&
+                          data['PhaseImagesData'] != false) {
+
+                          store.dispatch(browse.fetchPhaseSuccessAction(projectId, phaseId, data['PhaseImagesList'], phaseList, data['PhaseImagesData']));
+
+                          store.dispatch(browse.setCurrentPhaseSuccessAction(data['PhaseId'], data['PhaseImagesData'], data['PhaseImagesList'], data['PhaseName']));
+
+                          resolve(data);
+
+                      } else {
+                          console.error('PhaseImagesData error 2b', data);
+                          store.dispatch(browse.fetchPhaseFailureAction());
+                          reject();
+                      }
+
+                  }, (err) => {
+                      console.log('PhaseImagesData error 1b', err);
+                      store.dispatch(browse.fetchPhaseFailureAction());
+                      reject();
+                  }
+              );
+
+          }
+
+        });
+    }
+
 }
 
 // simply use sockets to listen and run fetch functions? on('refreshReplies')->fetchReplies

@@ -22,6 +22,12 @@ const LIKE_ASSET_COMMENT_FAILURE       = 'browse/LIKE_ASSET_COMMENT_FAILURE';
 const FETCH_PHASE_SUCCESS = 'browse/FETCH_PHASE_SUCCESS';
 const FETCH_PHASE_FAILURE = 'browse/FETCH_PHASE_FAILURE';
 
+const SET_CURRENT_PROJECT_SUCCESS = 'browse/SET_CURRENT_PROJECT_SUCCESS';
+const SET_CURRENT_PROJECT_FAILURE = 'browse/SET_CURRENT_PROJECT_FAILURE';
+
+const SET_CURRENT_PHASE_SUCCESS = 'browse/SET_CURRENT_PHASE_SUCCESS';
+const SET_CURRENT_PHASE_FAILURE = 'browse/SET_CURRENT_PHASE_FAILURE';
+
 const initialState = {
     userProjects: {},
     projectUsers: {},
@@ -29,14 +35,16 @@ const initialState = {
     gotProjects: false,
     gotProjectUsers: false,
     gotProjectComments: {},
-	gotPhase: false,
+	  gotPhase: false,
     currentPhase: {},
-    currentPhaseData: {}
+    currentPhaseData: {},
+    currentProject: {},
+    setProject: false
 };
 
 import update from 'immutability-helper';
 export default function reducer(state = initialState, action = {}) {
-    
+
     switch (action.type) {
 
     	case FETCH_PROJECTS_SUCCESS:
@@ -106,14 +114,14 @@ export default function reducer(state = initialState, action = {}) {
         case FETCH_ASSET_COMMENT_SUCCESS:
 
             const { commentData, assetId } = action;
- 			return update(state, {
+ 			      return update(state, {
                 projectComments: {
                     [state.currentPhase.projectId]: {
                         [assetId]: { $set: commentData }
                     }
                 }
             });
-		case FETCH_ASSET_COMMENT_FAILURE:
+		    case FETCH_ASSET_COMMENT_FAILURE:
 
             return state;
 
@@ -125,7 +133,7 @@ export default function reducer(state = initialState, action = {}) {
                 gotPhase: { $set: true },
                 currentPhase: {
                     projectId: { $set: action.projectId },
-                    phaseId: { $set: action.phaseId }, 
+                    phaseId: { $set: action.phaseId },
                     phaseImagesList: { $set: action.phaseImagesList },
                     phaseList: { $set: action.phaseList },
                     inView: { $set: false }
@@ -135,10 +143,41 @@ export default function reducer(state = initialState, action = {}) {
 
         case FETCH_PHASE_FAILURE:
 
-            let nextState = $.extend({}, state);
-            nextState.gotPhase = false;
+          let nextState = $.extend({}, state);
+          nextState.gotPhase = false;
 
-            return nextState;
+          return nextState;
+
+        case SET_CURRENT_PROJECT_SUCCESS:
+
+            return update(state, {
+                currentProject: { $set: action.currentProject },
+                setProject: { $set: action.setProject }
+            });
+
+        case SET_CURRENT_PROJECT_FAILURE:
+
+            return update(state, {
+                setProject: { $set: action.setProject }
+            });
+
+        case SET_CURRENT_PHASE_SUCCESS:
+
+            return update(state, {
+                currentProject: {
+                    phaseId: { $set: action.phaseId },
+                    phaseImagesData: { $set: action.phaseImagesData },
+                    phaseImagesList: { $set: action.phaseImagesList },
+                    phaseName: { $set: action.phaseName }
+                },
+                setProject: { $set: action.setProject }
+            });
+
+        case SET_CURRENT_PHASE_FAILURE:
+
+            return update(state, {
+                setProject: { $set: action.setProject }
+            });
 
 		default:
             return state;
@@ -237,9 +276,9 @@ export function fetchPhaseSuccessAction(projectId, phaseId, phaseImagesList, pha
         type:           FETCH_PHASE_SUCCESS,
         gotPhase:       true,
         projectId:      projectId,
-        phaseId:        phaseId, 
-        phaseImagesList: phaseImagesList, 
-        phaseList:      phaseList, 
+        phaseId:        phaseId,
+        phaseImagesList: phaseImagesList,
+        phaseList:      phaseList,
         phaseData:      phaseData
     }
 }
@@ -249,4 +288,37 @@ export function fetchPhaseFailureAction() {
         type:   FETCH_PHASE_FAILURE,
         gotPhase: false
     }
+}
+
+export function setCurrentProjectSuccessAction(currentProject) {
+    return {
+        type:           SET_CURRENT_PROJECT_SUCCESS,
+        currentProject:   currentProject,
+        setProject:    true
+    };
+}
+
+export function setCurrentProjectFailureAction() {
+    return {
+        type:           SET_CURRENT_PROJECT_FAILURE,
+        setProject:    false
+    };
+}
+
+export function setCurrentPhaseSuccessAction(phaseId, phaseImagesData, phaseImagesList, phaseName) {
+    return {
+        type:           SET_CURRENT_PHASE_SUCCESS,
+        phaseId:        phaseId,
+        phaseImagesData: phaseImagesData,
+        phaseImagesList: phaseImagesList,
+        phaseName:      phaseName,
+        setPhase:       true
+    };
+}
+
+export function setCurrentPhaseFailureAction() {
+    return {
+        type:           SET_CURRENT_PHASE_FAILURE,
+        setPhase:    false
+    };
 }

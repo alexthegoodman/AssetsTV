@@ -39,5 +39,9 @@
 }
 
 .tabHeaderLinkHover {
-  border-bottom-color: $black;
+  border-bottom-color: $darkGrey;
+}
+
+.activeLink {
+  border-bottom-color: $pink_d;
 }

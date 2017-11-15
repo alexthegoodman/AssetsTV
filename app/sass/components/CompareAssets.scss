@@ -1,5 +1,5 @@
 .compareAssetsBody {
-	
+	flex: 1;
 }
 
 .compareAssetsContain {
@@ -9,11 +9,21 @@
 	right: 0;
 	bottom: 0;
 	flex-direction: row;
-   	flex-wrap: wrap;
+ 	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.centerColumn {
+	flex-direction: column;
+	justify-content: center;
+}
+
+.compareTile {
+	align-self: center;
 }
 
 .wideCompareContain {
-	
+
 }
 
 .tallCompareContain {

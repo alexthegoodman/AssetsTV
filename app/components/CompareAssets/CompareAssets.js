@@ -27,6 +27,8 @@ export default class CompareAssets extends Component {
 
         super();
 
+        this.renderSelectionTile = this.renderSelectionTile.bind(this);
+
         this.state = {}
 
     }
@@ -38,68 +40,70 @@ export default class CompareAssets extends Component {
         console.info('CompareAssets componentDidMount');
     }
 
+    renderSelectionTile(imageId) {
+
+      if (imageId != 0) {
+
+        let self = this;
+        let maxWidth = (width - 200) / 2, maxHeight = height - 400;
+        let addedClasses = styles.compareTile, tileWidth, tileMargin = 30, tileHeight, thumbnailHeight;
+
+        let ratio            = self.props.assetSizes[imageId]['ratio'];
+        let imageHeight      = self.props.assetSizes[imageId]['height'];
+        let imageWidth       = self.props.assetSizes[imageId]['width'];
+
+        if (imageHeight >= imageWidth) {
+          tileHeight      = maxHeight;
+          tileWidth       = maxHeight * ratio;
+          thumbnailHeight = tileHeight;
+        } else {
+          tileWidth       = maxWidth;
+          tileHeight      = tileWidth / ratio;
+          thumbnailHeight = tileHeight;
+        }
+
+        console.info(this.props.phaseData, this.props.assetSizes, imageId, tileHeight)
+
+        // longest side = max width or height, then opposing by ratio
+
+        return (
+          <View style={[styles.tileBox, addedClasses, { width: tileWidth, marginLeft: tileMargin, marginRight: tileMargin, marginBottom: 0, height: tileHeight, borderRadius: 10 } ]}
+          shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.2} shadowRadius={14}>
+            <Image
+              style={[styles.tileThumbnail, { width: tileWidth, height: thumbnailHeight, borderRadius: 10 }]}
+              resizeMode="contain"
+              source={{ uri: self.props.phaseData[imageId]['image_url'] }}
+            />
+          </View>
+        )
+
+      } else {
+        return;
+      }
+
+    }
+
     render() {
 
-        let { thisProject, phaseData, selectedAssets } = this.props;
+        let { thisProject, phaseData, selection1, selection2 } = this.props;
 
-        let slideWidth  = width;
-        let slideHeight = height - 400;
-
-        let layoutStyle, tileStyle, internalTileStyle, assetCount = Object.keys(selectedAssets).length;
-        // if (assetCount == 1) {
-        //     layoutStyle = styles.tallCompareContain;
-        //     tileStyle = [ styles.tallCompareTile, { width: slideWidth, height: slideHeight } ];
-        //     internalTileStyle = [ styles.compareTile, { width: slideWidth, height: slideHeight } ];
-        // } else if (assetCount == 2) {
-        //     if (layout == 'Wide') {
-        //         layoutStyle = styles.wideCompareContain;
-        //         tileStyle = [ styles.wideCompareTile, { width: slideWidth, height: slideHeight / 2 } ];
-        //         internalTileStyle = [ styles.compareTile, { width: slideWidth, height: (slideHeight - 100) / 2 } ];
-        //     } else if (layout == 'Tall') {
-        //         layoutStyle = styles.tallCompareContain;
-        //         tileStyle = [ styles.tallCompareTile, { width: slideWidth / 2, height: slideHeight } ];
-        //         internalTileStyle = [ styles.compareTile, { width: (slideWidth - 100) / 2, height: slideHeight } ];
-        //     }
-        // } else {
-        //     if (layout == 'Wide') {
-        //         layoutStyle = styles.wideCompareContain;
-        //         tileStyle = [ styles.wideCompareTile, { width: slideWidth, height: slideHeight / 2 } ];
-        //         internalTileStyle = [ styles.compareTile, { width: slideWidth, height: (slideHeight - 100) / 2 } ];
-        //     } else if (layout == 'Tall') {
-        //         layoutStyle = styles.tallCompareContain;
-        //         tileStyle = [ styles.tallCompareTile, { width: slideWidth / 2, height: slideHeight } ];
-        //         internalTileStyle = [ styles.compareTile, { width: (slideWidth - 100) / 2, height: slideHeight } ];
-        //     }
-        // }
+        let layoutStyle, tileStyle, internalTileStyle, assetCount = 2;
 
         let compareContent;
-        if (assetCount > 0) {
-            compareContent = phaseData.map( image => {
-                if (typeof selectedAssets[image['image_id']] != 'undefined' && selectedAssets[image['image_id']]) {
-                    return (
-                        <View style={tileStyle} key={'compareAsset' + image['image_id']}
-                            activeOpacity={1} underlayColor="#F2F2F2"
-                            tvParallaxProperties={hoverProps} hasTVPreferredFocus={false}
-                            >
-                            <View style={styles.tileContain}>
-                                <View style={internalTileStyle} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.4} shadowRadius={8}>
-                                    <Image style={styles.tileBackground} resizeMode="contain" source={{ uri: image['image_url'] }} />
-                                </View>
-                            </View>
-                        </View>
-                    );
-                }
-                return;
-            });
+        if (selection1 != 0 || selection2 != 0) {
+            compareContent = (
+              <View style={styles.compareAssetsContain}>
+                <View style={[styles.centerColumn]}>{this.renderSelectionTile(selection1)}</View>
+                <View style={[styles.centerColumn]}>{this.renderSelectionTile(selection2)}</View>
+              </View>
+            )
         } else {
             compareContent = <View style={styles.centerContent}><Text style={styles.emptySelectionNote}>Select some assets to compare side by side. Change the view and layout above.</Text></View>
         }
 
         return (
-            <View style={[styles.compareAssetsBody, { height: slideHeight } ]}>
-                <View style={[styles.compareAssetsContain, layoutStyle]}>
-                    {compareContent}
-                </View>
+            <View style={[styles.compareAssetsBody]}>
+                {compareContent}
             </View>
         );
     }

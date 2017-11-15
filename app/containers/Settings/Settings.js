@@ -30,13 +30,15 @@ const styles                        = require('../../css/style.js');
 const JefNode                       = require('json-easy-filter').JefNode;
 const deepcopy                      = require("deepcopy");
 
-import SimpleHeader             from '../../components/SimpleHeader/SimpleHeader';
+import SimpleHeader          from '../../components/SimpleHeader/SimpleHeader';
+import TabHeader             from '../../components/TabHeader/TabHeader';
 
 import Back1      from '../../svgComponents/svg/Back1';
 
 @connect(
     ( state ) => ({
         userHash: state.user.userHash,
+        gotProjectUsers: state.browse.gotProjectUsers,
         projectUsers: state.browse.projectUsers,
         userProjects: state.browse.userProjects,
         gotProjects: state.browse.gotProjects,
@@ -78,42 +80,99 @@ export default class Settings extends Component {
 
     render() {
 
-        let { userProjects, gotProjects, routeParams, currentPhase, currentPhaseData, gotPhase, currentProject } = this.props;
+        let { userHash, userProjects, gotProjects, routeParams, currentPhase, currentPhaseData, gotPhase, currentProject, gotProjectUsers, projectUsers } = this.props;
 
         let userInformation, webLinks, controls;
 
+        let firstname, lastname, email, thisUser, projCount = 0, plural = '';
+        if (gotProjectUsers) {
+
+            thisUser = new JefNode(projectUsers).filter(function(node) {
+                if (node.key == 'userHash' && node.value == userHash) {
+                    return node.parent.value;
+                }
+            });
+
+            //console.info(thisUser)
+
+            // user may have been invited, not joined
+            if (typeof thisUser[0] != 'undefined') {
+                firstname = thisUser[0]['firstname'];
+                lastname = thisUser[0]['lastname'];
+                email = thisUser[0]['email'];
+            }
+
+            let newProjects = deepcopy(userProjects);
+            newProjects = Object.keys(newProjects).map(x => newProjects[x]);
+            newProjects.map( project => {
+                if (project['finished'] == '1') {
+                  projCount++;
+                }
+            });
+
+            if (projCount > 1) {
+              plural = 's';
+            }
+
+        }
+
+        userInformation = (
+          <View style={styles.userInformation}>
+            <Text style={styles.userName}>{firstname} {lastname}</Text>
+            <Text style={styles.userEmail}>{email}</Text>
+            <Text style={styles.userStat}>{projCount} Project{plural}</Text>
+          </View>
+        )
+
+        // webLinks = (
+        //   <View style={styles.weblinks}>
+        //
+        //     <View style={styles.linkSection}>
+        //       <TouchableHighlight onPress={this.logOut} style={[styles.settingsLink, { width: width }]}
+        //       activeOpacity={1} underlayColor="rgba(0,0,0,0.07)">
+        //         <View style={styles.inlineContain}>
+        //             <View style={styles.settingsLinkIcon}><Back1 width={35} height={35} color="#747474" /></View>
+        //             <Text style={styles.settingsLinkText}>Visit Assets for Web</Text>
+        //         </View>
+        //       </TouchableHighlight>
+        //       <TouchableHighlight onPress={this.logOut} style={[styles.settingsLink, { width: width }]}
+        //       activeOpacity={1} underlayColor="rgba(0,0,0,0.07)">
+        //         <View style={styles.inlineContain}>
+        //             <View style={styles.settingsLinkIcon}><Back1 width={35} height={35} color="#747474" /></View>
+        //             <Text style={styles.settingsLinkText}>Log Out</Text>
+        //         </View>
+        //       </TouchableHighlight>
+        //     </View>
+        //
+        //   </View>
+        // )
+
         controls = (
-            <TouchableHighlight onPress={this.logOut} style={[styles.settingsLink, { width: width }]}
-            activeOpacity={1} underlayColor="rgba(0,0,0,0.07)">
-                <View style={styles.inlineContain}>
-                    <View style={styles.settingsLinkIcon}><Back1 width={35} height={35} color="#747474" /></View>
-                    <Text style={styles.settingsLinkText}>Log Out</Text>
-                </View>
-            </TouchableHighlight>
+            <View style={styles.controls}>
+              <TouchableHighlight onPress={this.logOut} style={[styles.settingsLink, { width: 500 }]}
+              activeOpacity={1} underlayColor="rgba(0,0,0,0.05)" tvParallaxProperties={smallHoverProps}>
+                  <View style={styles.inlineContain}>
+                      <View style={styles.settingsLinkIcon}><Back1 width={49} height={49} color="#747474" /></View>
+                      <Text style={styles.settingsLinkText}>Log Out</Text>
+                  </View>
+              </TouchableHighlight>
+            </View>
         )
 
         return (
             <View style={[styles.body, { backgroundColor: 'white' }]}>
                 <View style={[styles.body, { zIndex: 4 }]}>
 
-                    <HeroHeader
-                        background="#CF5B6A"
-                        title="Settings"
-                        blurType="light"
-                        leftCtrls={(<View style={styles.inlineContain}></View>)}
-                        rightCtrls={(
-                            <View style={styles.inlineContain}></View>
-                        )}
-                    />
-                    <View style={[styles.heroShadow, { width: width } ]}
-                    shadowColor="#000000" shadowOffset={{width: 0, height: 1}} shadowOpacity={0.3} shadowRadius={9}></View>
+                  <TabHeader
+                    navigation={this.props.navigation}
+                  />
 
-                    <ScrollView style={[styles.settingsList, { height: height, width: width }]} contentContainerStyle={styles.projectContain}
-                    horizontal={false} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
-                        {userInformation}
-                        {webLinks}
-                        {controls}
-                    </ScrollView>
+                  <ScrollView style={[styles.settingsList, { height: height, width: width }]} contentContainerStyle={styles.projectContain}
+                  horizontal={false} showsVerticalScrollIndicator={false} automaticallyAdjustContentInsets={false} contentInset={{top: 0, left: 0, bottom: 0, right: 0}} contentOffset={{x: 0, y: 0}}>
+                      {userInformation}
+                      {webLinks}
+                      {controls}
+                  </ScrollView>
 
                 </View>
             </View>

@@ -36,6 +36,8 @@ import Back1      from '../../svgComponents/svg/Back1';
 import Plus      from '../../svgComponents/svg/Plus';
 import Exit      from '../../svgComponents/svg/Exit';
 import Check      from '../../svgComponents/svg/Check';
+import Check2      from '../../svgComponents/svg/Check2';
+import Check3      from '../../svgComponents/svg/Check3';
 
 @connect(
     ( state ) => ({
@@ -71,7 +73,8 @@ export default class Project extends Component {
 
         this.state = {
           currentView:      'Slide', // Slide or Compare
-          selectedAssets:   {},
+          selection1:       0,
+          selection2:       0,
           assetSizes:       {},
           retrievedSizes:   false
         }
@@ -187,7 +190,7 @@ export default class Project extends Component {
       let currentProject  = this.props.currentProject;
       let phaseList       = currentProject['phaseList'];
 
-      this.setState({ retrievedSizes: false });
+      this.setState({ retrievedSizes: false, selection1: 0, selection2: 0 });
       api.updateCurrentPhase(self.props.userHash, projectId, phaseId, phaseList).then((apiData) => {
         console.info('yay! in component work as well', apiData);
         self.updateImageSizes(apiData['PhaseImagesData']);
@@ -296,15 +299,24 @@ export default class Project extends Component {
         tileWidth           = thumbnailHeight * assetRatio;
 
         let itemContents = (
-          <View style={[styles.tileBox, addedClasses, { width: tileWidth, marginLeft: tileMargin, height: tileHeight } ]}
+          <View style={[styles.tileBox, addedClasses, { width: tileWidth, marginLeft: tileMargin, height: tileHeight, borderRadius: 10 } ]}
           shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.2} shadowRadius={14}>
             <Image
-              style={[styles.tileThumbnail, { width: tileWidth, height: thumbnailHeight }]}
+              style={[styles.tileThumbnail, { width: tileWidth, height: thumbnailHeight, borderRadius: 10 }]}
               resizeMode="contain"
               source={{ uri: asset['image_url'] }}
             />
           </View>
         )
+
+        let checkmark;
+        if (self.state.selection1 == asset['image_id'] || self.state.selection2 == asset['image_id']) {
+          checkmark = (
+            <View style={styles.checkmarkContainer} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.3} shadowRadius={4}>
+              <Check2 width={25} height={25} color="white" />
+            </View>
+          )
+        }
 
         if (disable) {
           return (
@@ -314,12 +326,10 @@ export default class Project extends Component {
           )
         } else {
           return (
-            <TouchableOpacity data-asset-id={asset['image_id']} key={'asset' + asset['image_id']}
+            <TouchableOpacity data-asset-id={asset['image_id']} key={'asset' + asset['image_id']} onPress={ () => this.selectImage(asset['image_id']) }
             activeOpacity={1} underlayColor="#F2F2F2" tvParallaxProperties={hoverProps} hasTVPreferredFocus={focus} disable={disable}>
               {itemContents}
-              <View style={styles.checkmarkContainer}>
-                <Check width={35} height={35} color="white" />
-              </View>
+              {checkmark}
             </TouchableOpacity>
           )
         }
@@ -327,10 +337,32 @@ export default class Project extends Component {
       });
     }
 
+    // for now, Compare is limited to 2 images. side by side.
+    selectImage(imageId) {
+
+      let self = this;
+      let newSelection1 = self.state.selection1, newSelection2 = self.state.selection2;
+
+      if (self.state.selection1 != imageId && self.state.selection2 != imageId) {
+        if (self.state.selection1 == 0) {
+          newSelection1 = imageId;
+        } else {
+          newSelection2 = imageId;
+        }
+      } else if (self.state.selection1 == imageId) {
+        newSelection1 = 0;
+      } else if (self.state.selection2 == imageId) {
+        newSelection2 = 0;
+      }
+
+      self.setState({ selection1: newSelection1, selection2: newSelection2 })
+
+    }
+
     render() {
 
         let { userHash, userProjects, gotProjects, currentPhase, currentPhaseData, gotPhase, navigation, currentProject, setProject } = this.props;
-        let { currentView, viewMenuOpen, layoutMenuOpen, currentLayout, selectedAssets, retrievedSizes, assetSizes } = this.state;
+        let { currentView, viewMenuOpen, layoutMenuOpen, currentLayout, selection1, selection2, retrievedSizes, assetSizes } = this.state;
 
         //console.info('Project', gotProjects, userProjects, navigation.state.params, this.props, assetSizes);
 
@@ -370,8 +402,10 @@ export default class Project extends Component {
               contentView = (
                 <CompareAssets
                     thisProject={currentProject}
-                    phaseData={phaseData}
-                    selectedAssets={selectedAssets}
+                    phaseData={currentPhaseData}
+                    assetSizes={assetSizes}
+                    selection1={selection1}
+                    selection2={selection2}
                 />
               )
             }

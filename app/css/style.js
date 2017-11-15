@@ -30,6 +30,23 @@ module.exports = StyleSheet.create({
         "paddingRight": 0,
         "paddingLeft": 0
     },
+    "userName": {
+        "fontSize": 42,
+        "fontWeight": "600",
+        "color": "#4B4B4B",
+        "marginBottom": 10
+    },
+    "userEmail": {
+        "fontSize": 28,
+        "fontWeight": "400",
+        "color": "#747474",
+        "marginBottom": 15
+    },
+    "userStat": {
+        "fontSize": 28,
+        "fontWeight": "400",
+        "color": "#747474"
+    },
     "noRankingsNoteText": {
         "fontSize": 28,
         "fontWeight": "600",
@@ -150,6 +167,14 @@ module.exports = StyleSheet.create({
         "height": 80,
         "backgroundColor": "#D2D2D2"
     },
+    "settingsLink": {
+        "justifyContent": "center",
+        "borderRadius": 5,
+        "paddingTop": 12,
+        "paddingBottom": 12,
+        "paddingRight": 10,
+        "paddingLeft": 10
+    },
     "fullscreenBtn": {
         "justifyContent": "center",
         "borderRadius": 5,
@@ -193,6 +218,17 @@ module.exports = StyleSheet.create({
         "paddingRight": 0,
         "paddingLeft": 0,
         "color": "#4B4B4B"
+    },
+    "settingsLinkText": {
+        "alignSelf": "center",
+        "height": 45,
+        "paddingTop": 8,
+        "textAlign": "center",
+        "fontSize": 24,
+        "lineHeight": 28,
+        "fontFamily": "Azo Sans",
+        "fontWeight": "400",
+        "color": "#747474"
     },
     "fullscreenLinkText": {
         "alignSelf": "center",
@@ -440,6 +476,40 @@ module.exports = StyleSheet.create({
         "top": 22,
         "right": 25
     },
+    "checkmarkContainer": {
+        "width": 40,
+        "height": 40,
+        "backgroundColor": "#F26A7E",
+        "borderRadius": 50,
+        "position": "absolute",
+        "top": 15,
+        "right": 15,
+        "paddingTop": 6,
+        "paddingBottom": 6,
+        "paddingRight": 6,
+        "paddingLeft": 6,
+        "borderColor": "white",
+        "borderWidth": 2
+    },
+    "userInformation": {
+        "paddingTop": 70,
+        "paddingRight": 50,
+        "paddingBottom": 50,
+        "paddingLeft": 50
+    },
+    "controls": {
+        "paddingTop": 0,
+        "paddingBottom": 0,
+        "paddingRight": 40,
+        "paddingLeft": 40
+    },
+    "settingsLinkIcon": {
+        "top": -1,
+        "marginRight": 4
+    },
+    "compareAssetsBody": {
+        "flex": 1
+    },
     "compareAssetsContain": {
         "position": "absolute",
         "top": 0,
@@ -447,14 +517,20 @@ module.exports = StyleSheet.create({
         "right": 0,
         "bottom": 0,
         "flexDirection": "row",
-        "flexWrap": "wrap"
+        "flexWrap": "wrap",
+        "justifyContent": "center"
+    },
+    "centerColumn": {
+        "flexDirection": "column",
+        "justifyContent": "center"
+    },
+    "compareTile": {
+        "alignSelf": "center",
+        "borderRadius": 5
     },
     "tallCompareContain": {
         "flexDirection": "row",
         "flexWrap": "wrap"
-    },
-    "compareTile": {
-        "borderRadius": 5
     },
     "centerContent": {
         "position": "absolute",
@@ -551,7 +627,10 @@ module.exports = StyleSheet.create({
         "left": -20
     },
     "tabHeaderLinkHover": {
-        "borderBottomColor": "#4B4B4B"
+        "borderBottomColor": "#747474"
+    },
+    "activeLink": {
+        "borderBottomColor": "#F26A7E"
     },
     "fullscreenBody": {
         "zIndex": 200,

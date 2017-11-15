@@ -1,0 +1,48 @@
+.userInformation {
+  padding: 70 50 50 50;
+}
+
+.userName {
+  @extend .commonText;
+  font-size: 42px;
+  font-weight: 600;
+  color: $black;
+  margin-bottom: 10;
+}
+
+.userEmail {
+  @extend .commonText;
+  font-size: 28px;
+  font-weight: 400;
+  color: $darkGrey;
+  margin-bottom: 15;
+}
+
+.userStat {
+  @extend .commonText;
+  font-size: 28px;
+  font-weight: 400;
+  color: $darkGrey;
+}
+
+.controls {
+  padding: 0 40;
+}
+
+.settingsLink {
+  @extend .btn;
+  padding: 12 10;
+  border-radius: 5;
+}
+
+.settingsLinkIcon {
+  top: -1;
+  margin-right: 4;
+}
+
+.settingsLinkText {
+  @extend .btnText;
+  font-size: 24px;
+  font-weight: 400;
+  color: $darkGrey;
+}

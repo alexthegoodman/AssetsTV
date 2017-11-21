@@ -62,60 +62,63 @@ export default class Browse extends Component {
 
         let self = this;
 
-        console.info('Browse componentDidMount', this.props.userHash);
+        //console.info('Browse componentDidMount', this.props.userHash);
 
         let browseInfo = {
             userHash: this.props.userHash
         }
 
+        //alert('mount ' + self.props.userHash);
+
+        // delayed
+
         client.get('/get/projects/', browseInfo).then(
             (data) => {
+
+                // alert('got projects ' + JSON.stringify(data['UserProjects']));
+                // console.log('/get/projects', data);
+
                 if (typeof data['UserProjects'] == 'undefined') {
-                    console.info('undefined response');
+                    //console.info('undefined response');
                     this.props.fetchProjectsFailureAction();
                 } else if (data['UserProjects'] == false) {
-                    console.info('false response');
+                    //console.info('false response');
                     this.props.fetchProjectsEmptyAction();
                 } else if (Object.keys(data['UserProjects']).length > 0) {
-                    console.info('fetchProjectsSuccessAction', data['UserProjects']);
+                    //console.info('fetchProjectsSuccessAction', data['UserProjects']);
 
                     this.props.fetchProjectsSuccessAction(data['UserProjects']);
 
-                    // ideal spot to fetch specific phases?
-
-                    client.get('/get/users', browseInfo).then(
-                        (data) => {
-
-                            console.log('/get/users', data);
-
-                            if (typeof data['ProjectUsers'] != 'undefined' &&
-                                data['ProjectUsers'] != false) {
-
-                                this.props.fetchProjectUsersSuccessAction(data['ProjectUsers']);
-
-                                // let thisUser = new JefNode(data['ProjectUsers']).filter(function(node) {
-                                //     if (node.key == 'userHash' && node.value == userHash) {
-                                //         return node.parent.value;
-                                //     }
-                                // });
-
-                                // this.props.setUserId(thisUser[0]['id']);
-
-                            } else {
-                                this.props.fetchProjectUsersFailureAction();
-                            }
-
-                        }, (err) => {
-                            console.log(err);
-                            this.props.fetchProjectUsersFailureAction();
-                        }
-                    );
-
                 } else {
-                    console.info('empty response');
+                    //console.info('empty response');
+                    this.props.fetchProjectsEmptyAction();
                 }
             }, (err) => {
-                console.log(err);
+                // alert('beep 1!')
+                // console.log(err);
+                this.props.fetchProjectsFailureAction();
+            }
+        );
+        //
+        client.get('/get/users', browseInfo).then(
+            (data) => {
+
+                //alert('got users ' + JSON.stringify(data['ProjectUsers']));
+                //console.log('/get/users', data);
+
+                if (typeof data['ProjectUsers'] != 'undefined' &&
+                    data['ProjectUsers'] != false) {
+
+                    this.props.fetchProjectUsersSuccessAction(data['ProjectUsers']);
+
+                } else {
+                    this.props.fetchProjectUsersFailureAction();
+                }
+
+            }, (err) => {
+                // alert('beep 2!')
+                // console.log(err);
+                this.props.fetchProjectUsersFailureAction();
             }
         );
 
@@ -278,6 +281,8 @@ export default class Browse extends Component {
           } else {
             listProjects = <View style={styles.noticeContain}><Text style={styles.noticeText}>You haven't joined or created any projects yet!</Text></View>
           }
+        } else {
+          listProjects = <View style={styles.noticeContain}><Text style={styles.noticeText}>Loading Projects...</Text></View>
         }
 
         return (

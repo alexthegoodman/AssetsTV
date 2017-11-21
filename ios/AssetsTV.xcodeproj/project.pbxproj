@@ -1958,7 +1958,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.AssetsTV-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = org.beyondnowllc.AssetsIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -2001,7 +2001,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.AssetsTV-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = org.beyondnowllc.AssetsIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;

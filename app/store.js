@@ -23,7 +23,7 @@ import {
 
 import { addNavigationHelpers } from 'react-navigation';
 
-console.info(Routes.router.getActionForPathAndParams('Dispatch'))
+//console.info(Routes.router.getActionForPathAndParams('Dispatch'))
 
 const initialState = Routes.router.getStateForAction(Routes.router.getActionForPathAndParams('Dispatch'));
 
@@ -34,11 +34,18 @@ const navReducer = (state = initialState, action) => {
 
 // Integrate React Navigation with Redux
 // no need to ever edit this file except the appReducer
+
+function logReducer(state = initialState, action = {}) {
+    //console.info('action', action)
+    return state;
+}
+
 const appReducer = combineReducers({
 	nav: navReducer,
 	browse,
 	user,
-	interfaces
+	interfaces,
+  logReducer
 });
 
 class NavStore extends React.Component {
@@ -72,7 +79,7 @@ store.subscribe(function fetcher() {
     // let currentPath = state.routing.locationBeforeTransitions.pathname;
     // let segments = currentPath.split('/');
 
-    console.info('Redux update', state);
+    //console.info('Redux update', state);
 
 });
 

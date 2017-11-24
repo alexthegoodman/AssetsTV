@@ -5,7 +5,8 @@ import SimpleLineIcons          from 'react-native-vector-icons/SimpleLineIcons'
 
 import {
     Animated,
-    Easing
+    Easing,
+    View
 } from 'react-native';
 
 import App          from './containers/App/App';
@@ -16,19 +17,32 @@ import Project      from './containers/Project/Project';
 import Settings     from './containers/Settings/Settings';
 import FullscreenAsset from './containers/FullscreenAsset/FullscreenAsset';
 
+import MountCtrl from './containers/MountCtrl/MountCtrl';
+
+function BrowseScreen(props) { return <MountCtrl category="dispatch"><Browse navigation={props.navigation} /></MountCtrl> }
+function ProjectScreen(props) { return <MountCtrl category="dispatch"><Project navigation={props.navigation} /></MountCtrl> }
+function SettingsScreen(props) { return <MountCtrl category="dispatch"><Settings navigation={props.navigation} /></MountCtrl> }
+function FullscreenAssetScreen(props) { return <MountCtrl category="dispatch"><FullscreenAsset navigation={props.navigation} /></MountCtrl> }
+
+function LoginScreen(props) { return <MountCtrl category="login"><Login navigation={props.navigation} /></MountCtrl> }
+
+// function LoginScreen(props) {
+//     return <View style={{top: 100, left: 100, postition: 'absolute'}}><Login navigation={props.navigation} /></View>;
+// }
+
 const MainTabs = StackNavigator({
     Browse: {
-        screen: Browse
+        screen: BrowseScreen
     },
     Project: {
-        screen: Project,
+        screen: ProjectScreen,
         //path: 'project/:projectId'
     },
     Settings: {
-        screen: Settings
+        screen: SettingsScreen
     },
     FullscreenAsset: {
-      screen: FullscreenAsset
+      screen: FullscreenAssetScreen
     }
 }, {
     headerMode: 'none',
@@ -38,7 +52,7 @@ const MainTabs = StackNavigator({
 
 const Routes = StackNavigator({
     Dispatch: { screen: Dispatch },
-    Login: { screen: Login },
+    Login: { screen: LoginScreen },
     Index: { screen: MainTabs }
 }, {
     headerMode: 'none',

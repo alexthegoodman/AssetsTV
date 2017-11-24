@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import { connect }                      from 'react-redux';
 import { bindActionCreators }           from 'redux';
-import * as userActions                 from '../../redux/modules/user';
+import * as interfacesActions                 from '../../redux/modules/interfaces';
 import * as browseActions                 from '../../redux/modules/browse';
 
 import ApiClient                        from '../../api/client';
@@ -47,7 +47,7 @@ import Back1      from '../../svgComponents/svg/Back1';
         gotPhase: state.browse.gotPhase,
         currentProject: state.browse.currentProject
     }),
-    ( dispatch ) => bindActionCreators(Object.assign({}, browseActions, userActions), dispatch)
+    ( dispatch ) => bindActionCreators(Object.assign({}, browseActions, interfacesActions), dispatch)
 )
 
 export default class Settings extends Component {
@@ -64,7 +64,7 @@ export default class Settings extends Component {
     }
 
     componentDidMount() {
-
+      //console.info('Settings componentDidMount');
     }
 
     goBack() {
@@ -73,8 +73,16 @@ export default class Settings extends Component {
 
     // belongs in /api/ with a promise
     logOut() {
+      let self = this;
         AsyncStorage.removeItem('userHash', (err, res) => {
-            this.props.navigation.navigate('Login');
+          self.props.hideDispatchAction();
+          setTimeout(() => {
+              //console.info('navigate to login')
+              self.props.navigation.navigate('Login');
+              setTimeout(() => {
+                self.props.showLoginAction();
+              }, 300)
+          }, 300)
         });
     }
 

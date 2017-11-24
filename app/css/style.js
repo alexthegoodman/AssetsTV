@@ -21,7 +21,6 @@ module.exports = StyleSheet.create({
         "textDecorationLine": "underline"
     },
     "textInput": {
-        "backgroundColor": "rgba(255, 255, 255, 0.7)",
         "fontSize": 22,
         "fontWeight": "400",
         "borderRadius": 5,
@@ -153,7 +152,7 @@ module.exports = StyleSheet.create({
         "paddingRight": 15,
         "paddingLeft": 15,
         "backgroundColor": "#F26A7E",
-        "width": 350,
+        "width": 300,
         "alignSelf": "center"
     },
     "compareToggle": {
@@ -198,10 +197,10 @@ module.exports = StyleSheet.create({
     },
     "loginBtnText": {
         "alignSelf": "center",
-        "height": 45,
-        "paddingTop": 8,
+        "height": 40,
+        "paddingTop": 4,
         "textAlign": "center",
-        "fontSize": 24,
+        "fontSize": 22,
         "lineHeight": 28,
         "fontFamily": "Azo Sans",
         "color": "white"
@@ -354,11 +353,21 @@ module.exports = StyleSheet.create({
     "loginForm": {
         "flexDirection": "column",
         "justifyContent": "center",
-        "width": 500
+        "width": 500,
+        "backgroundColor": "white",
+        "paddingTop": 35,
+        "paddingBottom": 35,
+        "paddingRight": 35,
+        "paddingLeft": 35,
+        "height": 470,
+        "alignSelf": "center",
+        "borderRadius": 10
     },
     "formLogo": {
-        "width": 230,
-        "height": 150
+        "width": 179,
+        "height": 41,
+        "marginBottom": 50,
+        "alignSelf": "center"
     },
     "gridContain": {
         "flexDirection": "row",
@@ -376,7 +385,8 @@ module.exports = StyleSheet.create({
     "tileBox": {
         "marginBottom": 75,
         "borderRadius": 10,
-        "backgroundColor": "white"
+        "backgroundColor": "#F2F2F2",
+        "position": "relative"
     },
     "tileGridThing": {
         "borderRadius": 10,
@@ -384,7 +394,24 @@ module.exports = StyleSheet.create({
     },
     "gridTile": {
         "borderRadius": 10,
-        "overflow": "hidden"
+        "overflow": "hidden",
+        "position": "relative"
+    },
+    "centerContent": {
+        "position": "absolute",
+        "top": 0,
+        "left": 0,
+        "right": 0,
+        "flexDirection": "column",
+        "justifyContent": "center",
+        "bottom": 0
+    },
+    "loadingLabel": {
+        "textAlign": "center",
+        "fontFamily": "Azo Sans",
+        "fontWeight": "600",
+        "fontSize": 36,
+        "color": "#D2D2D2"
     },
     "tileContain": {
         "flex": 1,
@@ -392,11 +419,15 @@ module.exports = StyleSheet.create({
         "overflow": "hidden"
     },
     "tileThumbnail": {
-        "backgroundColor": "#F2F2F2"
+        "backgroundColor": "transparent"
     },
     "thumbnailContain": {
         "borderBottomWidth": 1,
         "borderBottomColor": "#E3E4E5"
+    },
+    "tileInfo": {
+        "backgroundColor": "white",
+        "flex": 1
     },
     "tileTitle": {
         "fontFamily": "Azo Sans",
@@ -531,14 +562,6 @@ module.exports = StyleSheet.create({
     "tallCompareContain": {
         "flexDirection": "row",
         "flexWrap": "wrap"
-    },
-    "centerContent": {
-        "position": "absolute",
-        "top": 0,
-        "left": 0,
-        "right": 0,
-        "bottom": 0,
-        "justifyContent": "center"
     },
     "emptySelectionNote": {
         "fontFamily": "Skolar Sans Latin",

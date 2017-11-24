@@ -45,6 +45,8 @@ const initialState = {
 import update from 'immutability-helper';
 export default function reducer(state = initialState, action = {}) {
 
+    //console.info('action', action)
+
     switch (action.type) {
 
     	case FETCH_PROJECTS_SUCCESS:
@@ -127,7 +129,7 @@ export default function reducer(state = initialState, action = {}) {
 
 		case FETCH_PHASE_SUCCESS:
 
-            console.info(action);
+            //console.info(action);
 
             return update(state, {
                 gotPhase: { $set: true },

@@ -9,7 +9,7 @@ const client                = new ApiClient();
 export default class FetchApi {
 
     constructor(store) {
-        console.info('init FetchApi', store)
+        //console.info('init FetchApi', store)
         // makes standardized call and also updates system in standard way,
         // allows consistent updates from any location in the app, and edit all api calls in 1 spot
         this.store = store;

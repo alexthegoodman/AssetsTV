@@ -46,7 +46,8 @@ export default class Login extends Component {
         this.updatePassword = this.updatePassword.bind(this);
 
         this.state = {
-            loggingIn: false
+            loggingIn: false,
+            //showContant: false
         }
 
     }
@@ -55,7 +56,17 @@ export default class Login extends Component {
 
         let self = this;
 
+        //self.setState({showContent:true})
+
+        setTimeout(function() {
+          self.refs['login1'].blur();
+        }, 300)
+
     }
+
+    // componentWillUnmount() {
+    //   console.info('Login unmount');
+    // }
 
     attemptLogin() {
 
@@ -76,7 +87,7 @@ export default class Login extends Component {
             client.get('/authenticate/user/', loginInfo, 'POST').then(
                 (data) => {
 
-                    console.log('/authenticate/user', loginInfo, data);
+                    //console.log('/authenticate/user', loginInfo, data);
 
                     if (typeof data['LoginAttempt'] != 'undefined' &&
                         data['LoginAttempt'] == 'success') {
@@ -89,7 +100,7 @@ export default class Login extends Component {
 
                         AsyncStorage.setItem('userHash', userHash + '', (err, userRes) => {
                             self.props.fetchUserSuccessAction(userHash);
-                            self.props.navigation.navigate('Browse');
+                            self.props.navigation.navigate('Dispatch');
                         });
 
                     } else {
@@ -130,46 +141,53 @@ export default class Login extends Component {
             buttonText = 'Logging in...';
         }
 
+        // let formContent;
+        // if (this.state.showContent) {
+        //   formContent = (
+        //
+        //   )
+        // }
+
         return (
             <View style={styles.homeBody}>
                 <Image style={[styles.bodyFullBackground, { width: width, height: height }]} resizeMode="cover" source={require('../../img/backs/demo.jpg')}></Image>
                 <BlurView blurType="dark" blurAmount={10} style={[styles.bodyFullBlur, { width: width, height: height }]} />
                 <View style={[styles.bodyFullForm, { width: width }]}>
 
-                    <View style={styles.loginForm}>
-                        <Image style={styles.formLogo} resizeMode="contain" source={require('../../img/brand/logo_hidden_trim.png')} />
-                        <TextInput
-                            ref="login1"
-                            style={[styles.textInput, { marginBottom: 20 }]}
-                            onChangeText={this.updateEmail}
-                            value={this.state.email}
-                            placeholder="Enter Your Email"
-                            placeholderTextColor="#7B7B7B"
-                            autoCapitalize="none"
-                            selectionColor="#e25147"
-                            //keyboardType="email-address"
-                            returnKeyType="next"
-                            //onSubmitEditing={this.nextInput}
-                            onFocus={() => this.setState({ currentInput: '1' })}
-                        />
-                        <TextInput
-                            ref="login2"
-                            style={[styles.textInput]}
-                            onChangeText={this.updatePassword}
-                            value={this.state.password}
-                            secureTextEntry={true}
-                            placeholder="Enter Your Password"
-                            placeholderTextColor="#7B7B7B"
-                            autoCapitalize="none"
-                            selectionColor="#e25147"
-                            returnKeyType="done"
-                            //onSubmitEditing={this.attemptLogin}
-                            onFocus={() => this.setState({ currentInput: '2' })}
-                        />
-                        <TouchableOpacity activeOpacity={1} underlayColor="#F27E76" style={[styles.loginBtn, { marginTop: 35 }]} onPress={ this.attemptLogin }
-                        tvParallaxProperties={smallHoverProps}>
-                            <Text style={styles.loginBtnText}>{buttonText}</Text>
-                        </TouchableOpacity>
+                    <View style={styles.loginForm} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.2} shadowRadius={14}>
+                        <Image style={styles.formLogo} resizeMode="contain" source={require('../../img/brand/logo_hidden_trim_p.png')} />
+                        <View style={styles.formContent}>
+                          <TextInput
+                              ref="login1"
+                              style={[styles.textInput, { marginBottom: 20 }]}
+                              onChangeText={this.updateEmail}
+                              value={this.state.email}
+                              placeholder="Enter Your Email"
+                              placeholderTextColor="#262626"
+                              autoCapitalize="none"
+                              //keyboardType="email-address"
+                              returnKeyType="next"
+                              //onSubmitEditing={this.nextInput}
+                              onFocus={() => this.setState({ currentInput: '1' })}
+                          />
+                          <TextInput
+                              ref="login2"
+                              style={[styles.textInput]}
+                              onChangeText={this.updatePassword}
+                              value={this.state.password}
+                              secureTextEntry={true}
+                              placeholder="Enter Your Password"
+                              placeholderTextColor="#262626"
+                              autoCapitalize="none"
+                              returnKeyType="done"
+                              //onSubmitEditing={this.attemptLogin}
+                              onFocus={() => this.setState({ currentInput: '2' })}
+                          />
+                          <TouchableOpacity ref="loginBtn" activeOpacity={1} underlayColor="#F27E76" style={[styles.loginBtn, { marginTop: 35 }]} onPress={ this.attemptLogin }
+                          tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={true}>
+                              <Text style={styles.loginBtnText}>{buttonText}</Text>
+                          </TouchableOpacity>
+                        </View>
                     </View>
 
                 </View>

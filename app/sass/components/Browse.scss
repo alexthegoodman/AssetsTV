@@ -24,7 +24,8 @@
 .tileBox {
 	margin-bottom: 75;
 	border-radius: 10px;
-	background-color: white;
+	background-color: #F2F2F2;
+	position: relative;
 }
 
 .tileGridThing {
@@ -32,10 +33,28 @@
   overflow: hidden;
 }
 
-
 .gridTile {
 	border-radius: 10px;
   overflow: hidden;
+	position: relative;
+
+}
+
+.centerContent {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.loadingLabel {
+	text-align: center;
+	font-family: $hFont;
+	font-weight: 600;
+	font-size: 36;
+	color: $grey;
 }
 
 .tileContain {
@@ -45,7 +64,7 @@
 }
 
 .tileThumbnail {
-	background-color: #F2F2F2;
+	background-color: transparent;
 }
 
 .largeThumbnail {}
@@ -53,6 +72,11 @@
 .thumbnailContain {
 	border-bottom-width: 1px;
 	border-bottom-color: $lightGrey;
+}
+
+.tileInfo {
+	background-color: white;
+	flex: 1;
 }
 
 .tileTitle {

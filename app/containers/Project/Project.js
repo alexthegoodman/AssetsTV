@@ -79,13 +79,11 @@ export default class Project extends Component {
           retrievedSizes:   false
         }
 
-        console.info('Project constructor');
+        //console.info('Project constructor');
 
     }
 
     componentDidMount() {
-
-        console.info('Project componentDidMount');
 
         let self = this;
 
@@ -96,7 +94,7 @@ export default class Project extends Component {
         let projectId   = thisProject['project_id'];
         let phaseId     = thisProject['phaseId'];
 
-        console.info('Project componentDidMount', projectId);
+        //console.info('Project componentDidMount', projectId);
 
         if (this.props.navigation.state.params.phaseId) {
             phaseId = this.props.navigation.state.params.phaseId;
@@ -128,7 +126,7 @@ export default class Project extends Component {
       this.dataLength = phaseData.length;
       this.sizeDone   = 0;
 
-      console.info('phaseData', phaseData)
+      //console.info('phaseData', phaseData)
 
       this.getImageSize(phaseData);
 
@@ -145,13 +143,16 @@ export default class Project extends Component {
           assetSizes[imageId]['width'] = width;
           assetSizes[imageId]['height'] = height;
           assetSizes[imageId]['ratio'] = width / height;
+          // assetSizes[imageId]['width'] = 500;
+          // assetSizes[imageId]['height'] = 250;
+          // assetSizes[imageId]['ratio'] = 500 / 250;
           self.setState({
             assetSizes: assetSizes
           })
           self.sizeDone++;
           self.getImageSize(phaseData);
         }, (error) => {
-          console.warn('Image size error', error)
+          //console.warn('Image size error', error)
         });
       } else {
         this.setState({
@@ -183,6 +184,10 @@ export default class Project extends Component {
 
     }
 
+    // componentWillUnmount() {
+    //   console.info('project unmount');
+    // }
+
     setPhase(projectId, phaseId) {
 
       let self = this;
@@ -192,7 +197,7 @@ export default class Project extends Component {
 
       this.setState({ retrievedSizes: false, selection1: 0, selection2: 0 });
       api.updateCurrentPhase(self.props.userHash, projectId, phaseId, phaseList).then((apiData) => {
-        console.info('yay! in component work as well', apiData);
+        //console.info('yay! in component work as well', apiData);
         self.updateImageSizes(apiData['PhaseImagesData']);
       });
 
@@ -245,13 +250,15 @@ export default class Project extends Component {
 
           return (
             <TouchableOpacity onPress={() => this.viewFullscreenAsset(asset['image_url'], assetRatio)} data-asset-id={asset['image_id']} key={'asset' + asset['image_id']}
-            activeOpacity={1} underlayColor="#F2F2F2" tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
+            activeOpacity={1} underlayColor="#F2F2F2" tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
               <View style={[styles.tileBox, addedClasses, { width: tileWidth, marginLeft: tileMargin, height: tileHeight } ]}
               shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.2} shadowRadius={14}>
                 <View style={[styles.tileGridThing, { height: tileHeight }]}>
                     <View style={[styles.gridTile, addedClasses, { height: tileHeight }]}>
                         <View style={styles.tileContain}>
-
+                            <View style={[styles.centerContent, { height: thumbnailHeight }]}>
+                              <Text style={[styles.loadingLabel, { width: tileWidth }]}>Loading...</Text>
+                            </View>
                             <Image
                                 style={[styles.tileThumbnail, { width: tileWidth, height: thumbnailHeight }]}
                                 resizeMode="contain"
@@ -284,9 +291,9 @@ export default class Project extends Component {
         i++;
 
         let focus = false;
-        if (i == 1) {
-            focus = true;
-        }
+        // if (i == 1) {
+        //     focus = true;
+        // }
 
         let tileMargin      = 40;
         let tileWidth       = 300;
@@ -301,6 +308,9 @@ export default class Project extends Component {
         let itemContents = (
           <View style={[styles.tileBox, addedClasses, { width: tileWidth, marginLeft: tileMargin, height: tileHeight, borderRadius: 10 } ]}
           shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.2} shadowRadius={14}>
+            <View style={[styles.centerContent, { height: thumbnailHeight }]}>
+              <Text style={[styles.loadingLabel, { width: tileWidth, fontSize: 18 }]}>Loading...</Text>
+            </View>
             <Image
               style={[styles.tileThumbnail, { width: tileWidth, height: thumbnailHeight, borderRadius: 10 }]}
               resizeMode="contain"
@@ -327,7 +337,7 @@ export default class Project extends Component {
         } else {
           return (
             <TouchableOpacity data-asset-id={asset['image_id']} key={'asset' + asset['image_id']} onPress={ () => this.selectImage(asset['image_id']) }
-            activeOpacity={1} underlayColor="#F2F2F2" tvParallaxProperties={hoverProps} hasTVPreferredFocus={focus} disable={disable}>
+            activeOpacity={1} underlayColor="#F2F2F2" tvParallaxProperties={hoverProps} hasTVPreferredFocus={false} disable={disable}>
               {itemContents}
               {checkmark}
             </TouchableOpacity>
@@ -412,6 +422,8 @@ export default class Project extends Component {
 
             compareAssetList = this.renderCompareAssetList(phaseData, disable);
 
+        } else {
+          contentView = <View style={styles.noticeContain}><Text style={styles.noticeText}>Loading Assets...</Text></View>
         }
 
         let compareContainerWidth = 350;

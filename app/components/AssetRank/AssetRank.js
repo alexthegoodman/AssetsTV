@@ -35,7 +35,7 @@ export default class AssetRank extends Component {
 
         let self = this;
 
-        console.info('AssetRank componentDidMount');
+        //console.info('AssetRank componentDidMount');
 
     }
 

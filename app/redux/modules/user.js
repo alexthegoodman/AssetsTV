@@ -8,7 +8,9 @@ const initialState = {
 
 import update from 'immutability-helper';
 export default function reducer(state = initialState, action = {}) {
-    
+
+    //console.info('action', action)
+
     switch (action.type) {
 
         case FETCH_USER_SUCCESS:

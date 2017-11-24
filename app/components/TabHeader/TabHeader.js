@@ -43,12 +43,16 @@ export default class TabHeader extends Component {
         }
 
     }
+    // 
+    // componentWillUnmount() {
+    //   console.info('tabheader unmount');
+    // }
 
     componentDidMount() {
 
         let self = this;
 
-        console.info('TabHeader componentDidMount');
+        //console.info('TabHeader componentDidMount');
 
     }
 
@@ -115,8 +119,8 @@ export default class TabHeader extends Component {
 
           tabHeaderNav = (
             <View style={styles.tabHeaderNav}>
-              <TouchableHighlight onPressIn={() => this.handleNavHover(3)} onPressOut={() => this.clearNavHover(3)} onPress={() => navigation.navigate('Index')} style={[styles.tabHeaderLink, activeBrowse]}
-              activeOpacity={1} underlayColor="rgba(255,255,255,0.4)" hasTVPreferredFocus={false}>
+              <TouchableHighlight onPressIn={() => this.handleNavHover(3)} onPressOut={() => this.clearNavHover(3)} onPress={() => navigation.navigate('Browse')} style={[styles.tabHeaderLink, activeBrowse]}
+              activeOpacity={1} underlayColor="rgba(255,255,255,0.4)" hasTVPreferredFocus={true}>
                   <Text style={styles.tabHeaderLinkText}>Browse</Text>
               </TouchableHighlight>
               <TouchableHighlight onPressIn={() => this.handleNavHover(4)} onPressOut={() => this.clearNavHover(4)} onPress={() => navigation.navigate('Settings')} style={[styles.tabHeaderLink, activeSettings]}

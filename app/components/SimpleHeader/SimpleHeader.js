@@ -37,7 +37,7 @@ export default class SimpleHeader extends Component {
 
         let self = this;
 
-        console.info('SimpleHeader componentDidMount');
+        //console.info('SimpleHeader componentDidMount');
 
     }
 

@@ -37,7 +37,8 @@ export default class CompareAssets extends Component {
 
         let self = this;
 
-        console.info('CompareAssets componentDidMount');
+        //console.info('CompareAssets componentDidMount');
+
     }
 
     renderSelectionTile(imageId) {
@@ -62,13 +63,16 @@ export default class CompareAssets extends Component {
           thumbnailHeight = tileHeight;
         }
 
-        console.info(this.props.phaseData, this.props.assetSizes, imageId, tileHeight)
+        //console.info(this.props.phaseData, this.props.assetSizes, imageId, tileHeight)
 
         // longest side = max width or height, then opposing by ratio
 
         return (
           <View style={[styles.tileBox, addedClasses, { width: tileWidth, marginLeft: tileMargin, marginRight: tileMargin, marginBottom: 0, height: tileHeight, borderRadius: 10 } ]}
           shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.2} shadowRadius={14}>
+            <View style={[styles.centerContent, { height: thumbnailHeight }]}>
+              <Text style={[styles.loadingLabel, { width: tileWidth }]}>Loading...</Text>
+            </View>
             <Image
               style={[styles.tileThumbnail, { width: tileWidth, height: thumbnailHeight, borderRadius: 10 }]}
               resizeMode="contain"

@@ -23,14 +23,14 @@ const JefNode                       = require('json-easy-filter').JefNode;
     ( state ) => ({
         userHash: state.user.userHash,
         userData: state.user.userData,
-        showContent: state.interfaces.showContent
+        showContent: state.interfaces.showContent,
+        showDispatch: state.interfaces.showDispatch,
+        showLogin: state.interfaces.showLogin
     }),
     ( dispatch ) => bindActionCreators(Object.assign({}, interfacesActions, browseActions), dispatch)
 )
 
-export default class App extends Component {
-
-    //_tvEventHandler: any;
+export default class MountCtrl extends Component {
 
     constructor(props) {
 
@@ -43,26 +43,12 @@ export default class App extends Component {
     }
 
     // componentWillUnmount() {
-    //   console.info('app unmount');
-    // }
-    //
-    // _enableTVEventHandler() {
-    //   this._tvEventHandler = new TVEventHandler();
-    //   this._tvEventHandler.enable(this, function(cmp, evt) {
-    //     console.info('remote event', evt, cmp)
-    //   });
-    // }
-    //
-    // _disableTVEventHandler() {
-    //   if (this._tvEventHandler) {
-    //     this._tvEventHandler.disable();
-    //     delete this._tvEventHandler;
-    //   }
+    //   console.info('mountctrl unmount');
     // }
 
     componentDidMount() {
 
-        console.info('app componentDidMount');
+        //console.info('mountctrl componentDidMount');
 
         let self = this;
 
@@ -73,22 +59,19 @@ export default class App extends Component {
         // }, 300)
 
     }
-    //
-    // componentWillUnmount() {
-    //   this._disableTVEventHandler();
-    // }
 
     render() {
 
-      let { showContent } = this.props;
+      let { showDispatch, showLogin, category } = this.props;
 
-      //App covers the React Navigation transition (currently uncontrollable on per-route level)
+      //console.info('mountctrl', showDispatch, this.props.children)
 
-      let bodyStyle, children = this.props.children;
-      if (!showContent) {
-      //if (showContent) {
-          bodyStyle = styles.hiddenBody;
-          //children = this.props.children;
+      let bodyStyle, children;
+      if (category == 'dispatch' && showDispatch) {
+        children = this.props.children;
+      }
+      if (category == 'login' && showLogin) {
+        children = this.props.children;
       }
 
       return (

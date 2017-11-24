@@ -38,7 +38,7 @@ export default class FullscreenAsset extends Component {
 
         let self = this;
 
-        console.info('FullscreenAsset componentDidMount');
+        //console.info('FullscreenAsset componentDidMount');
 
     }
 

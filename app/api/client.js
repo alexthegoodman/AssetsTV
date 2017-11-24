@@ -9,9 +9,9 @@ function formatUrl(path, version = '1.0.0') {
 
     let pathBase = '';
     // if (DeviceInfo.isEmulator()) {
-        pathBase = 'http://127.0.0.1:3030';
+        //pathBase = 'http://127.0.0.1:3030';
     // } else {
-        //pathBase = 'https://assetsbeta.herokuapp.com/api';
+        pathBase = 'https://assetsbeta.herokuapp.com/api';
     //}
 
     const adjustedPath = path[0] !== '/' ? '/' + path : path;
@@ -47,16 +47,16 @@ export default class ApiClient {
 
         let fullUrl = formatUrl(endpoint) + sendParams;
 
-        console.info('fetch', method, fullUrl, fetchParams);
+        //console.info('fetch', method, fullUrl, fetchParams);
 
         return fetch(fullUrl, fetchParams).then((data) => {
 
             if (!data.ok || data.status == 414) {
-                console.error('Fetch error', data.status);
+                //console.error('Fetch error', data.status);
             }
 
             let jsonData = data.json();
-            console.info('fetch return ', jsonData)
+            //console.info('fetch return ', jsonData)
             return jsonData;
         });
 

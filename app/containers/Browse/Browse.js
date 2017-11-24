@@ -58,6 +58,10 @@ export default class Browse extends Component {
 
     }
 
+    // componentWillUnmount() {
+    //   console.info('browse unmount');
+    // }
+
     componentDidMount() {
 
         let self = this;
@@ -176,12 +180,15 @@ export default class Browse extends Component {
       return (
         <TouchableOpacity onPress={() => this.viewProject(projId)} data-project-id={projId}
         activeOpacity={1} underlayColor="#F2F2F2"
-        tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={focus}>
+        tvParallaxProperties={smallHoverProps} hasTVPreferredFocus={false}>
           <View style={[styles.tileBox, addedClasses, { width: tileWidth, marginLeft: tileMargin, height: tileHeight } ]} key={'project' + projId}
           shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.2} shadowRadius={14}>
             <View style={[styles.tileGridThing, { height: tileHeight }]}>
                 <View style={[styles.gridTile, addedClasses, { height: tileHeight }]}>
                     <View style={styles.tileContain} shadowColor="#000000" shadowOffset={{width: 0, height: 0}} shadowOpacity={0.3} shadowRadius={10}>
+                        <View style={[styles.centerContent, { height: thumbnailHeight }]}>
+                          <Text style={[styles.loadingLabel, { width: tileWidth }]}>Loading...</Text>
+                        </View>
                         <Image
                             style={[styles.tileThumbnail, { width: tileWidth, height: thumbnailHeight }]}
                             resizeMode="cover"
@@ -204,7 +211,7 @@ export default class Browse extends Component {
 
         let { userProjects, gotProjects } = this.props;
 
-        console.info('Home', gotProjects, userProjects, Object.keys(userProjects).length);
+        //console.info('Browse', gotProjects, userProjects, Object.keys(userProjects).length);
 
         let listProjects;
 
@@ -227,7 +234,6 @@ export default class Browse extends Component {
                       arrCount++;
                     } else {
                       if (projCount % 2) {
-
                         pairNum = 1;
                         arrCount++;
                       } else {
@@ -235,7 +241,7 @@ export default class Browse extends Component {
                       }
                     }
 
-                    console.info(projCount, arrCount);
+                    //console.info(projCount, arrCount);
 
                     if (typeof projArr[arrCount] == 'undefined') {
                       projArr[arrCount] = [];
@@ -251,7 +257,7 @@ export default class Browse extends Component {
             let columnCount = 0;
             listProjects = projArr.map( columnData => {
 
-                console.info(columnData)
+                //console.info(columnData)
                 columnCount++;
 
                 let classes;

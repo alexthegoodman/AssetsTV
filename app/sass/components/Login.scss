@@ -25,21 +25,31 @@
   flex-direction: column;
   justify-content: center;
   width: 500;
+  background-color: white;
+  padding: 35;
+  height: 470;
+  align-self: center;
+  border-radius: 10px;
 }
 
 .formLogo {
-  width: 230;
-  height: 150;
+  width: 179;
+  height: 41;
+  margin-bottom: 50px;
+  align-self: center;
 }
 
 .loginBtn {
   @extend .btn;
   background-color: $pink_d;
-  width: 350;
+  width: 300;
   align-self: center;
 }
 
 .loginBtnText {
   @extend .btnText;
   color: white;
+  font-size: 22;
+  height: 40;
+  padding-top: 4;
 }
